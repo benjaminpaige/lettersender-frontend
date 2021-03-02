@@ -1,3 +1,3 @@
 export default function Messages() {
-  return <div>Messages Page</div>
+    return <div>Account page</div>
 }

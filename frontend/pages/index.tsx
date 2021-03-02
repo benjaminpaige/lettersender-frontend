@@ -1,7 +1,7 @@
-export default function   index() {
-    return (
-        <div>
-            Home page
-        </div>
-    )
+export default function index() {
+  return (
+    <>
+      <h2>Home page</h2>
+    </>
+  )
 }
