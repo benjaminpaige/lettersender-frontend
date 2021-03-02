@@ -5,9 +5,11 @@
     "titleBar.activeBackground": "#FFC600",
     "titleBar.inactiveBackground": "#FFC600CC"
   },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
-  "[javascript]": {
-    "editor.formatOnSave": false
+  "[javascript, typescript]": {
+    "editor.formatOnSave": true
   },
   "[javascriptreact]": {
     "editor.formatOnSave": false
