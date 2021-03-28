@@ -5,12 +5,9 @@ function timestamp() {
   return new Date(stampy).toISOString();
 }
 
-export const products = [
+export const messages = [
   {
-    name: 'Yeti Hondo',
-    description: 'soo nice',
-    status: 'AVAILABLE',
-    price: 3423,
+    content: 'Yeti Hondo',
     photo: {
       id: '5dfbed262849d7961377c2c0',
       filename: 'hondo.jpg',
@@ -46,10 +43,7 @@ export const products = [
     // createdAt_offset: '+00:00',
   },
   {
-    name: 'Airmax 270',
-    description: 'Great shoes!',
-    status: 'AVAILABLE',
-    price: 5234,
+    content: 'Airmax 270',
     photo: {
       id: '5e2a13f0689b2835ae71d1a5',
       filename: '270-camo-sunset.jpg',
@@ -85,10 +79,7 @@ export const products = [
     // createdAt_offset: '+00:00',
   },
   {
-    name: 'KITH Hoodie',
-    description: 'Love this hoodie',
-    status: 'AVAILABLE',
-    price: 23562,
+    content: 'KITH Hoodie',
     photo: {
       id: '5e2a13ff689b2835ae71d1a7',
       filename: 'kith-hoodie.jpg',
@@ -124,10 +115,7 @@ export const products = [
     // createdAt_offset: '+00:00',
   },
   {
-    name: 'Fanorak',
-    description: 'Super hip. Comes in a number of colours',
-    status: 'AVAILABLE',
-    price: 252342,
+    content: 'Fanorak',
     photo: {
       id: '5e2a1413689b2835ae71d1a9',
       filename: 'TNF-fanorak.png',
@@ -163,10 +151,7 @@ export const products = [
     // createdAt_offset: '+00:00',
   },
   {
-    name: 'Nike Vapormax',
-    description: 'Kind of squeaky on some floors',
-    status: 'AVAILABLE',
-    price: 83456,
+    content: 'Nike Vapormax',
     photo: {
       id: '5e2a142c689b2835ae71d1ab',
       filename: 'vapormax.jpg',
@@ -202,10 +187,7 @@ export const products = [
     // createdAt_offset: '+00:00',
   },
   {
-    name: 'Yeti Cooler',
-    description: 'Who spends this much on a cooler?!',
-    status: 'AVAILABLE',
-    price: 75654,
+    content: 'Yeti Cooler',
     photo: {
       id: '5e2a143f689b2835ae71d1ad',
       filename: 'coral-yeti.jpg',
@@ -241,10 +223,7 @@ export const products = [
     // createdAt_offset: '+00:00',
   },
   {
-    name: 'Naked and Famous Denim',
-    description: 'Japanese Denim, made in Canada',
-    status: 'AVAILABLE',
-    price: 10924,
+    content: 'Naked and Famous Denim',
     photo: {
       id: '5e2a145d689b2835ae71d1af',
       filename: 'naked-and-famous-denim.jpg',
@@ -280,10 +259,7 @@ export const products = [
     // createdAt_offset: '+00:00',
   },
   {
-    name: 'Rimowa Luggage',
-    description: 'S T E A L T H',
-    status: 'AVAILABLE',
-    price: 47734,
+    content: 'Rimowa Luggage',
     photo: {
       id: '5e2a147b689b2835ae71d1b1',
       filename: 'rimowa.png',
@@ -319,10 +295,7 @@ export const products = [
     // createdAt_offset: '+00:00',
   },
   {
-    name: 'Black Hole ',
-    description: 'Outdoorsy ',
-    status: 'AVAILABLE',
-    price: 4534,
+    content: 'Black Hole ',
     photo: {
       id: '5e2a149b689b2835ae71d1b3',
       filename: 'patagonia black hole.jpg',
@@ -358,10 +331,7 @@ export const products = [
     // createdAt_offset: '+00:00',
   },
   {
-    name: 'Nudie Belt',
-    description: 'Sick design',
-    status: 'AVAILABLE',
-    price: 5234,
+    content: 'Nudie Belt',
     photo: {
       id: '5e2a14b1689b2835ae71d1b5',
       filename: 'nudie-belt.jpg',
@@ -397,10 +367,7 @@ export const products = [
     // createdAt_offset: '+00:00',
   },
   {
-    name: 'Goose',
-    description: 'Keep warm.',
-    status: 'AVAILABLE',
-    price: 74544,
+    content: 'Goose',
     photo: {
       id: '5e2a14bf689b2835ae71d1b7',
       filename: 'canada-goose.jpg',
@@ -436,10 +403,7 @@ export const products = [
     // createdAt_offset: '+00:00',
   },
   {
-    name: 'Ultraboost',
-    description: 'blacked out',
-    status: 'AVAILABLE',
-    price: 6344,
+    content: 'Ultraboost',
     photo: {
       id: '5e2a14cc689b2835ae71d1b9',
       filename: 'ultra-boost.jpg',
