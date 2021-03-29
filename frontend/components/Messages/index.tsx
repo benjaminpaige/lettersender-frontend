@@ -1,8 +1,7 @@
 import Link from "next/link"
 import { useQuery } from "@apollo/client"
 import gql from "graphql-tag"
-import ItemStyles from "../components/styles/ItemStyles"
-import { formatMoney } from "../utils"
+import { formatMoney } from "../../utils"
 
 const ALL_MESSAGES_QUERY = gql`
   query ALL_MESSAGES_QUERY {
@@ -25,7 +24,7 @@ export default function Messages() {
   if (loading) return <p>Loading</p>
   return data.allMessages.map((message) => {
     return (
-      <ItemStyles key={message.id}>
+      <div key={message.id}>
         {/* <Title> */}
         <Link href={`/messages/${message.id}`}>
           <p style={{ padding: "1em" }}>{message.content}</p>
@@ -43,7 +42,7 @@ export default function Messages() {
           })}
         </div>
         <p>{formatMoney(2400)}</p>
-      </ItemStyles>
+      </div>
     )
   })
 }

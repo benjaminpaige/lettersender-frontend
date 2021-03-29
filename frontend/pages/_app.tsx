@@ -3,19 +3,20 @@ import Router from "next/router"
 import NProgress from "nprogress"
 import { ApolloProvider } from "@apollo/client"
 import withData from "../utils/withData"
+import { ChakraProvider } from "@chakra-ui/react"
 
 Router.events.on("routeChangeStart", () => NProgress.start())
 Router.events.on("routeChangeComplete", () => NProgress.done())
 Router.events.on("routeChangeError", () => NProgress.done())
 
-import "../components/styles/nprogress.css"
-
 function App({ Component, pageProps, apollo }) {
   return (
     <ApolloProvider client={apollo}>
-      <Page>
-        <Component {...pageProps} />
-      </Page>
+      <ChakraProvider>
+        <Page>
+          <Component {...pageProps} />
+        </Page>
+      </ChakraProvider>
     </ApolloProvider>
   )
 }
