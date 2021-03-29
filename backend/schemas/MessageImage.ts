@@ -18,6 +18,11 @@ export const MessageImage = list({
       cloudinary,
       label: 'Source',
     }),
-    message: relationship({ ref: 'Message.photo' }),
+    message: relationship({ ref: 'Message.photos' }),
+  },
+  ui: {
+    listView: {
+      initialColumns: ['image', 'message'],
+    },
   },
 });

@@ -4,6 +4,11 @@ import { list } from '@keystone-next/keystone/schema';
 export const Message = list({
   // TODO
   // access:
+  ui: {
+    listView: {
+      initialColumns: ['content', 'photos'],
+    },
+  },
   fields: {
     content: text({
       isRequired: true,
@@ -11,8 +16,9 @@ export const Message = list({
         displayMode: 'textarea',
       },
     }),
-    photo: relationship({
+    photos: relationship({
       ref: 'MessageImage.message',
+      many: true,
       ui: {
         displayMode: 'cards',
         cardFields: ['image'],
