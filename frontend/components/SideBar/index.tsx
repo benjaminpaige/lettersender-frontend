@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Box, Divider, Flex, Spacer, Stack } from "@chakra-ui/react"
 import {
   FaRegBell,
@@ -28,7 +29,12 @@ export default function SideBar() {
         <Stack>
           <NavLink label="People" icon={FaUser} isActive />
           <NavLink label="Favorites" icon={FaRegHeart} />
-          <NavLink label="Messages" icon={FaRegPaperPlane} />
+          <Link href="/messages">
+            <NavLink label="Messages" icon={FaRegPaperPlane} />
+          </Link>
+          <Link href="/add-message">
+            <NavLink label="Add Message" icon={FaRegPaperPlane} />
+          </Link>
           <NavLink label="Send Mail" icon={FaRegPaperPlane} />
           <NavLink label="Orders" icon={FaRegChartBar} />
         </Stack>

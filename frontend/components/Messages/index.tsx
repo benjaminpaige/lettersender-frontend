@@ -22,7 +22,7 @@ export default function Messages() {
   const { data, error, loading } = useQuery(ALL_MESSAGES_QUERY)
   console.log(data, error, loading)
   if (loading) return <p>Loading</p>
-  return data.allMessages.map((message) => {
+  return data?.allMessages?.map((message) => {
     return (
       <div key={message.id}>
         {/* <Title> */}
