@@ -3,7 +3,7 @@ import {
   Button,
   Checkbox,
   FormControl,
-  FormLabel,
+  Input,
   Heading,
   Textarea,
   Stack,
@@ -31,7 +31,7 @@ const initialValues = {
   photos: []
 }
 
-const AddUser = () => {
+const AddMessage = () => {
   const onSubmit = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>
@@ -87,19 +87,33 @@ const AddUser = () => {
                 <FieldGroup title="Other">
                   <Stack width="full" spacing="4">
                     <Field name="photos">
-                      {({ field, form }: FieldProps<any, FormValues>) => (
-                        <FormControl
-                          isInvalid={
-                            Boolean(form.errors.photos) && form.touched.photos
-                          }
-                        >
-                          <Checkbox {...field}>Is Adult</Checkbox>
+                      {({ field, form }: FieldProps<any, FormValues>) => {
+                        console.log(field)
+                        return (
+                          <FormControl
+                            isInvalid={
+                              Boolean(form.errors.photos) && form.touched.photos
+                            }
+                          >
+                            <Input
+                              type="file"
+                              name="photos"
+                              onChange={(e) =>
+                                setFieldValue("photos", [
+                                  ...values.photos,
+                                  e.currentTarget.files[0]
+                                ])
+                              }
+                              id="add-message-photo-input"
+                              {...field}
+                            />
 
-                          <FormErrorMessage>
-                            {form.errors.photos}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
+                            <FormErrorMessage>
+                              {form.errors.photos}
+                            </FormErrorMessage>
+                          </FormControl>
+                        )
+                      }}
                     </Field>
                   </Stack>
                 </FieldGroup>
@@ -122,4 +136,4 @@ const AddUser = () => {
   )
 }
 
-export default AddUser
+export default AddMessage
