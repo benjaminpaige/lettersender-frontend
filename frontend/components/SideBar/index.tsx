@@ -1,14 +1,25 @@
 import Link from "next/link"
-import { Box, Divider, Flex, Spacer, Stack } from "@chakra-ui/react"
+import {
+  Box,
+  Divider,
+  Flex,
+  Spacer,
+  Stack,
+  Heading,
+  WrapItem,
+  Wrap
+} from "@chakra-ui/react"
 import {
   FaRegBell,
   FaRegChartBar,
   FaRegHeart,
   FaRegPaperPlane,
   FaRegQuestionCircle,
-  FaUser
+  FaUser,
+  FaFire
 } from "react-icons/fa"
-import { Logo } from "./Logo"
+import { IconContext } from "react-icons"
+import { Logo } from "../Logo"
 import { NavLink } from "./NavLink"
 import { UserProfile } from "./UserProfile"
 
@@ -16,18 +27,15 @@ export default function SideBar() {
   return (
     <Flex
       height="100vh"
-      width={{ base: "full", sm: "xs" }}
       direction="column"
       borderRightWidth="1px"
       px={6}
       py={8}
     >
-      <Box mb={8}>
-        <Logo iconColor="blue.600" />
-      </Box>
+      <Logo />
       <Stack spacing={6}>
         <Stack>
-          <NavLink label="People" icon={FaUser} isActive />
+          <NavLink label="People" icon={FaUser} />
           <NavLink label="Favorites" icon={FaRegHeart} />
           <Link href="/messages">
             <NavLink label="Messages" icon={FaRegPaperPlane} />
@@ -42,6 +50,10 @@ export default function SideBar() {
         <Stack>
           <NavLink label="Settings" icon={FaRegBell} />
           <NavLink label="Help Center" icon={FaRegQuestionCircle} />
+        </Stack>
+        <Divider />
+        <Stack>
+          <NavLink label="Log Out" icon={FaRegBell} />
         </Stack>
       </Stack>
       <Spacer />
