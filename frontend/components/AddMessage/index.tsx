@@ -1,7 +1,7 @@
+import { useMutation } from "@apollo/client"
 import {
   Box,
   Button,
-  Checkbox,
   FormControl,
   Input,
   Heading,
@@ -19,6 +19,7 @@ import {
   FieldProps,
   FormikHelpers
 } from "formik"
+import gql from "graphql-tag"
 import { FieldGroup } from "./FieldGroup"
 
 interface FormValues {
@@ -31,15 +32,27 @@ const initialValues = {
   photos: []
 }
 
+const CREATE_MESSAGE_MUTATION = gql`
+  mutation CREATE_MESSAGE_MUTATION(
+    $content: String! # $photos: [Upload!]
+  ) {
+    createMessage(data: { content: $content }) {
+      content
+    }
+  }
+`
+
 const AddMessage = () => {
+  const [createMessage, { data, loading, error }] = useMutation(
+    CREATE_MESSAGE_MUTATION
+  )
   const onSubmit = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
-    // using below to simulate loading state and field error from query
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    const res = await createMessage({ variables: values })
     actions.setSubmitting(false)
-    console.log(values)
+    console.log(res)
   }
 
   return (
@@ -57,7 +70,7 @@ const AddMessage = () => {
                   Add Message
                 </Heading>
 
-                <FieldGroup title="Content">
+                <FieldGroup title="Message">
                   <VStack width="full" spacing="6">
                     {/* content */}
                     <Field name="content">
@@ -84,11 +97,10 @@ const AddMessage = () => {
                   </VStack>
                 </FieldGroup>
 
-                <FieldGroup title="Other">
-                  <Stack width="full" spacing="4">
+                <FieldGroup title="Photo">
+                  <Stack width="full">
                     <Field name="photos">
                       {({ field, form }: FieldProps<any, FormValues>) => {
-                        console.log(field)
                         return (
                           <FormControl
                             isInvalid={
@@ -98,14 +110,14 @@ const AddMessage = () => {
                             <Input
                               type="file"
                               name="photos"
-                              onChange={(e) =>
+                              accept=".jpg,.jpeg,.png"
+                              onChange={(event) => {
                                 setFieldValue("photos", [
-                                  ...values.photos,
-                                  e.currentTarget.files[0]
+                                  event.currentTarget.files[0]
                                 ])
-                              }
+                              }}
                               id="add-message-photo-input"
-                              {...field}
+                              style={{ border: "none", padding: 0 }}
                             />
 
                             <FormErrorMessage>

@@ -20,3 +20,5 @@ export const Logo = () => {
     </Box>
   )
 }
+
+export default Logo

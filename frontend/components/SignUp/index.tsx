@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react"
 import { FaFacebook, FaGoogle } from "react-icons/fa"
 import { DividerWithText } from "./DividerWithText"
-import { Logo } from "../Logo"
+import Logo from "../Logo"
 import { SignupForm } from "./SignupForm"
 
 export const SignUp: React.FC = () => {
@@ -29,12 +29,7 @@ export const SignUp: React.FC = () => {
             borderColor={mode("gray.200", "transparent")}
             shadow={{ md: "lg" }}
           >
-            <Logo
-              h="6"
-              mb={{ base: "16", md: "10" }}
-              iconColor="blue.600"
-              mx={{ base: "auto", md: "unset" }}
-            />
+            <Logo />
             <Box mb="8" textAlign={{ base: "center", md: "start" }}>
               <Heading size="lg" mb="2" fontWeight="extrabold">
                 Welcome to Fire Mail

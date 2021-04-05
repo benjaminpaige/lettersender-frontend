@@ -9,7 +9,7 @@ import {
   Center
 } from "@chakra-ui/react"
 import * as React from "react"
-import { Logo } from "../Logo"
+import Logo from "../Logo"
 import { LoginForm } from "./LoginForm"
 import { FaFacebook, FaGoogle } from "react-icons/fa"
 import { DividerWithText } from "./DividerWithText"
