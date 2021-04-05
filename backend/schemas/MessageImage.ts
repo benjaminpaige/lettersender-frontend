@@ -17,7 +17,7 @@ export const MessageImage = {
       cloudinary,
       label: 'Source',
     }),
-    message: relationship({ ref: 'Message.image' }),
+    message: relationship({ ref: 'Message.images' }),
   },
   ui: {
     listView: {

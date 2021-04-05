@@ -8,7 +8,7 @@ const ALL_MESSAGES_QUERY = gql`
     allMessages {
       id
       content
-      photos {
+      images {
         id
         image {
           publicUrlTransformed
@@ -23,6 +23,8 @@ export default function Messages() {
   console.log(data, error, loading)
   if (loading) return <p>Loading</p>
   return data?.allMessages?.map((message) => {
+    console.log(message)
+
     return (
       <div key={message.id}>
         {/* <Title> */}
@@ -31,7 +33,7 @@ export default function Messages() {
         </Link>
         {/* </Title> */}
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {message.photos?.map((photo) => {
+          {message.images?.map((photo) => {
             return (
               <img
                 src={photo.image.publicUrlTransformed}

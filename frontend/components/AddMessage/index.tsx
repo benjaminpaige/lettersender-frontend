@@ -20,6 +20,7 @@ import {
   FormikHelpers
 } from "formik"
 import gql from "graphql-tag"
+import { useEffect } from "react"
 import { FieldGroup } from "./FieldGroup"
 
 interface FormValues {
@@ -35,7 +36,7 @@ const initialValues = {
 const CREATE_MESSAGE_MUTATION = gql`
   mutation CREATE_MESSAGE_MUTATION($content: String!, $image: Upload) {
     createMessage(
-      data: { content: $content, image: { create: { image: $image } } }
+      data: { content: $content, images: { create: { image: $image } } }
     ) {
       id
       content
@@ -44,17 +45,22 @@ const CREATE_MESSAGE_MUTATION = gql`
 `
 
 const AddMessage = () => {
-  const [createMessage, { data, loading, error }] = useMutation(
-    CREATE_MESSAGE_MUTATION
-  )
+  const [createMessage, { data, error }] = useMutation(CREATE_MESSAGE_MUTATION)
   const onSubmit = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
-    const res = await createMessage({ variables: values })
+    let variables = values
+    if (values.image === "") delete variables.image
+    console.log(variables)
+    await createMessage({ variables })
+    if (!error) actions.resetForm()
     actions.setSubmitting(false)
-    console.log(res)
   }
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
 
   return (
     <Box px={{ base: "4", md: "10" }} py="16" maxWidth="3xl" mx="auto">
@@ -113,6 +119,7 @@ const AddMessage = () => {
                               name="image"
                               accept=".jpg,.jpeg,.png"
                               onChange={(event) => {
+                                console.log(event.currentTarget.files[0])
                                 setFieldValue(
                                   "image",
                                   event.currentTarget.files[0]

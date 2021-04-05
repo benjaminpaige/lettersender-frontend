@@ -16,7 +16,7 @@ export const Message = list({
         displayMode: 'textarea',
       },
     }),
-    image: relationship({
+    images: relationship({
       ref: 'MessageImage.message',
       many: true,
       ui: {
