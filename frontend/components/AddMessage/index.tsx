@@ -1,4 +1,6 @@
+import { useEffect, useRef } from "react"
 import { useMutation } from "@apollo/client"
+import Router from "next/router"
 import {
   Box,
   Button,
@@ -20,8 +22,8 @@ import {
   FormikHelpers
 } from "formik"
 import gql from "graphql-tag"
-import { useEffect } from "react"
 import { FieldGroup } from "./FieldGroup"
+import { ALL_MESSAGES_QUERY } from "../Messages"
 
 interface FormValues {
   content: string
@@ -45,22 +47,32 @@ const CREATE_MESSAGE_MUTATION = gql`
 `
 
 const AddMessage = () => {
-  const [createMessage, { data, error }] = useMutation(CREATE_MESSAGE_MUTATION)
+  const [createMessage] = useMutation(CREATE_MESSAGE_MUTATION)
+  const fileInputRef = useRef(null)
+
   const onSubmit = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
     let variables = values
     if (values.image === "") delete variables.image
-    console.log(variables)
-    await createMessage({ variables })
-    if (!error) actions.resetForm()
+
+    const { data, errors } = await createMessage({
+      variables,
+      refetchQueries: [{ query: ALL_MESSAGES_QUERY }]
+    })
+
+    if (!errors) {
+      actions.resetForm()
+      if (fileInputRef?.current?.value) {
+        fileInputRef.current.value = null
+      }
+      Router.push({
+        pathname: `/message/${data.createMessage.id}`
+      })
+    }
     actions.setSubmitting(false)
   }
-
-  useEffect(() => {
-    console.log(data)
-  }, [data])
 
   return (
     <Box px={{ base: "4", md: "10" }} py="16" maxWidth="3xl" mx="auto">
@@ -115,11 +127,11 @@ const AddMessage = () => {
                             }
                           >
                             <Input
+                              ref={fileInputRef}
                               type="file"
                               name="image"
                               accept=".jpg,.jpeg,.png"
                               onChange={(event) => {
-                                console.log(event.currentTarget.files[0])
                                 setFieldValue(
                                   "image",
                                   event.currentTarget.files[0]

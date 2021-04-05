@@ -51,7 +51,7 @@ export default function SideBar() {
         <Stack>
           <NavLink label="People" icon={FaUser} />
           <NavLink label="Favorites" icon={FaRegHeart} />
-          <NavLink label="Messages" icon={FaRegPaperPlane} href="messages" />
+          <NavLink label="Messages" icon={FaRegPaperPlane} href="/messages" />
           <NavLink
             label="Add Message"
             icon={FaRegPaperPlane}

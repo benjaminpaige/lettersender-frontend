@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client"
 import gql from "graphql-tag"
 import { formatMoney } from "../../utils"
 
-const ALL_MESSAGES_QUERY = gql`
+export const ALL_MESSAGES_QUERY = gql`
   query ALL_MESSAGES_QUERY {
     allMessages {
       id
@@ -20,28 +20,28 @@ const ALL_MESSAGES_QUERY = gql`
 
 export default function Messages() {
   const { data, error, loading } = useQuery(ALL_MESSAGES_QUERY)
-  console.log(data, error, loading)
   if (loading) return <p>Loading</p>
   return data?.allMessages?.map((message) => {
-    console.log(message)
-
     return (
       <div key={message.id}>
-        {/* <Title> */}
-        <Link href={`/messages/${message.id}`}>
+        <Link href={`/message/${message.id}`}>
           <p style={{ padding: "1em" }}>{message.content}</p>
         </Link>
-        {/* </Title> */}
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {message.images?.map((photo) => {
-            return (
-              <img
-                src={photo.image.publicUrlTransformed}
-                key={photo.id}
-                style={{ maxWidth: "320px", maxHeight: "320px", margin: "2em" }}
-              />
-            )
-          })}
+          {message.images.length > 0 &&
+            message.images?.map((photo) => {
+              return (
+                <img
+                  src={photo.image?.publicUrlTransformed}
+                  key={photo.id}
+                  style={{
+                    maxWidth: "320px",
+                    maxHeight: "320px",
+                    margin: "2em"
+                  }}
+                />
+              )
+            })}
         </div>
         <p>{formatMoney(2400)}</p>
       </div>
