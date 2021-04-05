@@ -24,19 +24,20 @@ import { FieldGroup } from "./FieldGroup"
 
 interface FormValues {
   content: string
-  photos: string[]
+  image: string
 }
 
 const initialValues = {
   content: "",
-  photos: []
+  image: ""
 }
 
 const CREATE_MESSAGE_MUTATION = gql`
-  mutation CREATE_MESSAGE_MUTATION(
-    $content: String! # $photos: [Upload!]
-  ) {
-    createMessage(data: { content: $content }) {
+  mutation CREATE_MESSAGE_MUTATION($content: String!, $image: Upload) {
+    createMessage(
+      data: { content: $content, image: { create: { image: $image } } }
+    ) {
+      id
       content
     }
   }
@@ -97,31 +98,32 @@ const AddMessage = () => {
                   </VStack>
                 </FieldGroup>
 
-                <FieldGroup title="Photo">
+                <FieldGroup title="image">
                   <Stack width="full">
-                    <Field name="photos">
-                      {({ field, form }: FieldProps<any, FormValues>) => {
+                    <Field name="image">
+                      {({ form }: FieldProps<any, FormValues>) => {
                         return (
                           <FormControl
                             isInvalid={
-                              Boolean(form.errors.photos) && form.touched.photos
+                              Boolean(form.errors.image) && form.touched.image
                             }
                           >
                             <Input
                               type="file"
-                              name="photos"
+                              name="image"
                               accept=".jpg,.jpeg,.png"
                               onChange={(event) => {
-                                setFieldValue("photos", [
+                                setFieldValue(
+                                  "image",
                                   event.currentTarget.files[0]
-                                ])
+                                )
                               }}
-                              id="add-message-photo-input"
+                              id="add-message-image-input"
                               style={{ border: "none", padding: 0 }}
                             />
 
                             <FormErrorMessage>
-                              {form.errors.photos}
+                              {form.errors.image}
                             </FormErrorMessage>
                           </FormControl>
                         )

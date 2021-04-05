@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import { relationship } from '@keystone-next/fields';
-import { list } from '@keystone-next/keystone/schema';
 import { cloudinaryImage } from '@keystone-next/cloudinary';
 
 const cloudinary = {
@@ -10,7 +9,7 @@ const cloudinary = {
   folder: process.env.ENVIRONMENT || 'development',
 };
 
-export const MessageImage = list({
+export const MessageImage = {
   // TODO
   // access:
   fields: {
@@ -18,11 +17,11 @@ export const MessageImage = list({
       cloudinary,
       label: 'Source',
     }),
-    message: relationship({ ref: 'Message.photos' }),
+    message: relationship({ ref: 'Message.image' }),
   },
   ui: {
     listView: {
       initialColumns: ['image', 'message'],
     },
   },
-});
+};

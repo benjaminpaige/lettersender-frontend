@@ -6,7 +6,7 @@ export const Message = list({
   // access:
   ui: {
     listView: {
-      initialColumns: ['content', 'photos'],
+      initialColumns: ['content', 'image'],
     },
   },
   fields: {
@@ -16,7 +16,7 @@ export const Message = list({
         displayMode: 'textarea',
       },
     }),
-    photos: relationship({
+    image: relationship({
       ref: 'MessageImage.message',
       many: true,
       ui: {
