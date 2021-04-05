@@ -2,6 +2,7 @@ import Link from "next/link"
 import { useQuery } from "@apollo/client"
 import gql from "graphql-tag"
 import { formatMoney } from "../../utils"
+import MessageImages from "../MessageImages"
 
 export const ALL_MESSAGES_QUERY = gql`
   query ALL_MESSAGES_QUERY {
@@ -27,22 +28,7 @@ export default function Messages() {
         <Link href={`/message/${message.id}`}>
           <p style={{ padding: "1em" }}>{message.content}</p>
         </Link>
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {message.images.length > 0 &&
-            message.images?.map((photo) => {
-              return (
-                <img
-                  src={photo.image?.publicUrlTransformed}
-                  key={photo.id}
-                  style={{
-                    maxWidth: "320px",
-                    maxHeight: "320px",
-                    margin: "2em"
-                  }}
-                />
-              )
-            })}
-        </div>
+        <MessageImages message={message} />
         <p>{formatMoney(2400)}</p>
       </div>
     )
