@@ -1,25 +1,15 @@
 import { gql, useQuery } from "@apollo/client"
 import MessageImages from "..//MessageImages"
-
-const SINGLE_MESSAGE_QUERY = gql`
-  query SINGLE_MESSAGE_QUERY($id: ID!) {
-    Message(where: { id: $id }) {
-      content
-      images {
-        id
-        image {
-          publicUrlTransformed
-        }
-      }
-    }
-  }
-`
+import { SINGLE_MESSAGE_QUERY } from "../../graphql"
+import Loading from "../Loading"
+import DisplayError from "../ErrorMessage"
 
 export default function SingleMessage({ id }) {
   const { data, error, loading } = useQuery(SINGLE_MESSAGE_QUERY, {
     variables: { id }
   })
-  if (loading) return <p>Loading</p>
+  if (loading) return <Loading />
+  if (error && error.message) return <DisplayError />
   return (
     <>
       <p>{data.Message.content}</p>

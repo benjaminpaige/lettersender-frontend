@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import { useMutation } from "@apollo/client"
 import Router from "next/router"
 import {
@@ -21,9 +21,8 @@ import {
   FieldProps,
   FormikHelpers
 } from "formik"
-import gql from "graphql-tag"
 import { FieldGroup } from "./FieldGroup"
-import { ALL_MESSAGES_QUERY } from "../Messages"
+import { ALL_MESSAGES_QUERY, CREATE_MESSAGE_MUTATION } from "../../graphql"
 
 interface FormValues {
   content: string
@@ -34,17 +33,6 @@ const initialValues = {
   content: "",
   image: ""
 }
-
-const CREATE_MESSAGE_MUTATION = gql`
-  mutation CREATE_MESSAGE_MUTATION($content: String!, $image: Upload) {
-    createMessage(
-      data: { content: $content, images: { create: { image: $image } } }
-    ) {
-      id
-      content
-    }
-  }
-`
 
 const AddMessage = () => {
   const [createMessage] = useMutation(CREATE_MESSAGE_MUTATION)
