@@ -1,7 +1,9 @@
+import { Flex } from "@chakra-ui/layout"
+
 export default function MessageImages({ message }) {
   if (!message?.images || message.images.length === 0) return null
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <Flex>
       {message.images?.map((photo) => {
         return (
           <img
@@ -15,6 +17,6 @@ export default function MessageImages({ message }) {
           />
         )
       })}
-    </div>
+    </Flex>
   )
 }
