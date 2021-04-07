@@ -5,7 +5,7 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 
-export default function Loading() {
+export const Loading = () => {
   return (
     <Flex h="100%" bg={{ md: mode("gray.100", "inherit") }}>
       <Center m="auto">

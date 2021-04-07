@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client"
 import { ALL_MESSAGES_QUERY } from "../../graphql"
-import Loading from "../Loading"
+import { Loading } from "../Loading"
 
 import { Box, Heading } from "@chakra-ui/react"
 import { TableActions } from "./TableActions"
@@ -14,7 +14,7 @@ export const Messages = () => {
   return (
     <Box as="section" py="12">
       <Box
-        maxW={{ base: "xl", md: "7xl" }}
+        maxW={{ base: "xl", md: "6xl" }}
         mx="auto"
         px={{ base: "6", md: "8" }}
       >

@@ -10,11 +10,12 @@ import {
   Select,
   Stack
 } from "@chakra-ui/react"
-import * as React from "react"
+import { useRouter } from "next/router"
 import { BsSearch } from "react-icons/bs"
 import { RiAddFill } from "react-icons/ri"
 
 export const TableActions = () => {
+  const router = useRouter()
   return (
     <Stack
       spacing="4"
@@ -42,7 +43,11 @@ export const TableActions = () => {
         </Select>
       </HStack>
       <ButtonGroup size="sm" variant="outline">
-        <Button iconSpacing="1" leftIcon={<RiAddFill fontSize="1.25em" />}>
+        <Button
+          onClick={() => router.push("/add-message")}
+          iconSpacing="1"
+          leftIcon={<RiAddFill fontSize="1.25em" />}
+        >
           New message
         </Button>
       </ButtonGroup>

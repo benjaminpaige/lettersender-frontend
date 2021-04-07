@@ -3,6 +3,7 @@ import {
   Avatar,
   Badge,
   Button,
+  Center,
   Table,
   Tbody,
   Td,
@@ -36,6 +37,11 @@ export const TableContent = ({ messages }) => {
               const element = column.Cell?.(cell) ?? cell
               return (
                 <Td
+                  style={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    maxWidth: "250px"
+                  }}
                   className="pointer"
                   onClick={() => router.push(`/message/${row.id}`)}
                   whiteSpace="nowrap"
@@ -92,7 +98,11 @@ const columns = [
     accessor: "images",
     Cell: function ImgQantity(data: any) {
       const numberOfImages = data.filter((_) => _.image).length.toString()
-      return <Avatar size="xs" bg="gray.500" name={numberOfImages} />
+      return (
+        <Center>
+          <Avatar size="xs" bg="gray.500" name={numberOfImages} />
+        </Center>
+      )
     }
   }
 ]

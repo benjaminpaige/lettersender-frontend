@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client"
 import MessageImages from "..//MessageImages"
 import { SINGLE_MESSAGE_QUERY } from "../../graphql"
-import Loading from "../Loading"
+import { Loading } from "../Loading"
 import DisplayError from "../ErrorMessage"
 
 export default function SingleMessage({ id }) {
