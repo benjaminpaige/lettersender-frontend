@@ -4,6 +4,7 @@ import NProgress from "nprogress"
 import { ApolloProvider } from "@apollo/client"
 import withData from "../utils/withData"
 import { ChakraProvider } from "@chakra-ui/react"
+import "../styles/globalStyles.css"
 
 Router.events.on("routeChangeStart", () => NProgress.start())
 Router.events.on("routeChangeComplete", () => NProgress.done())

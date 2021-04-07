@@ -1,13 +1,6 @@
-import Link from "next/link"
 import { useQuery } from "@apollo/client"
 import { ALL_MESSAGES_QUERY } from "../../graphql"
 import Loading from "../Loading"
-
-{
-  /* <Link href={`/message/${message.id}`}>
-<p style={{ padding: "1em" }}>{message.content}</p>
-</Link> */
-}
 
 import { Box, Heading } from "@chakra-ui/react"
 import { TableActions } from "./TableActions"

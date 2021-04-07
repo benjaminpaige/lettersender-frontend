@@ -12,8 +12,10 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 import * as React from "react"
+import { useRouter } from "next/router"
 
 export const TableContent = ({ messages }) => {
+  const router = useRouter()
   return (
     <Table my="8" borderWidth="1px" fontSize="sm">
       <Thead bg={mode("gray.50", "gray.800")}>
@@ -33,7 +35,12 @@ export const TableContent = ({ messages }) => {
               const cell = row[column.accessor as keyof typeof row]
               const element = column.Cell?.(cell) ?? cell
               return (
-                <Td whiteSpace="nowrap" key={index}>
+                <Td
+                  className="pointer"
+                  onClick={() => router.push(`/message/${row.id}`)}
+                  whiteSpace="nowrap"
+                  key={index}
+                >
                   {element}
                 </Td>
               )
