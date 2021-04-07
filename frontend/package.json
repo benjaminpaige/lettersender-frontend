@@ -40,7 +40,8 @@
     "react-icons": "^4.2.0",
     "react-transition-group": "^4.4.1",
     "styled-components": "^5.2.1",
-    "waait": "^1.0.5"
+    "waait": "^1.0.5",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@apollo/react-testing": "^4.0.0",

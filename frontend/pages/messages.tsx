@@ -1,4 +1,4 @@
-import Messages from "../components/Messages"
+import { Messages } from "../components/Messages"
 
 export default function MessagesPage() {
   return <Messages />

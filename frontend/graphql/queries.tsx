@@ -5,6 +5,9 @@ export const ALL_MESSAGES_QUERY = gql`
     allMessages {
       id
       content
+      recipientName
+      recipientAddress
+      status
       images {
         id
         image {

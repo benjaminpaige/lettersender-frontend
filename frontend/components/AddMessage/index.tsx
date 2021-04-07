@@ -23,15 +23,22 @@ import {
 } from "formik"
 import { FieldGroup } from "./FieldGroup"
 import { ALL_MESSAGES_QUERY, CREATE_MESSAGE_MUTATION } from "../../graphql"
+import { addMessageValidationSchema } from "../../utils"
 
 interface FormValues {
   content: string
   image: string
+  recipientName: string
+  recipientAddress: string
+  status: "DRAFT" | "PENDING" | "SENT"
 }
 
 const initialValues = {
   content: "",
-  image: ""
+  image: "",
+  recipientName: "",
+  recipientAddress: "",
+  status: "DRAFT"
 }
 
 const AddMessage = () => {
@@ -67,7 +74,7 @@ const AddMessage = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
-        // validationSchema={addMessageValidationSchema}
+        validationSchema={addMessageValidationSchema}
       >
         {({ isSubmitting, setFieldValue, values }: FormikProps<FormValues>) => {
           return (
@@ -76,6 +83,60 @@ const AddMessage = () => {
                 <Heading size="lg" as="h1" paddingBottom="4">
                   Add Message
                 </Heading>
+
+                <FieldGroup title="Recipient">
+                  <VStack width="full" spacing="6">
+                    {/* recipientName */}
+                    <Field name="recipientName">
+                      {({ field, form }: FieldProps<any, FormValues>) => (
+                        <FormControl
+                          isInvalid={
+                            Boolean(form.errors.recipientName) &&
+                            form.touched.recipientName
+                          }
+                        >
+                          <FormControl id="add-user-recipientName">
+                            <Input
+                              {...field}
+                              placeholder="Recipients name here"
+                            />
+                          </FormControl>
+
+                          <FormErrorMessage>
+                            {form.errors.recipientName}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </VStack>
+                </FieldGroup>
+
+                <FieldGroup title="Address">
+                  <VStack width="full" spacing="6">
+                    {/* recipientAddress */}
+                    <Field name="recipientAddress">
+                      {({ field, form }: FieldProps<any, FormValues>) => (
+                        <FormControl
+                          isInvalid={
+                            Boolean(form.errors.recipientAddress) &&
+                            form.touched.recipientAddress
+                          }
+                        >
+                          <FormControl id="add-user-recipientAddress">
+                            <Input
+                              {...field}
+                              placeholder="Recipients address here"
+                            />
+                          </FormControl>
+
+                          <FormErrorMessage>
+                            {form.errors.recipientAddress}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </VStack>
+                </FieldGroup>
 
                 <FieldGroup title="Message">
                   <VStack width="full" spacing="6">
@@ -104,7 +165,7 @@ const AddMessage = () => {
                   </VStack>
                 </FieldGroup>
 
-                <FieldGroup title="image">
+                <FieldGroup title="Photo">
                   <Stack width="full">
                     <Field name="image">
                       {({ form }: FieldProps<any, FormValues>) => {

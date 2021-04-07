@@ -1,4 +1,4 @@
-import { relationship, text } from '@keystone-next/fields';
+import { relationship, select, text } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
 
 export const Message = list({
@@ -6,15 +6,40 @@ export const Message = list({
   // access:
   ui: {
     listView: {
-      initialColumns: ['content', 'image'],
+      initialColumns: [
+        'content',
+        'recipientName',
+        'recipientAddress',
+        'images',
+      ],
     },
   },
   fields: {
+    recipientName: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    recipientAddress: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
     content: text({
       isRequired: true,
       ui: {
         displayMode: 'textarea',
       },
+    }),
+    status: select({
+      options: [
+        { label: 'Draft', value: 'DRAFT' },
+        { label: 'Sent', value: 'SENT' },
+        { label: 'Pending', value: 'PENDING' },
+      ],
+      defaultValue: 'DRAFT',
     }),
     images: relationship({
       ref: 'MessageImage.message',

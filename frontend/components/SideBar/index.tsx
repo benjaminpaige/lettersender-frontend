@@ -12,10 +12,8 @@ import Link from "next/link"
 import {
   FaRegBell,
   FaRegChartBar,
-  FaRegHeart,
   FaRegPaperPlane,
   FaRegQuestionCircle,
-  FaUser,
   FaFire
 } from "react-icons/fa"
 import { NavLink } from "./NavLink"
@@ -49,19 +47,8 @@ export default function SideBar() {
       </Link>
       <Stack spacing={6}>
         <Stack>
-          <NavLink label="People" icon={FaUser} />
-          <NavLink label="Favorites" icon={FaRegHeart} />
           <NavLink label="Messages" icon={FaRegPaperPlane} href="/messages" />
-          <NavLink
-            label="Add Message"
-            icon={FaRegPaperPlane}
-            href="add-message"
-          />
-          <NavLink label="Send Mail" icon={FaRegPaperPlane} />
           <NavLink label="Orders" icon={FaRegChartBar} />
-        </Stack>
-        <Divider />
-        <Stack>
           <NavLink label="Settings" icon={FaRegBell} />
           <NavLink label="Help Center" icon={FaRegQuestionCircle} />
         </Stack>
