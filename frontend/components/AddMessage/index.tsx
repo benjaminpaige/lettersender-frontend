@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { useMutation } from "@apollo/client"
-import Router from "next/router"
+import { useRouter } from "next/router"
 import { FormikHelpers } from "formik"
 import { MessageForm } from "../MessageForm"
 import type { FormValues } from "../MessageForm"
@@ -18,6 +18,7 @@ const initialValues = {
 const AddMessage = () => {
   const [createMessage] = useMutation(CREATE_MESSAGE_MUTATION)
   const fileInputRef = useRef(null)
+  const router = useRouter()
 
   const onSubmit = async (
     values: FormValues,
@@ -36,7 +37,7 @@ const AddMessage = () => {
       if (fileInputRef?.current?.value) {
         fileInputRef.current.value = null
       }
-      Router.push({
+      router.push({
         pathname: `/messages/`
       })
     }
