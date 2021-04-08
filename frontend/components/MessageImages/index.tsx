@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/layout"
 
-export default function MessageImages({ message }) {
+export function MessageImages({ message }) {
   if (!message?.images || message.images.length === 0) return null
   return (
     <Flex>

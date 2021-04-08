@@ -22,6 +22,8 @@ export const SINGLE_MESSAGE_QUERY = gql`
   query SINGLE_MESSAGE_QUERY($id: ID!) {
     Message(where: { id: $id }) {
       content
+      recipientName
+      recipientAddress
       images {
         id
         image {
