@@ -33,3 +33,11 @@ export const SINGLE_MESSAGE_QUERY = gql`
     }
   }
 `
+
+export const MESSAGES_PAGINATION_QUERY = gql`
+  query MESSAGES_PAGINATION_QUERY {
+    _allMessagesMeta {
+      count
+    }
+  }
+`

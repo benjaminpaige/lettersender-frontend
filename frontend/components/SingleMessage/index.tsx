@@ -32,7 +32,6 @@ const EditableMessageForm = ({ initialValues, id }) => {
 
   const onSubmit = async (values, actions) => {
     let variables = { ...values, id }
-    console.log(variables)
     if (values.image === "") delete variables.image
 
     const { errors } = await updateMessage({

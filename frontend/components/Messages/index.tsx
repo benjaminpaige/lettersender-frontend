@@ -24,7 +24,7 @@ export const Messages = () => {
           </Heading>
           <TableActions />
           <TableContent messages={data.allMessages} />
-          <TablePagination numMessages={data.allMessages.length} />
+          <TablePagination />
         </Box>
       </Box>
     </Box>

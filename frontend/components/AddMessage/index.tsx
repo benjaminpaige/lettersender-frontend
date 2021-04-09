@@ -4,7 +4,11 @@ import { useRouter } from "next/router"
 import { FormikHelpers } from "formik"
 import { MessageForm } from "../MessageForm"
 import type { FormValues } from "../MessageForm"
-import { ALL_MESSAGES_QUERY, CREATE_MESSAGE_MUTATION } from "../../graphql"
+import {
+  ALL_MESSAGES_QUERY,
+  CREATE_MESSAGE_MUTATION,
+  MESSAGES_PAGINATION_QUERY
+} from "../../graphql"
 import { addMessageValidationSchema } from "../../utils"
 
 const initialValues = {
@@ -29,7 +33,10 @@ const AddMessage = () => {
 
     const { data, errors } = await createMessage({
       variables,
-      refetchQueries: [{ query: ALL_MESSAGES_QUERY }]
+      refetchQueries: [
+        { query: ALL_MESSAGES_QUERY },
+        { query: MESSAGES_PAGINATION_QUERY }
+      ]
     })
 
     if (!errors) {
