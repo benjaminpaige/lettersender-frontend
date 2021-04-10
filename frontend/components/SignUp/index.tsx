@@ -32,7 +32,7 @@ export const SignUp: React.FC = () => {
             <Logo />
             <Box mb="8" textAlign={{ base: "center", md: "start" }}>
               <Heading size="lg" mb="2" fontWeight="extrabold">
-                Welcome to Fire Mail
+                Welcome to Snail Sender
               </Heading>
               <Text
                 fontSize="lg"
@@ -74,7 +74,7 @@ export const SignUp: React.FC = () => {
               color={mode("blue.600", "blue.200")}
               display={{ base: "block", md: "inline-block" }}
             >
-              Log in to Fire Mail
+              Log in
             </Box>
           </Text>
         </Box>

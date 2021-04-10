@@ -1,25 +1,15 @@
-import {
-  Divider,
-  Flex,
-  Spacer,
-  Stack,
-  Box,
-  Heading,
-  WrapItem,
-  Wrap
-} from "@chakra-ui/react"
+import { Divider, Flex, Spacer, Stack, Box } from "@chakra-ui/react"
 import Link from "next/link"
 import {
   FaRegChartBar,
   FaRegPaperPlane,
   FaRegQuestionCircle,
-  FaFire,
   FaUser,
   FaSignOutAlt
 } from "react-icons/fa"
 import { NavLink } from "./NavLink"
 import { UserProfile } from "./UserProfile"
-import { IconContext } from "react-icons"
+import { Logo } from "../Logo"
 
 export default function SideBar() {
   return (
@@ -32,18 +22,7 @@ export default function SideBar() {
     >
       <Link href="/">
         <Box style={{ cursor: "pointer" }} mb={8}>
-          <Wrap>
-            <WrapItem>
-              <IconContext.Provider value={{ color: "red" }}>
-                <div>
-                  <FaFire size="24px" />
-                </div>
-              </IconContext.Provider>
-              <Heading ml="8px" mt="2px" size="md">
-                Fire Mail
-              </Heading>
-            </WrapItem>
-          </Wrap>
+          <Logo />
         </Box>
       </Link>
       <Stack spacing={6}>

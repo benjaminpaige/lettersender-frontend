@@ -65,7 +65,7 @@ const DesktopNavContent = (props: FlexProps) => {
       {...props}
     >
       <Box as="a" href="#" rel="home">
-        <VisuallyHidden>Fire Mail</VisuallyHidden>
+        <VisuallyHidden>Snail Sender</VisuallyHidden>
         <Logo />
       </Box>
       <HStack

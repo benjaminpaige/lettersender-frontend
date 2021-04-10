@@ -42,7 +42,7 @@ export const Hero = () => {
               fontSize="lg"
               fontWeight="medium"
             >
-              Fire Mail makes it easy to send mail via usps right from your
+              Snail Sender makes it easy to send mail via usps right from your
               phone or computer.
             </Text>
             <Stack direction={{ base: "column", md: "row" }} spacing="4" mt="8">
