@@ -1,7 +1,5 @@
-export default function index() {
-  return (
-    <>
-      <h2>Home page</h2>
-    </>
-  )
+import { Home } from "../components/Home"
+
+export default function HomePage() {
+  return <Home />
 }

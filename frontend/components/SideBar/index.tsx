@@ -14,7 +14,9 @@ import {
   FaRegChartBar,
   FaRegPaperPlane,
   FaRegQuestionCircle,
-  FaFire
+  FaFire,
+  FaUser,
+  FaSignOutAlt
 } from "react-icons/fa"
 import { NavLink } from "./NavLink"
 import { UserProfile } from "./UserProfile"
@@ -49,12 +51,12 @@ export default function SideBar() {
         <Stack>
           <NavLink label="Messages" icon={FaRegPaperPlane} href="/messages" />
           <NavLink label="Orders" icon={FaRegChartBar} />
-          <NavLink label="Settings" icon={FaRegBell} />
+          <NavLink label="Account" icon={FaUser} />
           <NavLink label="Help Center" icon={FaRegQuestionCircle} />
         </Stack>
         <Divider />
         <Stack>
-          <NavLink label="Log Out" icon={FaRegBell} />
+          <NavLink label="Log Out" icon={FaSignOutAlt} />
         </Stack>
       </Stack>
       <Spacer />
