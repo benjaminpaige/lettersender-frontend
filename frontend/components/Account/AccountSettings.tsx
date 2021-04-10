@@ -23,12 +23,12 @@ export const AccountSettings = (props: StackProps) => {
     <Stack as="section" spacing="6" {...props}>
       <HeadingGroup
         title="Account Settings"
-        description="Change your profile, request your data, and more"
+        description="Change your profile, display settings, and more"
       />
       <Card>
         <Stack divider={<StackDivider />} spacing="6">
           <FieldGroup
-            title="Name &amp; Avatar"
+            title="Name &amp; Address"
             description="Change your name and address"
           >
             <Box>
@@ -48,7 +48,7 @@ export const AccountSettings = (props: StackProps) => {
           </FieldGroup>
 
           <FieldGroup
-            title="Login details"
+            title="Login Details"
             description="Change your email and password"
           >
             <Text fontSize="sm">benjamin.paige@gmail.com</Text>
