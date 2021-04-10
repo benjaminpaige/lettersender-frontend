@@ -1,3 +1,5 @@
-export default function Messages() {
-    return <div>Account page</div>
+import { Account } from "../components/Account"
+
+export default function AccountPage() {
+  return <Account />
 }

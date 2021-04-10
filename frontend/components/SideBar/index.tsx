@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react"
 import Link from "next/link"
 import {
-  FaRegBell,
   FaRegChartBar,
   FaRegPaperPlane,
   FaRegQuestionCircle,
@@ -50,9 +49,13 @@ export default function SideBar() {
       <Stack spacing={6}>
         <Stack>
           <NavLink label="Messages" icon={FaRegPaperPlane} href="/messages" />
-          <NavLink label="Orders" icon={FaRegChartBar} />
-          <NavLink label="Account" icon={FaUser} />
-          <NavLink label="Help Center" icon={FaRegQuestionCircle} />
+          <NavLink label="Orders" icon={FaRegChartBar} href="/orders" />
+          <NavLink label="Account" icon={FaUser} href="/account" />
+          <NavLink
+            label="Help Center"
+            icon={FaRegQuestionCircle}
+            href="/help"
+          />
         </Stack>
         <Divider />
         <Stack>
