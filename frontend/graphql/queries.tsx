@@ -41,3 +41,15 @@ export const MESSAGES_PAGINATION_QUERY = gql`
     }
   }
 `
+export const CURRENT_USER_QUERY = gql`
+  query CURRENT_USER_QUERY {
+    authenticatedItem {
+      ... on User {
+        id
+        email
+        firstName
+        lastName
+      }
+    }
+  }
+`

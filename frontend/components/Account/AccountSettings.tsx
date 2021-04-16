@@ -17,10 +17,18 @@ import { Card } from "./Card"
 import { FieldGroup } from "./FieldGroup"
 import { HeadingGroup } from "./HeadingGroup"
 
-export const AccountSettings = (props: StackProps) => {
+interface AccountSettingsProps {
+  user: {
+    firstName: string
+    lastName: string
+    email: string
+  }
+}
+
+export const AccountSettings = ({ user }: AccountSettingsProps) => {
   const { toggleColorMode } = useColorMode()
   return (
-    <Stack as="section" spacing="6" {...props}>
+    <Stack as="section" spacing="6">
       <HeadingGroup
         title="Account Settings"
         description="Change your profile, display settings, and more"
@@ -32,7 +40,9 @@ export const AccountSettings = (props: StackProps) => {
             description="Change your name and address"
           >
             <Box>
-              <Text>Benjamin Paige</Text>
+              <Text>
+                {user.firstName} {user.lastName}
+              </Text>
               <Text color="gray.500" fontSize="sm">
                 Joined March, 2020
               </Text>
@@ -51,7 +61,7 @@ export const AccountSettings = (props: StackProps) => {
             title="Login Details"
             description="Change your email and password"
           >
-            <Text fontSize="sm">benjamin.paige@gmail.com</Text>
+            <Text fontSize="sm">{user.email}</Text>
             <HStack mt="5">
               <Button size="sm" fontWeight="normal">
                 Change email

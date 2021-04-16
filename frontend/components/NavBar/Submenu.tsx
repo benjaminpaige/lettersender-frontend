@@ -1,4 +1,4 @@
-import { useNavMenu } from "../../hooks/useNavMenu"
+import { useNavMenu } from "../../hooks"
 import { Box, Collapse, SimpleGrid, useDisclosure } from "@chakra-ui/react"
 import * as React from "react"
 import { FaChevronDown } from "react-icons/fa"
