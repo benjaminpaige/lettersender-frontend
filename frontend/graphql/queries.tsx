@@ -1,8 +1,8 @@
 import gql from "graphql-tag"
 
 export const ALL_MESSAGES_QUERY = gql`
-  query ALL_MESSAGES_QUERY {
-    allMessages {
+  query ALL_MESSAGES_QUERY($skip: Int = 0, $first: Int) {
+    allMessages(skip: $skip, first: $first) {
       id
       content
       recipientName

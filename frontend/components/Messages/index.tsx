@@ -6,12 +6,18 @@ import { Box, Heading } from "@chakra-ui/react"
 import { TableActions } from "./TableActions"
 import { TableContent } from "./TableContent"
 import { TablePagination } from "./TablePagination"
+import { perPage } from "../../config"
 
 export const Messages = () => {
-  const { data, error, loading } = useQuery(ALL_MESSAGES_QUERY)
   const { query } = useRouter()
+  const page = parseInt(query.page as string) || 1
 
-  const page = parseInt(query.page) || 1
+  const { data, error, loading } = useQuery(ALL_MESSAGES_QUERY, {
+    variables: {
+      skip: page * perPage - perPage,
+      first: perPage
+    }
+  })
 
   if (loading) return <Loading />
   return (

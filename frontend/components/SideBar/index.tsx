@@ -7,6 +7,7 @@ import {
   FaUser,
   FaSignOutAlt
 } from "react-icons/fa"
+import { BsLayoutTextWindowReverse } from "react-icons/bs"
 import { NavLink } from "./NavLink"
 import { UserProfile } from "./UserProfile"
 import { Logo } from "../Logo"
@@ -20,24 +21,29 @@ export default function SideBar() {
       px={6}
       py={8}
     >
-      <Link href="/">
+      <Link href="/dashboard">
         <Box style={{ cursor: "pointer" }} mb={8}>
           <Logo />
         </Box>
       </Link>
       <Stack spacing={6}>
         <Stack>
+          <NavLink
+            label="Dashboard"
+            icon={BsLayoutTextWindowReverse}
+            href="/dashboard"
+          />
           <NavLink label="Messages" icon={FaRegPaperPlane} href="/messages" />
           <NavLink label="Orders" icon={FaRegChartBar} href="/orders" />
           <NavLink label="Account" icon={FaUser} href="/account" />
+        </Stack>
+        <Divider />
+        <Stack>
           <NavLink
             label="Help Center"
             icon={FaRegQuestionCircle}
             href="/help"
           />
-        </Stack>
-        <Divider />
-        <Stack>
           <NavLink label="Log Out" icon={FaSignOutAlt} />
         </Stack>
       </Stack>
