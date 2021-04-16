@@ -9,6 +9,7 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 import { HiPlay } from "react-icons/hi"
+import { APP_NAME } from "../../config"
 
 export const Hero = () => {
   return (
@@ -42,7 +43,7 @@ export const Hero = () => {
               fontSize="lg"
               fontWeight="medium"
             >
-              Snail Sender makes it easy to send mail via usps right from your
+              {APP_NAME} makes it easy to send mail via usps right from your
               phone or computer.
             </Text>
             <Stack direction={{ base: "column", md: "row" }} spacing="4" mt="8">

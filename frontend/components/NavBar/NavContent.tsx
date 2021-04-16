@@ -14,6 +14,7 @@ import { NavMenu } from "./NavMenu"
 import { Submenu } from "./Submenu"
 import { ToggleButton } from "./ToggleButton"
 import { links } from "./_data"
+import { APP_NAME } from "../../config"
 
 const MobileNavContext = (props: FlexProps) => {
   const { isOpen, onToggle } = useDisclosure()
@@ -65,7 +66,7 @@ const DesktopNavContent = (props: FlexProps) => {
       {...props}
     >
       <Box as="a" href="#" rel="home">
-        <VisuallyHidden>Snail Sender</VisuallyHidden>
+        <VisuallyHidden>{APP_NAME}</VisuallyHidden>
         <Logo />
       </Box>
       <HStack

@@ -10,6 +10,7 @@ import { FaFacebook, FaGoogle } from "react-icons/fa"
 import { DividerWithText } from "./DividerWithText"
 import Logo from "../Logo"
 import { SignupForm } from "./SignupForm"
+import { APP_NAME } from "../../config"
 
 export const SignUp: React.FC = () => {
   return (
@@ -32,7 +33,7 @@ export const SignUp: React.FC = () => {
             <Logo />
             <Box mb="8" textAlign={{ base: "center", md: "start" }}>
               <Heading size="lg" mb="2" fontWeight="extrabold">
-                Welcome to Snail Sender
+                Welcome to {APP_NAME}
               </Heading>
               <Text
                 fontSize="lg"
