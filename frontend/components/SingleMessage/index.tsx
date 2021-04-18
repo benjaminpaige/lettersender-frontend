@@ -7,7 +7,6 @@ import {
   ALL_MESSAGES_QUERY
 } from "../../graphql"
 import { Loading } from "../Loading"
-import DisplayError from "../ErrorMessage"
 import { useRouter } from "next/router"
 
 export default function SingleMessage({ id, edit }) {
@@ -16,7 +15,6 @@ export default function SingleMessage({ id, edit }) {
   })
 
   if (loading) return <Loading />
-  if (error && error.message) return <DisplayError />
   return edit ? (
     <EditableMessageForm initialValues={data.Message} id={id} />
   ) : (

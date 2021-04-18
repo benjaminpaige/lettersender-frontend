@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/client"
-import { ALL_MESSAGES_QUERY } from "../../graphql"
+import { ALL_MESSAGES_QUERY } from "@/graphql"
 import { Loading } from "../Loading"
 import { useRouter } from "next/router"
 import { Box, Heading } from "@chakra-ui/react"
 import { TableActions } from "./TableActions"
 import { TableContent } from "./TableContent"
 import { TablePagination } from "./TablePagination"
-import { perPage } from "../../config"
+import { perPage } from "@/config"
 
 export const Messages = () => {
   const { query } = useRouter()

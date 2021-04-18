@@ -9,7 +9,7 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 import { HiPlay } from "react-icons/hi"
-import { APP_NAME } from "../../config"
+import { APP_NAME } from "@/config"
 
 export const Hero = () => {
   return (

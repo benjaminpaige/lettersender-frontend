@@ -1,16 +1,13 @@
 import {
   HStack,
-  Avatar,
   Box,
   Button,
   FormControl,
   FormLabel,
-  Select,
   Switch,
   Text,
   Stack,
   StackDivider,
-  StackProps,
   useColorMode
 } from "@chakra-ui/react"
 import { Card } from "./Card"

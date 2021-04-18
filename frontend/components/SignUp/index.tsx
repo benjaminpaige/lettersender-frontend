@@ -10,7 +10,7 @@ import { FaFacebook, FaGoogle } from "react-icons/fa"
 import { DividerWithText } from "./DividerWithText"
 import Logo from "../Logo"
 import { SignupForm } from "./SignupForm"
-import { APP_NAME } from "../../config"
+import { APP_NAME } from "@/config"
 
 export const SignUp: React.FC = () => {
   return (

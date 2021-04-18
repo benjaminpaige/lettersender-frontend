@@ -1,4 +1,4 @@
-import { CURRENT_USER_QUERY } from "../graphql"
+import { CURRENT_USER_QUERY } from "@/graphql"
 import { useQuery } from "@apollo/client"
 
 export const useUser = () => {

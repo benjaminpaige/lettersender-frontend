@@ -1,5 +1,5 @@
 import { Text, TextProps } from "@chakra-ui/layout"
-import { APP_NAME } from "../../config"
+import { APP_NAME } from "@/config"
 
 export const Copyright = (props: TextProps) => (
   <Text fontSize="sm" {...props}>

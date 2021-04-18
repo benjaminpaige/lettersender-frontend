@@ -8,8 +8,8 @@ import {
   ALL_MESSAGES_QUERY,
   CREATE_MESSAGE_MUTATION,
   MESSAGES_PAGINATION_QUERY
-} from "../../graphql"
-import { addMessageValidationSchema } from "../../utils"
+} from "@/graphql"
+import { addMessageValidationSchema } from "@/utils"
 
 const initialValues = {
   content: "",
