@@ -45,7 +45,7 @@ const AddMessage = () => {
         fileInputRef.current.value = null
       }
       router.push({
-        pathname: `/messages/`
+        pathname: `/dashboard/messages/`
       })
     }
     actions.setSubmitting(false)

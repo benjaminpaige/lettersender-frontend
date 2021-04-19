@@ -13,7 +13,7 @@ export interface Link {
 }
 
 export const links: Link[] = [
-  { label: "Messages", href: "/messages" },
+  { label: "Messages", href: "/dashboard/messages" },
   { label: "For Teams", href: "#" },
   {
     label: "Resources",

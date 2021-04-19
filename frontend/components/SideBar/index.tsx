@@ -11,6 +11,7 @@ import { BsLayoutTextWindowReverse } from "react-icons/bs"
 import { NavLink } from "./NavLink"
 import { Logo } from "../Logo"
 import { SideBarIcon } from "./SideBarIcon"
+import { useRouter } from "next/router"
 
 interface SideBarProps {
   sideBarCollapsed: boolean
@@ -21,6 +22,7 @@ export default function SideBar({
   toggleSideBar,
   sideBarCollapsed
 }: SideBarProps) {
+  const router = useRouter()
   return (
     <>
       <SlideFade reverse in={sideBarCollapsed}>
@@ -54,21 +56,25 @@ export default function SideBar({
           <Stack spacing={6}>
             <Stack>
               <NavLink
+                isActive={router.pathname === "/dashboard"}
                 label="Dashboard"
                 icon={BsLayoutTextWindowReverse}
                 href="/dashboard"
               />
               <NavLink
+                isActive={router.pathname.startsWith("/dashboard/messages")}
                 label="Messages"
                 icon={FaRegPaperPlane}
                 href="/dashboard/messages"
               />
               <NavLink
+                isActive={router.pathname.startsWith("/dashboard/orders")}
                 label="Orders"
                 icon={FaRegChartBar}
                 href="/dashboard/orders"
               />
               <NavLink
+                isActive={router.pathname.startsWith("/dashboard/account")}
                 label="Account"
                 icon={FaUser}
                 href="/dashboard/account"
@@ -77,6 +83,7 @@ export default function SideBar({
             <Divider />
             <Stack>
               <NavLink
+                isActive={router.pathname.startsWith("/dashboard/help")}
                 label="Help Center"
                 icon={FaRegQuestionCircle}
                 href="/dashboard/help"

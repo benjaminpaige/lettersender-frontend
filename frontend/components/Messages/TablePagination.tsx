@@ -35,12 +35,12 @@ export const TablePagination = ({ page }: TablePaginationProps) => {
       </Text>
       <ButtonGroup variant="outline" size="sm">
         {page !== 1 && (
-          <Link href={`/messages/${page - 1}`}>
+          <Link href={`/dashboard/messages/${page - 1}`}>
             <Button rel="prev">Previous</Button>
           </Link>
         )}
 
-        <Link href={`/messages/${page + 1}`}>
+        <Link href={`/dashboard/messages/${page + 1}`}>
           <Button rel="next" disabled={page === pageCount}>
             Next
           </Button>

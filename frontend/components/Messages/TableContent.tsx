@@ -43,7 +43,7 @@ export const TableContent = ({ messages }) => {
                     maxWidth: "250px"
                   }}
                   className="pointer"
-                  onClick={() => router.push(`/message/${row.id}`)}
+                  onClick={() => router.push(`/dashboard/message/${row.id}`)}
                   whiteSpace="nowrap"
                   key={index}
                 >
