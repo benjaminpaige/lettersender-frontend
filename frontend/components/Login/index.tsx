@@ -33,7 +33,7 @@ export const Login = () => {
           <Box
             as="a"
             marginStart="1"
-            href="#"
+            href="/signup"
             color={mode("blue.600", "blue.200")}
             _hover={{ color: "blue.600" }}
             display={{ base: "block", sm: "revert" }}
