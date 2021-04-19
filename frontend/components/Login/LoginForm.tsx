@@ -12,6 +12,8 @@ import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs"
 import { EmailIcon, LockIcon } from "@chakra-ui/icons"
 import { loginValidationSchema } from "@/utils"
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   Flex,
@@ -26,30 +28,43 @@ import {
   Stack,
   useColorModeValue as mode
 } from "@chakra-ui/react"
+import { useMutation } from "@apollo/client"
+import { LOGIN_USER_MUTATION } from "@/graphql"
 
 interface FormValues {
-  emailAddress: string
+  email: string
   password: string
 }
 
-const initialValues = { emailAddress: "", password: "" }
+const initialValues = { email: "", password: "" }
 
 export const LoginForm = () => {
+  const [loginUser] = useMutation(LOGIN_USER_MUTATION)
   const [showPassword, setShowPassword] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
   const router = useRouter()
 
   const onSubmit = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
-    // lets do something with the values
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    // reset error message, if any
+    setErrorMessage("")
+
+    const {
+      data: { authenticateUserWithPassword }
+    } = await loginUser({
+      variables: values
+    })
+
+    if (authenticateUserWithPassword.code) {
+      setErrorMessage(authenticateUserWithPassword.message)
+    } else {
+      console.log(authenticateUserWithPassword.sessionToken)
+      // $TODO: do something with the session token
+      router.push("/dashboard")
+    }
     actions.setSubmitting(false)
-    // error? -> actions.setFieldError('emailAddress', 'Account doesnt exists')
-
-    // success? -> maybe router.push('/dashboard')
-
-    console.log(values)
   }
 
   return (
@@ -58,16 +73,13 @@ export const LoginForm = () => {
       onSubmit={onSubmit}
       validationSchema={loginValidationSchema}
     >
-      {({ isSubmitting, errors }: FormikProps<FormValues>) => (
+      {({ isSubmitting }: FormikProps<FormValues>) => (
         <Form>
           <Stack spacing="6">
-            <Field name="emailAddress">
+            <Field name="email">
               {({ field, form }: FieldProps<any, FormValues>) => (
                 <FormControl
-                  isInvalid={
-                    Boolean(form.errors.emailAddress) &&
-                    form.touched.emailAddress
-                  }
+                  isInvalid={Boolean(form.errors.email) && form.touched.email}
                 >
                   <InputGroup>
                     <InputLeftElement pointerEvents="none">
@@ -79,9 +91,7 @@ export const LoginForm = () => {
                       placeholder="Email address"
                     />
                   </InputGroup>
-                  <FormErrorMessage>
-                    {form.errors.emailAddress}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                 </FormControl>
               )}
             </Field>
@@ -143,6 +153,12 @@ export const LoginForm = () => {
             >
               Sign in
             </Button>
+            {errorMessage && (
+              <Alert status="error">
+                <AlertIcon />
+                Authentication failed.
+              </Alert>
+            )}
           </Stack>
         </Form>
       )}

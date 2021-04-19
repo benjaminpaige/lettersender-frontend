@@ -65,3 +65,20 @@ export const UPDATE_USER_MUTATION = gql`
     }
   }
 `
+
+export const LOGIN_USER_MUTATION = gql`
+  mutation LOGIN_USER_MUTATION($email: String!, $password: String!) {
+    authenticateUserWithPassword(email: $email, password: $password) {
+      ... on UserAuthenticationWithPasswordSuccess {
+        sessionToken
+        item {
+          darkMode
+        }
+      }
+      ... on UserAuthenticationWithPasswordFailure {
+        code
+        message
+      }
+    }
+  }
+`
