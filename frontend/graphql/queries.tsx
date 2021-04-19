@@ -49,6 +49,10 @@ export const CURRENT_USER_QUERY = gql`
         email
         firstName
         lastName
+        darkMode
+        dateJoined
+        allowMarketingTips
+        allowMarketingUpdates
       }
     }
   }

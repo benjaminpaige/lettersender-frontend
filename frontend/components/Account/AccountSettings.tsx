@@ -19,6 +19,10 @@ interface AccountSettingsProps {
     firstName: string
     lastName: string
     email: string
+    dateJoined: string
+    darkMode: boolean
+    allowMarketingTips: boolean
+    allowMarketingUpdates: boolean
   }
 }
 
@@ -41,7 +45,7 @@ export const AccountSettings = ({ user }: AccountSettingsProps) => {
                 {user.firstName} {user.lastName}
               </Text>
               <Text color="gray.500" fontSize="sm">
-                Joined March, 2020
+                Joined {user.dateJoined}
               </Text>
             </Box>
             <HStack mt="5">
@@ -87,7 +91,11 @@ export const AccountSettings = ({ user }: AccountSettingsProps) => {
                 >
                   Prefer dark mode
                 </FormLabel>
-                <Switch onChange={toggleColorMode} id="dark-light-mode" />
+                <Switch
+                  onChange={toggleColorMode}
+                  defaultChecked={user.darkMode}
+                  id="dark-light-mode"
+                />
               </FormControl>
             </Stack>
           </FieldGroup>
@@ -106,13 +114,19 @@ export const AccountSettings = ({ user }: AccountSettingsProps) => {
                 >
                   Product intro, tips, and inspiration
                 </FormLabel>
-                <Switch id="email-marketing" />
+                <Switch
+                  id="email-marketing"
+                  isChecked={user.allowMarketingTips}
+                />
               </FormControl>
               <FormControl display="flex" alignItems="center">
                 <FormLabel htmlFor="email-news" flex="1" fontSize="sm" mb="0">
                   Updates about company news and features
                 </FormLabel>
-                <Switch id="email-news" />
+                <Switch
+                  id="email-news"
+                  isChecked={user.allowMarketingUpdates}
+                />
               </FormControl>
             </Stack>
             <Button mt="5" size="sm" fontWeight="normal">
