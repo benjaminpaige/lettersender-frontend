@@ -10,12 +10,15 @@ import {
   StackDivider,
   useColorMode
 } from "@chakra-ui/react"
+import { ChangeEvent } from "react"
 import { Card } from "./Card"
 import { FieldGroup } from "./FieldGroup"
 import { HeadingGroup } from "./HeadingGroup"
+import { CURRENT_USER_QUERY } from "@/graphql"
 
 interface AccountSettingsProps {
   user: {
+    id: string
     firstName: string
     lastName: string
     email: string
@@ -24,10 +27,20 @@ interface AccountSettingsProps {
     allowMarketingTips: boolean
     allowMarketingUpdates: boolean
   }
+  updateUser: (any) => void
 }
 
-export const AccountSettings = ({ user }: AccountSettingsProps) => {
+export const AccountSettings = ({ user, updateUser }: AccountSettingsProps) => {
+  const handleSwitchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const data = { [e.target.name]: e.target.checked }
+    const variables = { id: user.id, data }
+    updateUser({
+      variables,
+      refetchQueries: [{ query: CURRENT_USER_QUERY }]
+    })
+  }
   const { toggleColorMode } = useColorMode()
+
   return (
     <Stack as="section" spacing="6">
       <HeadingGroup
@@ -92,7 +105,8 @@ export const AccountSettings = ({ user }: AccountSettingsProps) => {
                   Prefer dark mode
                 </FormLabel>
                 <Switch
-                  onChange={toggleColorMode}
+                  name="darkMode"
+                  onChange={handleSwitchChange}
                   defaultChecked={user.darkMode}
                   id="dark-light-mode"
                 />
@@ -115,8 +129,10 @@ export const AccountSettings = ({ user }: AccountSettingsProps) => {
                   Product intro, tips, and inspiration
                 </FormLabel>
                 <Switch
+                  name="allowMarketingTips"
                   id="email-marketing"
-                  isChecked={user.allowMarketingTips}
+                  onChange={handleSwitchChange}
+                  defaultChecked={user.allowMarketingTips}
                 />
               </FormControl>
               <FormControl display="flex" alignItems="center">
@@ -125,7 +141,9 @@ export const AccountSettings = ({ user }: AccountSettingsProps) => {
                 </FormLabel>
                 <Switch
                   id="email-news"
-                  isChecked={user.allowMarketingUpdates}
+                  name="allowMarketingUpdates"
+                  onChange={handleSwitchChange}
+                  defaultChecked={user.allowMarketingUpdates}
                 />
               </FormControl>
             </Stack>

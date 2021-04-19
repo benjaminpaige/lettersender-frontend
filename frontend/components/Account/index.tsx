@@ -4,7 +4,8 @@ import { DangerZone } from "./DangerZone"
 import { useUser } from "@/hooks"
 
 export const Account = () => {
-  const user = useUser()
+  const { user, updateUser } = useUser()
+
   return user ? (
     <Box
       bg={useColorModeValue("gray.50", "gray.800")}
@@ -14,10 +15,12 @@ export const Account = () => {
     >
       <Box maxW="xl" mx="auto">
         <Stack spacing="12">
-          <AccountSettings user={user} />
+          <AccountSettings user={user} updateUser={updateUser} />
           <DangerZone />
         </Stack>
       </Box>
     </Box>
-  ) : null
+  ) : (
+    <p>No user found</p>
+  )
 }

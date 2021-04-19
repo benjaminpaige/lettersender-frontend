@@ -41,3 +41,27 @@ export const UPDATE_MESSAGE_MUTATION = gql`
     }
   }
 `
+
+export const UPDATE_USER_MUTATION = gql`
+  mutation UPDATE_USER_MUTATION(
+    $id: ID!
+    $firstName: String
+    $lastName: String
+    $darkMode: Boolean
+    $allowMarketingTips: Boolean
+    $allowMarketingUpdates: Boolean
+  ) {
+    updateUser(
+      id: $id
+      data: {
+        firstName: $firstName
+        lastName: $lastName
+        darkMode: $darkMode
+        allowMarketingTips: $allowMarketingTips
+        allowMarketingUpdates: $allowMarketingUpdates
+      }
+    ) {
+      id
+    }
+  }
+`
