@@ -16,7 +16,11 @@ import { ToggleButton } from "./ToggleButton"
 import { links } from "./_data"
 import { APP_NAME } from "../../config"
 
-const MobileNavContext = (props: FlexProps) => {
+interface NavContentProps extends FlexProps {
+  isLoggedIn: boolean
+}
+
+const MobileNavContext = ({ isLoggedIn, ...flexProps }: NavContentProps) => {
   const { isOpen, onToggle } = useDisclosure()
   return (
     <>
@@ -24,7 +28,7 @@ const MobileNavContext = (props: FlexProps) => {
         align="center"
         justify="space-between"
         className="nav-content__mobile"
-        {...props}
+        {...flexProps}
       >
         <Box>
           <ToggleButton isOpen={isOpen} onClick={onToggle} />
@@ -49,21 +53,38 @@ const MobileNavContext = (props: FlexProps) => {
             </NavLink.Mobile>
           )
         )}
-        <Button colorScheme="blue" w="full" size="lg" mt="5">
-          Try for free
+        <Button
+          as="a"
+          href={isLoggedIn ? "/logout" : "/login"}
+          color={mode("blue.600", "blue.300")}
+          fontWeight="bold"
+          w="full"
+          mt="5"
+        >
+          {isLoggedIn ? "Sign Out" : "Sign In"}
+        </Button>
+        <Button
+          as="a"
+          href={isLoggedIn ? "/dashboard" : "/signup"}
+          colorScheme="blue"
+          w="full"
+          size="lg"
+          mt="5"
+        >
+          {isLoggedIn ? "Dashboard" : "Sign up for free"}
         </Button>
       </NavMenu>
     </>
   )
 }
 
-const DesktopNavContent = (props: FlexProps) => {
+const DesktopNavContent = ({ isLoggedIn, ...flexProps }: NavContentProps) => {
   return (
     <Flex
       className="nav-content__desktop"
       align="center"
       justify="space-between"
-      {...props}
+      {...flexProps}
     >
       <Box as="a" href="#" rel="home">
         <VisuallyHidden>{APP_NAME}</VisuallyHidden>
@@ -88,14 +109,19 @@ const DesktopNavContent = (props: FlexProps) => {
       <HStack spacing="8" minW="240px" justify="space-between">
         <Box
           as="a"
-          href="#"
+          href={isLoggedIn ? "/logout" : "/login"}
           color={mode("blue.600", "blue.300")}
           fontWeight="bold"
         >
-          Sign In
+          {isLoggedIn ? "Sign Out" : "Sign In"}
         </Box>
-        <Button as="a" href="#" colorScheme="blue" fontWeight="bold">
-          Sign up for free
+        <Button
+          as="a"
+          href={isLoggedIn ? "/dashboard" : "/signup"}
+          colorScheme="blue"
+          fontWeight="bold"
+        >
+          {isLoggedIn ? "Dashboard" : "Sign up for free"}
         </Button>
       </HStack>
     </Flex>

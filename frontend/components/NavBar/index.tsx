@@ -1,7 +1,9 @@
 import { Box, useColorModeValue as mode } from "@chakra-ui/react"
 import { NavContent } from "./NavContent"
+import { useUser } from "@/hooks"
 
 export const NavBar = () => {
+  const { user } = useUser()
   return (
     <Box>
       <Box
@@ -17,8 +19,14 @@ export const NavBar = () => {
           mx="auto"
           px={{ base: "6", md: "8" }}
         >
-          <NavContent.Mobile display={{ base: "flex", lg: "none" }} />
-          <NavContent.Desktop display={{ base: "none", lg: "flex" }} />
+          <NavContent.Mobile
+            display={{ base: "flex", lg: "none" }}
+            isLoggedIn={Boolean(user)}
+          />
+          <NavContent.Desktop
+            display={{ base: "none", lg: "flex" }}
+            isLoggedIn={Boolean(user)}
+          />
         </Box>
       </Box>
     </Box>
