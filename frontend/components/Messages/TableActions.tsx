@@ -44,7 +44,7 @@ export const TableActions = () => {
       </HStack>
       <ButtonGroup size="sm" variant="outline">
         <Button
-          onClick={() => router.push("/message/add")}
+          onClick={() => router.push("/dashboard/message/add")}
           iconSpacing="1"
           leftIcon={<RiAddFill fontSize="1.25em" />}
         >
