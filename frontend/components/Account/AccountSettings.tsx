@@ -31,15 +31,16 @@ interface AccountSettingsProps {
 }
 
 export const AccountSettings = ({ user, updateUser }: AccountSettingsProps) => {
+  const { toggleColorMode, colorMode } = useColorMode()
   const handleSwitchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const data = { [e.target.name]: e.target.checked }
     const variables = { id: user.id, data }
+    if (e.target.name === "darkMode") toggleColorMode()
     updateUser({
       variables,
       refetchQueries: [{ query: CURRENT_USER_QUERY }]
     })
   }
-  const { toggleColorMode } = useColorMode()
 
   return (
     <Stack as="section" spacing="6">
@@ -107,7 +108,7 @@ export const AccountSettings = ({ user, updateUser }: AccountSettingsProps) => {
                 <Switch
                   name="darkMode"
                   onChange={handleSwitchChange}
-                  defaultChecked={user.darkMode}
+                  isChecked={colorMode === "dark"}
                   id="dark-light-mode"
                 />
               </FormControl>

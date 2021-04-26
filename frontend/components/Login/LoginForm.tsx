@@ -29,7 +29,7 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 import { useMutation } from "@apollo/client"
-import { LOGIN_USER_MUTATION } from "@/graphql"
+import { LOGIN_USER_MUTATION, CURRENT_USER_QUERY } from "@/graphql"
 
 interface FormValues {
   email: string
@@ -39,7 +39,9 @@ interface FormValues {
 const initialValues = { email: "", password: "" }
 
 export const LoginForm = () => {
-  const [loginUser] = useMutation(LOGIN_USER_MUTATION)
+  const [loginUser] = useMutation(LOGIN_USER_MUTATION, {
+    refetchQueries: [{ query: CURRENT_USER_QUERY }]
+  })
   const [showPassword, setShowPassword] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
   const router = useRouter()
@@ -57,7 +59,10 @@ export const LoginForm = () => {
       variables: values
     })
 
-    if (authenticateUserWithPassword.code) {
+    if (
+      authenticateUserWithPassword.__typename ===
+      "UserAuthenticationWithPasswordFailure"
+    ) {
       setErrorMessage(authenticateUserWithPassword.message)
     } else {
       console.log(authenticateUserWithPassword.sessionToken)
@@ -87,6 +92,10 @@ export const LoginForm = () => {
                     </InputLeftElement>
                     <Input
                       {...field}
+                      onChange={(e) => {
+                        field.onChange(e)
+                        setErrorMessage("")
+                      }}
                       id="login_email_address"
                       placeholder="Email address"
                     />
@@ -120,6 +129,10 @@ export const LoginForm = () => {
                     </InputLeftElement>
                     <Input
                       {...field}
+                      onChange={(e) => {
+                        field.onChange(e)
+                        setErrorMessage("")
+                      }}
                       id="login_password"
                       placeholder="Password"
                       type={showPassword ? "text" : "password"}
