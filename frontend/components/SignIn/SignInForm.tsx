@@ -10,7 +10,7 @@ import {
 } from "formik"
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs"
 import { EmailIcon, LockIcon } from "@chakra-ui/icons"
-import { loginValidationSchema } from "@/utils"
+import { signInValidationSchema } from "@/utils"
 import {
   Alert,
   AlertIcon,
@@ -29,7 +29,7 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 import { useMutation } from "@apollo/client"
-import { LOGIN_USER_MUTATION, CURRENT_USER_QUERY } from "@/graphql"
+import { SIGNIN_USER_MUTATION, CURRENT_USER_QUERY } from "@/graphql"
 
 interface FormValues {
   email: string
@@ -38,8 +38,8 @@ interface FormValues {
 
 const initialValues = { email: "", password: "" }
 
-export const LoginForm = () => {
-  const [loginUser] = useMutation(LOGIN_USER_MUTATION, {
+export const SignInForm = () => {
+  const [SignInUser] = useMutation(SIGNIN_USER_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }]
   })
   const [showPassword, setShowPassword] = useState(false)
@@ -55,7 +55,7 @@ export const LoginForm = () => {
 
     const {
       data: { authenticateUserWithPassword }
-    } = await loginUser({
+    } = await SignInUser({
       variables: values
     })
 
@@ -76,7 +76,7 @@ export const LoginForm = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={onSubmit}
-      validationSchema={loginValidationSchema}
+      validationSchema={signInValidationSchema}
     >
       {({ isSubmitting }: FormikProps<FormValues>) => (
         <Form>
@@ -96,7 +96,7 @@ export const LoginForm = () => {
                         field.onChange(e)
                         setErrorMessage("")
                       }}
-                      id="login_email_address"
+                      id="signin_email_address"
                       placeholder="Email address"
                     />
                   </InputGroup>
@@ -133,7 +133,7 @@ export const LoginForm = () => {
                         field.onChange(e)
                         setErrorMessage("")
                       }}
-                      id="login_password"
+                      id="signin_password"
                       placeholder="Password"
                       type={showPassword ? "text" : "password"}
                     />

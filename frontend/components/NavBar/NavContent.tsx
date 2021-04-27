@@ -17,10 +17,15 @@ import { links } from "./_data"
 import { APP_NAME } from "../../config"
 
 interface NavContentProps extends FlexProps {
-  isLoggedIn: boolean
+  isSignedIn: boolean
+  handleSignOut: () => void
 }
 
-const MobileNavContext = ({ isLoggedIn, ...flexProps }: NavContentProps) => {
+const MobileNavContext = ({
+  isSignedIn,
+  handleSignOut,
+  ...flexProps
+}: NavContentProps) => {
   const { isOpen, onToggle } = useDisclosure()
   return (
     <>
@@ -53,32 +58,49 @@ const MobileNavContext = ({ isLoggedIn, ...flexProps }: NavContentProps) => {
             </NavLink.Mobile>
           )
         )}
+        {isSignedIn ? (
+          <Button
+            onClick={handleSignOut}
+            color={mode("blue.600", "blue.300")}
+            fontWeight="bold"
+            w="full"
+            mt="5"
+          >
+            Sign Out
+          </Button>
+        ) : (
+          <Button
+            as="a"
+            href="/signin"
+            color={mode("blue.600", "blue.300")}
+            fontWeight="bold"
+            w="full"
+            mt="5"
+          >
+            Sign In
+          </Button>
+        )}
+
         <Button
           as="a"
-          href={isLoggedIn ? "/logout" : "/login"}
-          color={mode("blue.600", "blue.300")}
-          fontWeight="bold"
-          w="full"
-          mt="5"
-        >
-          {isLoggedIn ? "Sign Out" : "Sign In"}
-        </Button>
-        <Button
-          as="a"
-          href={isLoggedIn ? "/dashboard" : "/signup"}
+          href={isSignedIn ? "/dashboard" : "/signup"}
           colorScheme="blue"
           w="full"
           size="lg"
           mt="5"
         >
-          {isLoggedIn ? "Dashboard" : "Sign up for free"}
+          {isSignedIn ? "Dashboard" : "Sign up for free"}
         </Button>
       </NavMenu>
     </>
   )
 }
 
-const DesktopNavContent = ({ isLoggedIn, ...flexProps }: NavContentProps) => {
+const DesktopNavContent = ({
+  isSignedIn,
+  handleSignOut,
+  ...flexProps
+}: NavContentProps) => {
   return (
     <Flex
       className="nav-content__desktop"
@@ -107,21 +129,33 @@ const DesktopNavContent = ({ isLoggedIn, ...flexProps }: NavContentProps) => {
         ))}
       </HStack>
       <HStack spacing="8" minW="240px" justify="space-between">
-        <Box
-          as="a"
-          href={isLoggedIn ? "/logout" : "/login"}
-          color={mode("blue.600", "blue.300")}
-          fontWeight="bold"
-        >
-          {isLoggedIn ? "Sign Out" : "Sign In"}
-        </Box>
+        {isSignedIn ? (
+          <Box
+            as="button"
+            onClick={handleSignOut}
+            color={mode("blue.600", "blue.300")}
+            fontWeight="bold"
+          >
+            Sign Out
+          </Box>
+        ) : (
+          <Box
+            as="a"
+            href={isSignedIn ? "/logout" : "/signin"}
+            color={mode("blue.600", "blue.300")}
+            fontWeight="bold"
+          >
+            {isSignedIn ? "Sign Out" : "Sign In"}
+          </Box>
+        )}
+
         <Button
           as="a"
-          href={isLoggedIn ? "/dashboard" : "/signup"}
+          href={isSignedIn ? "/dashboard" : "/signup"}
           colorScheme="blue"
           fontWeight="bold"
         >
-          {isLoggedIn ? "Dashboard" : "Sign up for free"}
+          {isSignedIn ? "Dashboard" : "Sign up for free"}
         </Button>
       </HStack>
     </Flex>

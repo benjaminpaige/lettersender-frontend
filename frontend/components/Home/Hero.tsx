@@ -71,7 +71,7 @@ export const Hero = () => {
             </Stack>
             <Text mt="8" color={mode("gray.600", "gray.400")}>
               Already have an account?{" "}
-              <Link href="/login" textDecoration="underline">
+              <Link href="/signin" textDecoration="underline">
                 Log in
               </Link>
             </Text>

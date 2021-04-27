@@ -6,7 +6,7 @@ export const addMessageValidationSchema = yup.object().shape({
   recipientAddress: yup.string().required("Address is required")
 })
 
-export const loginValidationSchema = yup.object({
+export const signInValidationSchema = yup.object({
   password: yup
     .string()
     .min(8, "Must be at least 8 characters")

@@ -9,11 +9,11 @@ import {
   Center
 } from "@chakra-ui/react"
 import Logo from "../Logo"
-import { LoginForm } from "./LoginForm"
+import { SignInForm } from "./SignInForm"
 import { FaFacebook, FaGoogle } from "react-icons/fa"
 import { DividerWithText } from "./DividerWithText"
 
-export const Login = () => {
+export const SignIn = () => {
   return (
     <Box
       minH="100vh"
@@ -50,7 +50,7 @@ export const Login = () => {
           shadow="base"
           rounded={{ sm: "lg" }}
         >
-          <LoginForm />
+          <SignInForm />
           <DividerWithText mt="6">or continue with</DividerWithText>
           <SimpleGrid mt="6" columns={2} spacing="3">
             <Button color="currentColor" variant="outline">
