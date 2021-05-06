@@ -83,6 +83,26 @@ export const SIGNIN_USER_MUTATION = gql`
   }
 `
 
+export const SIGNUP_USER_MUTATION = gql`
+  mutation SIGNUP_USER_MUTATION(
+    $email: String!
+    $password: String!
+    $firstName: String!
+    $lastName: String!
+  ) {
+    createUser(
+      data: {
+        email: $email
+        password: $password
+        firstName: $firstName
+        lastName: $lastName
+      }
+    ) {
+      id
+    }
+  }
+`
+
 export const SIGNOUT_MUTATION = gql`
   mutation {
     endSession

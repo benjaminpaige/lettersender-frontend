@@ -12,7 +12,7 @@ export const NavBar = () => {
     refetchQueries: [{ query: CURRENT_USER_QUERY }]
   })
   const handleSignOut = async () => {
-    router.push("/signin")
+    // router.push("/signin")
 
     // to prevent flashing of call to action button text
     await new Promise((resolve) => setTimeout(resolve, 1000))

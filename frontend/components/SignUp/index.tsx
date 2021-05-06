@@ -7,12 +7,14 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 import { FaFacebook, FaGoogle } from "react-icons/fa"
+import { useRouter } from "next/router"
 import { DividerWithText } from "./DividerWithText"
 import Logo from "../Logo"
 import { SignupForm } from "./SignupForm"
 import { APP_NAME } from "@/config"
 
 export const SignUp: React.FC = () => {
+  const router = useRouter()
   return (
     <Box minH="100vh" bg={{ md: mode("gray.100", "inherit") }}>
       <Box
@@ -74,6 +76,7 @@ export const SignUp: React.FC = () => {
               href="#"
               color={mode("blue.600", "blue.200")}
               display={{ base: "block", md: "inline-block" }}
+              onClick={() => router.push("/signin")}
             >
               Log in
             </Box>
