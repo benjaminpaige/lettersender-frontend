@@ -53,7 +53,14 @@ export const TableContent = ({ messages }) => {
             })}
             <Td textAlign="right">
               <Button variant="link" colorScheme="blue">
-                <Link href={`/message/${row.id}`}>Edit</Link>
+                <Link
+                  href={{
+                    pathname: `/dashboard/message/${row.id}`,
+                    query: { edit: true }
+                  }}
+                >
+                  Edit
+                </Link>
               </Button>
             </Td>
           </Tr>

@@ -34,8 +34,9 @@ export const AccountSettings = ({ user, updateUser }: AccountSettingsProps) => {
   const { toggleColorMode, colorMode } = useColorMode()
   const handleSwitchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const data = { [e.target.name]: e.target.checked }
-    const variables = { id: user.id, data }
+    const variables = { id: user.id, ...data }
     if (e.target.name === "darkMode") toggleColorMode()
+
     updateUser({
       variables,
       refetchQueries: [{ query: CURRENT_USER_QUERY }]
