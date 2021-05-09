@@ -1,5 +1,7 @@
 import { Divider, Flex, SlideFade, Stack, Box } from "@chakra-ui/react"
 import Link from "next/link"
+import { SIGNOUT_MUTATION, CURRENT_USER_QUERY } from "@/graphql"
+import { useMutation } from "@apollo/client"
 import {
   FaRegChartBar,
   FaRegPaperPlane,
@@ -23,6 +25,14 @@ export default function SideBar({
   sideBarCollapsed
 }: SideBarProps) {
   const router = useRouter()
+  const [signOut] = useMutation(SIGNOUT_MUTATION, {
+    refetchQueries: [{ query: CURRENT_USER_QUERY }]
+  })
+
+  const handleSignOut = () => {
+    signOut()
+    router.push("/")
+  }
   return (
     <>
       <SlideFade reverse in={sideBarCollapsed}>
@@ -59,25 +69,25 @@ export default function SideBar({
                 isActive={router.pathname === "/dashboard"}
                 label="Dashboard"
                 icon={BsLayoutTextWindowReverse}
-                href="/dashboard"
+                onClick={() => router.push("/dashboard")}
               />
               <NavLink
                 isActive={router.pathname.startsWith("/dashboard/messages")}
                 label="Messages"
                 icon={FaRegPaperPlane}
-                href="/dashboard/messages"
+                onClick={() => router.push("/dashboard/messages")}
               />
               <NavLink
                 isActive={router.pathname.startsWith("/dashboard/orders")}
                 label="Orders"
                 icon={FaRegChartBar}
-                href="/dashboard/orders"
+                onClick={() => router.push("/dashboard/orders")}
               />
               <NavLink
                 isActive={router.pathname.startsWith("/dashboard/account")}
                 label="Account"
                 icon={FaUser}
-                href="/dashboard/account"
+                onClick={() => router.push("/dashboard/account")}
               />
             </Stack>
             <Divider />
@@ -86,9 +96,13 @@ export default function SideBar({
                 isActive={router.pathname.startsWith("/dashboard/help")}
                 label="Help Center"
                 icon={FaRegQuestionCircle}
-                href="/dashboard/help"
+                onClick={() => router.push("/dashboard/help")}
               />
-              <NavLink label="Log Out" icon={FaSignOutAlt} />
+              <NavLink
+                onClick={handleSignOut}
+                label="Log Out"
+                icon={FaSignOutAlt}
+              />
             </Stack>
           </Stack>
         </Flex>
