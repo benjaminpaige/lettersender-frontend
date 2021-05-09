@@ -129,6 +129,13 @@ export const SignInForm = () => {
                       color={mode("blue.600", "blue.200")}
                       fontWeight="semibold"
                       fontSize="sm"
+                      cursor="pointer"
+                      onClick={() => {
+                        router.push({
+                          pathname: "/request-reset",
+                          query: { email: form.values.email }
+                        })
+                      }}
                     >
                       Forgot Password?
                     </Box>

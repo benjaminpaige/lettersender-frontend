@@ -4,6 +4,11 @@ import { text, password, checkbox, select } from '@keystone-next/fields';
 export const User = list({
   // access:
   // ui:
+  ui: {
+    listView: {
+      initialColumns: ['email'],
+    },
+  },
   fields: {
     firstName: text({ isRequired: true }),
     lastName: text({ isRequired: true }),
