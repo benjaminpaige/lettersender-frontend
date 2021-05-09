@@ -17,6 +17,13 @@ export const signInValidationSchema = yup.object({
     .required("Email address required")
 })
 
+export const requestResetValidationSchema = yup.object({
+  email: yup
+    .string()
+    .email("Invalid email address")
+    .required("Email address required")
+})
+
 export const signUpValidationSchema = yup.object({
   password: yup
     .string()

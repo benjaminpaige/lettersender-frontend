@@ -9,7 +9,7 @@ import {
   FormikHelpers
 } from "formik"
 import { EmailIcon } from "@chakra-ui/icons"
-import { signInValidationSchema } from "@/utils"
+import { requestResetValidationSchema } from "@/utils"
 import {
   Alert,
   AlertIcon,
@@ -22,28 +22,33 @@ import {
   Stack
 } from "@chakra-ui/react"
 import { useMutation } from "@apollo/client"
-import { SIGNIN_USER_MUTATION, CURRENT_USER_QUERY } from "@/graphql"
+import {
+  SEND_PASSWORD_RESET_LINK_MUTATION,
+  CURRENT_USER_QUERY
+} from "@/graphql"
 
 interface FormValues {
   email: string
-  password: string
 }
 
 export const RequestResetForm = () => {
-  const [RequestPasswordReset] = useMutation(SIGNIN_USER_MUTATION, {
-    refetchQueries: [{ query: CURRENT_USER_QUERY }]
-  })
-  const [errorMessage, setErrorMessage] = useState("")
+  const [requestPasswordReset] = useMutation(
+    SEND_PASSWORD_RESET_LINK_MUTATION,
+    {
+      refetchQueries: [{ query: CURRENT_USER_QUERY }]
+    }
+  )
+  const [submitted, setSubmitted] = useState(false)
   const router = useRouter()
 
   const onSubmit = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
-    // reset error message, if any
-    setErrorMessage("")
+    await requestPasswordReset({ variables: values })
 
     actions.setSubmitting(false)
+    setSubmitted(true)
   }
 
   // if coming from signup page user email query param as default email value
@@ -55,49 +60,56 @@ export const RequestResetForm = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={onSubmit}
-      validationSchema={signInValidationSchema}
+      validationSchema={requestResetValidationSchema}
     >
       {({ isSubmitting }: FormikProps<FormValues>) => (
         <Form>
           <Stack spacing="6">
-            <Field name="email">
-              {({ field, form }: FieldProps<any, FormValues>) => (
-                <FormControl
-                  isInvalid={Boolean(form.errors.email) && form.touched.email}
-                >
-                  <InputGroup>
-                    <InputLeftElement pointerEvents="none">
-                      <EmailIcon />
-                    </InputLeftElement>
-                    <Input
-                      {...field}
-                      onChange={(e) => {
-                        field.onChange(e)
-                        setErrorMessage("")
-                      }}
-                      id="request_pw_reset_email_address"
-                      placeholder="Email address"
-                    />
-                  </InputGroup>
-                  <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+            {!submitted && (
+              <>
+                <Field name="email">
+                  {({ field, form }: FieldProps<any, FormValues>) => (
+                    <FormControl
+                      isInvalid={
+                        Boolean(form.errors.email) && form.touched.email
+                      }
+                    >
+                      <InputGroup>
+                        <InputLeftElement pointerEvents="none">
+                          <EmailIcon />
+                        </InputLeftElement>
+                        <Input
+                          {...field}
+                          onChange={(e) => {
+                            field.onChange(e)
+                          }}
+                          id="request_pw_reset_email_address"
+                          placeholder="Email address"
+                        />
+                      </InputGroup>
+                      <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
 
-            <Button
-              type="submit"
-              colorScheme="blue"
-              size="lg"
-              fontSize="md"
-              isLoading={isSubmitting}
-              loadingText="Loading"
-            >
-              Request password reset
-            </Button>
-            {errorMessage && (
-              <Alert status="error">
+                <Button
+                  type="submit"
+                  colorScheme="blue"
+                  size="lg"
+                  fontSize="md"
+                  isLoading={isSubmitting}
+                  loadingText="Loading"
+                >
+                  Request Password Reset
+                </Button>
+              </>
+            )}
+
+            {submitted && (
+              <Alert status="info">
                 <AlertIcon />
-                An Error Occured.
+                If that account exists you will receive an email with reset
+                instructions
               </Alert>
             )}
           </Stack>

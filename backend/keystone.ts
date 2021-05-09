@@ -56,8 +56,9 @@ export default withAuth(
     }),
     ui: {
       // show the ui only for people who pass this test.
+      // eslint-disable-next-line arrow-body-style
       isAccessAllowed: ({ session }) => {
-        console.log(session);
+        // console.log(session);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         return !!session?.data;
       },
