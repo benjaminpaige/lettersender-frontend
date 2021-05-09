@@ -131,10 +131,13 @@ export const SignInForm = () => {
                       fontSize="sm"
                       cursor="pointer"
                       onClick={() => {
-                        router.push({
-                          pathname: "/request-reset",
-                          query: { email: form.values.email }
-                        })
+                        const emailEntered = Boolean(form.values.email)
+                        const options: any = {
+                          pathname: "/request-reset"
+                        }
+                        if (emailEntered)
+                          options.query = { email: form.values.email }
+                        router.push(options)
                       }}
                     >
                       Forgot Password?
