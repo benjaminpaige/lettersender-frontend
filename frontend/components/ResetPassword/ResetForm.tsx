@@ -16,6 +16,7 @@ import {
   AlertIcon,
   Box,
   Button,
+  Center,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -29,7 +30,7 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 import { useMutation } from "@apollo/client"
-import { SIGNIN_USER_MUTATION, CURRENT_USER_QUERY } from "@/graphql"
+import { RESET_PASSWORD_MUTATION, CURRENT_USER_QUERY } from "@/graphql"
 import Link from "next/link"
 
 interface FormValues {
@@ -39,11 +40,12 @@ interface FormValues {
 }
 
 export const ResetForm = () => {
-  const [SignInUser] = useMutation(SIGNIN_USER_MUTATION, {
+  const [resetPassword] = useMutation(RESET_PASSWORD_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }]
   })
   const [showPassword, setShowPassword] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
   const router = useRouter()
 
   const onSubmit = async (
@@ -52,6 +54,18 @@ export const ResetForm = () => {
   ) => {
     // reset error message, if any
     setErrorMessage("")
+
+    // @ts-ignore
+    const { data } = await resetPassword({
+      variables: values
+    })
+
+    // success
+    if (data?.redeemUserPasswordResetToken === null) {
+      setSuccessMessage("Password successfully reset")
+    } else if (data?.redeemUserPasswordResetToken.message) {
+      setErrorMessage(data.redeemUserPasswordResetToken.message)
+    }
 
     actions.setSubmitting(false)
   }
@@ -70,9 +84,9 @@ export const ResetForm = () => {
       onSubmit={onSubmit}
       validationSchema={signInValidationSchema}
     >
-      {({ isSubmitting }: FormikProps<FormValues>) => (
+      {({ isSubmitting, values }: FormikProps<FormValues>) => (
         <Form>
-          {hasToken && (
+          {hasToken && !successMessage ? (
             <Stack spacing="6">
               <Field name="email">
                 {({ field, form }: FieldProps<any, FormValues>) => (
@@ -152,10 +166,33 @@ export const ResetForm = () => {
                 Reset Password
               </Button>
             </Stack>
+          ) : (
+            <>
+              <Alert status="success" mt="2">
+                <AlertIcon />
+                {successMessage}
+              </Alert>
+              <Box mt="2" color={mode("blue.500", "gray.200")}>
+                <Link
+                  href={{
+                    pathname: "/signin",
+                    query: { email: values.email || "" }
+                  }}
+                >
+                  <Center cursor="pointer">Sign in</Center>
+                </Link>
+              </Box>
+            </>
+          )}
+          {errorMessage && (
+            <Alert status="error" mt="2">
+              <AlertIcon />
+              {errorMessage}
+            </Alert>
           )}
           {!hasToken && (
             <>
-              <Alert status="error">
+              <Alert status="error" mt="2">
                 <AlertIcon />
                 No token found. Please use link provided in email
               </Alert>

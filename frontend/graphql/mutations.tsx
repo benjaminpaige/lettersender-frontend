@@ -118,3 +118,20 @@ export const SEND_PASSWORD_RESET_LINK_MUTATION = gql`
     }
   }
 `
+
+export const RESET_PASSWORD_MUTATION = gql`
+  mutation RESET_PASSWORD_MUTATION(
+    $email: String!
+    $token: String!
+    $password: String!
+  ) {
+    redeemUserPasswordResetToken(
+      email: $email
+      token: $token
+      password: $password
+    ) {
+      code
+      message
+    }
+  }
+`
