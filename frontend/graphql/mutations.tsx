@@ -99,6 +99,7 @@ export const SIGNUP_USER_MUTATION = gql`
       }
     ) {
       id
+      email
     }
   }
 `

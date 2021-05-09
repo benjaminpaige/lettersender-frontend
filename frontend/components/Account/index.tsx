@@ -6,7 +6,6 @@ import { useUser } from "@/hooks"
 export const Account = () => {
   const { user, updateUser } = useUser()
 
-  console.log(user)
   return user ? (
     <Box
       bg={useColorModeValue("gray.50", "gray.800")}

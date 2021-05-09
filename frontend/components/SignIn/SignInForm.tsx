@@ -25,6 +25,7 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Text,
   Stack,
   useColorModeValue as mode
 } from "@chakra-ui/react"
@@ -35,8 +36,6 @@ interface FormValues {
   email: string
   password: string
 }
-
-const initialValues = { email: "", password: "" }
 
 export const SignInForm = () => {
   const [SignInUser] = useMutation(SIGNIN_USER_MUTATION, {
@@ -72,6 +71,12 @@ export const SignInForm = () => {
     actions.setSubmitting(false)
   }
 
+  // if coming from signup page user email query param as default email value
+  const initialValues = {
+    email: router?.query?.email ? router.query.email : "",
+    password: ""
+  }
+
   return (
     <Formik
       initialValues={initialValues}
@@ -81,6 +86,11 @@ export const SignInForm = () => {
       {({ isSubmitting }: FormikProps<FormValues>) => (
         <Form>
           <Stack spacing="6">
+            {router?.query?.created && (
+              <Text align="center" color="tomato">
+                Your account has been created, please sign in.
+              </Text>
+            )}
             <Field name="email">
               {({ field, form }: FieldProps<any, FormValues>) => (
                 <FormControl

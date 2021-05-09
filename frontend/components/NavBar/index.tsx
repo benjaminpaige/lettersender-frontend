@@ -19,7 +19,6 @@ export const NavBar = () => {
     signOut()
   }
 
-  console.log(user)
   return (
     <Box>
       <Box

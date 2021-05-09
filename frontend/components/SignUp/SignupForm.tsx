@@ -23,6 +23,7 @@ import {
 import { signUpValidationSchema } from "@/utils"
 import { useMutation } from "@apollo/client"
 import { SIGNUP_USER_MUTATION } from "@/graphql"
+import { Router, useRouter } from "next/router"
 
 type FormValues = {
   email: string
@@ -39,8 +40,9 @@ const initialValues = {
 }
 
 export const SignupForm = () => {
+  const router = useRouter()
   const [errorMessage, setErrorMessage] = useState("")
-  const [SignUpUser, { error }] = useMutation(SIGNUP_USER_MUTATION)
+  const [SignUpUser] = useMutation<any>(SIGNUP_USER_MUTATION)
   const onSubmit = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>
@@ -48,19 +50,26 @@ export const SignupForm = () => {
     // reset error message, if any
     setErrorMessage("")
 
-    const data = await SignUpUser({
+    const result = await SignUpUser({
       variables: values
     }).catch((e) => {
+      setErrorMessage("An Error Occured")
       console.log(e)
     })
 
-    console.log(data)
-    // if (errors) {
-    //   setErrorMessage("An Error Occured")
-    // }
+    // @ts-ignore
+    const email = result?.data?.createUser?.email
+    if (email) {
+      // if success send to signin page with email query param to autofill email and show message
+      router.push({
+        pathname: "/signin",
+        query: {
+          created: true,
+          email
+        }
+      })
+    }
 
-    console.log(error)
-    // console.log(data.createUser.id)
     actions.setSubmitting(false)
   }
 
@@ -76,7 +85,7 @@ export const SignupForm = () => {
             <Field name="firstName">
               {({ field, form }: FieldProps<any, FormValues>) => (
                 <FormControl
-                  id="lastName"
+                  id="firstName"
                   isInvalid={
                     Boolean(form.errors.firstName) && form.touched.firstName
                   }
