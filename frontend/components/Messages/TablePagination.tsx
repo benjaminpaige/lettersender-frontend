@@ -18,34 +18,36 @@ export const TablePagination = ({ page }: TablePaginationProps) => {
 
   if (loading || error) return null
 
-  const { count } = data._allMessagesMeta
+  const count = data?.authenticatedItem?._messagesMeta?.count
   const pageCount = Math.ceil(count / perPage)
 
-  const multipleMessages = count > 1
+  const multipleMessages = count > 1 || count === 0
   const multiplePages = pageCount > 1
 
   return (
-    <Flex align="center" justify="space-between">
-      <Text color={mode("gray.600", "gray.400")} fontSize="sm">
-        {`${count} message${multipleMessages ? "s" : ""}`}
-        {multiplePages
-          ? ` - Page ${page} of
+    count && (
+      <Flex align="center" justify="space-between">
+        <Text color={mode("gray.600", "gray.400")} fontSize="sm">
+          {`${count} message${multipleMessages ? "s" : ""}`}
+          {multiplePages
+            ? ` - Page ${page} of
         ${pageCount}`
-          : ""}
-      </Text>
-      <ButtonGroup variant="outline" size="sm">
-        {page !== 1 && (
-          <Link href={`/dashboard/messages/${page - 1}`}>
-            <Button rel="prev">Previous</Button>
-          </Link>
-        )}
+            : ""}
+        </Text>
+        <ButtonGroup variant="outline" size="sm">
+          {page !== 1 && (
+            <Link href={`/dashboard/messages/${page - 1}`}>
+              <Button rel="prev">Previous</Button>
+            </Link>
+          )}
 
-        <Link href={`/dashboard/messages/${page + 1}`}>
-          <Button rel="next" disabled={page === pageCount}>
-            Next
-          </Button>
-        </Link>
-      </ButtonGroup>
-    </Flex>
+          <Link href={`/dashboard/messages/${page + 1}`}>
+            <Button rel="next" disabled={page === pageCount}>
+              Next
+            </Button>
+          </Link>
+        </ButtonGroup>
+      </Flex>
+    )
   )
 }

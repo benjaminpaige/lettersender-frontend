@@ -30,7 +30,7 @@ export const TableContent = ({ messages }) => {
         </Tr>
       </Thead>
       <Tbody>
-        {messages.map((row, index) => (
+        {messages?.map((row, index) => (
           <Tr key={index}>
             {columns.map((column, index) => {
               const cell = row[column.accessor as keyof typeof row]

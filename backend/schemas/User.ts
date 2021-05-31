@@ -1,5 +1,11 @@
 import { list } from '@keystone-next/keystone/schema';
-import { text, password, checkbox, select } from '@keystone-next/fields';
+import {
+  text,
+  password,
+  checkbox,
+  select,
+  relationship,
+} from '@keystone-next/fields';
 
 export const User = list({
   // access:
@@ -25,6 +31,14 @@ export const User = list({
         { label: 'Deleted', value: 'DELETED' },
       ],
       defaultValue: 'ACTIVE',
+    }),
+    messages: relationship({
+      ref: 'Message.user',
+      many: true,
+      ui: {
+        createView: { fieldMode: 'hidden' },
+        itemView: { fieldMode: 'read' },
+      },
     }),
   },
 });

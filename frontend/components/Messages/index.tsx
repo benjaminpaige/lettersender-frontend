@@ -32,7 +32,7 @@ export const Messages = () => {
             Messages
           </Heading>
           <TableActions />
-          <TableContent messages={data.allMessages} />
+          <TableContent messages={data?.authenticatedItem?.messages} />
           <TablePagination page={page} />
         </Box>
       </Box>

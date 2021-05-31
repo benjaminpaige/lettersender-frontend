@@ -55,6 +55,9 @@ export const Message = list({
         },
       },
     }),
+    user: relationship({
+      ref: 'User.messages',
+    }),
     // just an example of a select option
     // status: select({
     //   options: [
