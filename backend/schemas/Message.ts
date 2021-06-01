@@ -2,8 +2,6 @@ import { relationship, select, text } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
 
 export const Message = list({
-  // TODO
-  // access:
   ui: {
     listView: {
       initialColumns: [
@@ -58,13 +56,5 @@ export const Message = list({
     user: relationship({
       ref: 'User.messages',
     }),
-    // just an example of a select option
-    // status: select({
-    //   options: [
-    //     { label: 'Draft', value: 'DRAFT' },
-    //     { label: 'Confirmed', value: 'CONFIRMED' },
-    //   ],
-    //   defaultValue: 'DRAFT',
-    // }),
   },
 });
