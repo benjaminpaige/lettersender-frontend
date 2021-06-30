@@ -24,7 +24,7 @@ export const MobileTopBar = () => {
       display={{ base: "flex", md: "none" }}
       borderBottomWidth="1px"
     >
-      <Logo h="6" iconColor="blue.600" />
+      <Logo />
       <IconButton
         onClick={onOpen}
         variant="unstyled"
@@ -47,7 +47,7 @@ export const MobileTopBar = () => {
           position="relative"
           maxW="64"
         >
-          <SideBar width="full" height="full" bg="inherit" border="0" />
+          <SideBar />
           <DrawerCloseButton
             bg="blue.500"
             _hover={{ bg: "blue.600" }}

@@ -25,7 +25,6 @@ export const Messages = () => {
       <Box
         maxW={{ base: "xl", md: "6xl" }}
         mx="auto"
-        // px={{ base: "none", md: "8" }}
       >
         <Box overflowX="auto">
           <Heading size="lg" mb="6">

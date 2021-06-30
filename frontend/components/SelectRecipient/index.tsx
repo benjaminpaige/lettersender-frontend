@@ -4,6 +4,7 @@ import PlacesAutocomplete, {
   geocodeByPlaceId,
   GeocoderAddressComponent
 } from "react-places-autocomplete"
+
 export const SelectRecipient = () => {
   const [address, setAddress] = useState("")
   const [address2, setAddress2] = useState("")
@@ -18,11 +19,9 @@ export const SelectRecipient = () => {
     setAddress(address)
   }
 
-  const handleSelect = (selected: any, placeId: string, suggestion: object) => {
+  const handleSelect = (selected: any, placeId: string) => {
     setAddress(selected)
-    geocodeByPlaceId(placeId)
-      .then(fillInAddress)
-      .catch((error) => console.error(error))
+    geocodeByPlaceId(placeId).then(fillInAddress).catch(console.error)
   }
 
   const handleError = (status, clearSuggestions) => {
@@ -93,7 +92,7 @@ export const SelectRecipient = () => {
         onError={handleError}
         shouldFetchSuggestions={address.length > 2}
       >
-        {({ getInputProps, suggestions, getSuggestionItemProps, getPlace }) => {
+        {({ getInputProps, suggestions, getSuggestionItemProps }) => {
           return (
             <Box maxW="md">
               <Box>
@@ -112,6 +111,7 @@ export const SelectRecipient = () => {
                   {suggestions.map((suggestion) => {
                     return (
                       <Text
+                        key={suggestion.formattedSuggestion.mainText}
                         my="2"
                         _hover={{ cursor: "pointer" }}
                         {...getSuggestionItemProps(suggestion)}
@@ -149,13 +149,19 @@ export const SelectRecipient = () => {
                       <Text fontSize="xs" mt="2" mb="1" pl="2">
                         State
                       </Text>
-                      <Input value={state} />
+                      <Input
+                        value={state}
+                        onChange={(e) => setLocality(e.target.value)}
+                      />
                     </Box>
                     <Box flex="1">
                       <Text fontSize="xs" mt="2" mb="1" pl="2">
                         Zipcode
                       </Text>
-                      <Input value={postcode} />
+                      <Input
+                        value={postcode}
+                        onChange={(e) => setPostcode(e.target.value)}
+                      />
                     </Box>
                   </Flex>
                 </>

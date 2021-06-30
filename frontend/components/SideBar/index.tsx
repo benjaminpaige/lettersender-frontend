@@ -26,7 +26,7 @@ export function SideBar() {
   }
   return (
     <Flex
-      w={240}
+      w="auto"
       h="100vh"
       direction="column"
       borderRightWidth="1px"
