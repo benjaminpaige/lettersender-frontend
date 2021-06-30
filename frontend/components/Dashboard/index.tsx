@@ -1,5 +1,14 @@
-import { Box, Stack, Button, Text, HStack, Heading } from "@chakra-ui/react"
+import {
+  Box,
+  Stack,
+  Button,
+  Text,
+  HStack,
+  Heading,
+  Textarea
+} from "@chakra-ui/react"
 import * as React from "react"
+import { SelectRecipient } from "../SelectRecipient"
 import { Step } from "./Step"
 import { StepContent } from "./StepContent"
 import { Steps } from "./Steps"
@@ -17,12 +26,7 @@ export const Dashboard = () => {
         <Step title="Select Recipient">
           <StepContent>
             <Stack shouldWrapChildren spacing="4">
-              <Text>
-                For each ad campaign that you create, you can control how much
-                you&apos;re willing to spend on clicks and conversions, which
-                networks and geographical locations you want your ads to show
-                on, and more.
-              </Text>
+              <SelectRecipient />
               <HStack>
                 <Button size="sm" variant="ghost" isDisabled>
                   Back
@@ -37,10 +41,7 @@ export const Dashboard = () => {
         <Step title="Add Message">
           <StepContent>
             <Stack shouldWrapChildren spacing="4">
-              <Text>
-                An ad group contains one or more ads which target a shared set
-                of keywords.
-              </Text>
+              <Textarea />
               <HStack>
                 <Button size="sm" onClick={prevStep} variant="ghost">
                   Back
