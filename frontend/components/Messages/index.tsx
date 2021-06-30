@@ -21,11 +21,11 @@ export const Messages = () => {
 
   if (loading) return <Loading />
   return (
-    <Box as="section" p="12">
+    <Box as="section" p={{ base: "4", md: "8" }}>
       <Box
         maxW={{ base: "xl", md: "6xl" }}
         mx="auto"
-        px={{ base: "6", md: "8" }}
+        // px={{ base: "none", md: "8" }}
       >
         <Box overflowX="auto">
           <Heading size="lg" mb="6">

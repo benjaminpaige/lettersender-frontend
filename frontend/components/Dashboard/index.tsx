@@ -18,7 +18,7 @@ export const Dashboard = () => {
   const { nextStep, prevStep, reset, activeStep } = useSteps({ initialStep: 0 })
 
   return (
-    <Box mx="auto" maxW="2xl" py="10" px={{ base: "6", md: "8" }} minH="400px">
+    <Box mx="auto" maxW="2xl" py="4" px={{ base: "6", md: "8" }} minH="400px">
       <Heading as="h2" my="8">
         Quick Send
       </Heading>

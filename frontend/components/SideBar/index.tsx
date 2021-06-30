@@ -12,18 +12,9 @@ import {
 import { BsLayoutTextWindowReverse } from "react-icons/bs"
 import { NavLink } from "./NavLink"
 import { Logo } from "../Logo"
-import { SideBarIcon } from "./SideBarIcon"
 import { useRouter } from "next/router"
 
-interface SideBarProps {
-  sideBarCollapsed: boolean
-  toggleSideBar: () => void
-}
-
-export default function SideBar({
-  toggleSideBar,
-  sideBarCollapsed
-}: SideBarProps) {
+export function SideBar() {
   const router = useRouter()
   const [signOut] = useMutation(SIGNOUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }]
@@ -34,79 +25,62 @@ export default function SideBar({
     router.push("/")
   }
   return (
-    <>
-      <SlideFade reverse in={sideBarCollapsed}>
-        <SideBarIcon
-          sideBarCollapsed={sideBarCollapsed}
-          toggleSideBar={toggleSideBar}
-        />
-      </SlideFade>
-      <Box display={sideBarCollapsed ? "none" : "inherit"}>
-        <SlideFade reverse in={!sideBarCollapsed}>
-          <SideBarIcon
-            sideBarCollapsed={sideBarCollapsed}
-            toggleSideBar={toggleSideBar}
+    <Flex
+      w={240}
+      h="100vh"
+      direction="column"
+      borderRightWidth="1px"
+      px={6}
+      py={8}
+      transition={"1s"}
+    >
+      <Link href="/dashboard">
+        <Box style={{ cursor: "pointer" }} mb={8}>
+          <Logo />
+        </Box>
+      </Link>
+      <Stack spacing={6}>
+        <Stack>
+          <NavLink
+            isActive={router.pathname === "/dashboard"}
+            label="Dashboard"
+            icon={BsLayoutTextWindowReverse}
+            onClick={() => router.push("/dashboard")}
           />
-        </SlideFade>
-        <Flex
-          display={sideBarCollapsed ? "none" : "inherit"}
-          w={240}
-          h="100vh"
-          direction="column"
-          borderRightWidth="1px"
-          px={6}
-          py={8}
-          transition={"1s"}
-        >
-          <Link href="/dashboard">
-            <Box style={{ cursor: "pointer" }} mb={8}>
-              <Logo />
-            </Box>
-          </Link>
-          <Stack spacing={6}>
-            <Stack>
-              <NavLink
-                isActive={router.pathname === "/dashboard"}
-                label="Dashboard"
-                icon={BsLayoutTextWindowReverse}
-                onClick={() => router.push("/dashboard")}
-              />
-              <NavLink
-                isActive={router.pathname.startsWith("/dashboard/messages")}
-                label="Messages"
-                icon={FaRegPaperPlane}
-                onClick={() => router.push("/dashboard/messages")}
-              />
-              <NavLink
-                isActive={router.pathname.startsWith("/dashboard/orders")}
-                label="Orders"
-                icon={FaRegChartBar}
-                onClick={() => router.push("/dashboard/orders")}
-              />
-              <NavLink
-                isActive={router.pathname.startsWith("/dashboard/account")}
-                label="Account"
-                icon={FaUser}
-                onClick={() => router.push("/dashboard/account")}
-              />
-            </Stack>
-            <Divider />
-            <Stack>
-              <NavLink
-                isActive={router.pathname.startsWith("/dashboard/help")}
-                label="Help Center"
-                icon={FaRegQuestionCircle}
-                onClick={() => router.push("/dashboard/help")}
-              />
-              <NavLink
-                onClick={handleSignOut}
-                label="Log Out"
-                icon={FaSignOutAlt}
-              />
-            </Stack>
-          </Stack>
-        </Flex>
-      </Box>
-    </>
+          <NavLink
+            isActive={router.pathname.startsWith("/dashboard/messages")}
+            label="Messages"
+            icon={FaRegPaperPlane}
+            onClick={() => router.push("/dashboard/messages")}
+          />
+          <NavLink
+            isActive={router.pathname.startsWith("/dashboard/orders")}
+            label="Orders"
+            icon={FaRegChartBar}
+            onClick={() => router.push("/dashboard/orders")}
+          />
+          <NavLink
+            isActive={router.pathname.startsWith("/dashboard/account")}
+            label="Account"
+            icon={FaUser}
+            onClick={() => router.push("/dashboard/account")}
+          />
+        </Stack>
+        <Divider />
+        <Stack>
+          <NavLink
+            isActive={router.pathname.startsWith("/dashboard/help")}
+            label="Help Center"
+            icon={FaRegQuestionCircle}
+            onClick={() => router.push("/dashboard/help")}
+          />
+          <NavLink
+            onClick={handleSignOut}
+            label="Log Out"
+            icon={FaSignOutAlt}
+          />
+        </Stack>
+      </Stack>
+    </Flex>
   )
 }
