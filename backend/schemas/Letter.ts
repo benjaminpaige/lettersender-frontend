@@ -1,0 +1,55 @@
+import { relationship, text } from '@keystone-next/fields';
+import { list } from '@keystone-next/keystone/schema';
+
+export const Letter = list({
+  ui: {
+    listView: {
+      initialColumns: ['content', 'recipientName', 'addressLine1'],
+    },
+  },
+  fields: {
+    recipientName: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    addressLine1: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    addressLine2: text({
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    postcode: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    locality: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    state: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    content: text({
+      ui: {
+        displayMode: 'textarea',
+      },
+    }),
+    user: relationship({
+      ref: 'User.letters',
+    }),
+  },
+});

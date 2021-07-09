@@ -135,3 +135,54 @@ export const RESET_PASSWORD_MUTATION = gql`
     }
   }
 `
+export const CREATE_LETTER_MUTATION = gql`
+  mutation CREATE_LETTER_MUTATION(
+    $recipientName: String!
+    $addressLine1: String!
+    $addressLine2: String
+    $postcode: String!
+    $locality: String!
+    $state: String!
+  ) {
+    createLetter(
+      data: {
+        recipientName: $recipientName
+        addressLine1: $addressLine1
+        addressLine2: $addressLine2
+        postcode: $postcode
+        locality: $locality
+        state: $state
+      }
+    ) {
+      id
+    }
+  }
+`
+
+export const UPDATE_LETTER_MUTATION = gql`
+  mutation UPDATE_LETTER_MUTATION(
+    $id: ID!
+    $content: String
+    $recipientName: String!
+    $addressLine1: String!
+    $addressLine2: String
+    $postcode: String!
+    $locality: String!
+    $state: String!
+  ) {
+    updateLetter(
+      id: $id
+      data: {
+        content: $content
+        recipientName: $recipientName
+        addressLine1: $addressLine1
+        addressLine2: $addressLine2
+        postcode: $postcode
+        locality: $locality
+        state: $state
+      }
+    ) {
+      id
+    }
+  }
+`

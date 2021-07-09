@@ -5,22 +5,26 @@ import PlacesAutocomplete, {
   GeocoderAddressComponent
 } from "react-places-autocomplete"
 
-export const SelectRecipient = () => {
-  const [address, setAddress] = useState("")
-  const [address2, setAddress2] = useState("")
-  const [postcode, setPostcode] = useState("")
-  const [locality, setLocality] = useState("")
-  const [state, setState] = useState("")
+const initialRecipient = {
+  address: "",
+  address2: "",
+  postcode: "",
+  locality: "",
+  state: ""
+}
+
+const useSelectRecipient = () => {
+  const [recipientName, setRecipientName] = useState(null)
+  const [recipient, setRecipient] = useState(initialRecipient)
   const [placeSelected, setPlaceSelected] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
   const address2ref = useRef()
 
   const handleChange = (address) => {
-    setAddress(address)
+    setRecipient({ ...recipient, address })
   }
 
   const handleSelect = (selected: any, placeId: string) => {
-    setAddress(selected)
     geocodeByPlaceId(placeId).then(fillInAddress).catch(console.error)
   }
 
@@ -64,18 +68,18 @@ export const SelectRecipient = () => {
         }
 
         case "locality":
-          setLocality(component.long_name)
+          setRecipient((prev) => ({ ...prev, locality: component.long_name }))
           break
 
         case "administrative_area_level_1": {
-          setState(component.short_name)
+          setRecipient((prev) => ({ ...prev, state: component.short_name }))
           break
         }
       }
     }
 
-    setAddress(address1Value)
-    setPostcode(postcodeValue)
+    setRecipient((prev) => ({ ...prev, address: address1Value }))
+    setRecipient((prev) => ({ ...prev, postcode: postcodeValue }))
 
     if (address2ref.current) {
       // @ts-ignore
@@ -83,94 +87,138 @@ export const SelectRecipient = () => {
     }
   }
 
-  return (
-    <Box>
-      <PlacesAutocomplete
-        onChange={handleChange}
-        value={address}
-        onSelect={handleSelect}
-        onError={handleError}
-        shouldFetchSuggestions={address.length > 2}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps }) => {
-          return (
-            <Box maxW="md">
-              <Box>
-                <Text fontSize="xs" pl="2" mb="1">
-                  {placeSelected ? "Address Line 1" : "Address"}
+  return {
+    handleError,
+    handleChange,
+    handleSelect,
+    recipient,
+    placeSelected,
+    errorMessage,
+    address2ref,
+    setRecipient,
+    recipientName,
+    setRecipientName
+  }
+}
+
+const Component = ({
+  handleChange,
+  recipient,
+  handleSelect,
+  handleError,
+  placeSelected,
+  address2ref,
+  setRecipient,
+  errorMessage,
+  recipientName,
+  setRecipientName
+}) => (
+  <Box>
+    <PlacesAutocomplete
+      onChange={handleChange}
+      value={recipient.address}
+      onSelect={handleSelect}
+      onError={handleError}
+      shouldFetchSuggestions={recipient.address.length > 2}
+    >
+      {({ getInputProps, suggestions, getSuggestionItemProps }) => {
+        return (
+          <Box maxW="md">
+            <Box>
+            <Text fontSize="xs" mb="1" pl="2">
+                  Recipient Name
                 </Text>
                 <Input
-                  {...getInputProps({
-                    placeholder: "Search Places..."
-                  })}
-                  autoComplete="off"
+                  value={recipientName}
+                  onChange={(e) =>
+                    setRecipientName(e.target.value)
+                  }
                 />
-              </Box>
-              {suggestions.length > 0 && (
-                <Box>
-                  {suggestions.map((suggestion) => {
-                    return (
-                      <Text
-                        key={suggestion.formattedSuggestion.mainText}
-                        my="2"
-                        _hover={{ cursor: "pointer" }}
-                        {...getSuggestionItemProps(suggestion)}
-                      >
-                        <strong>
-                          {suggestion.formattedSuggestion.mainText}
-                        </strong>{" "}
-                        <small>
-                          {suggestion.formattedSuggestion.secondaryText}
-                        </small>
-                      </Text>
-                    )
-                  })}
-                </Box>
-              )}
-              {placeSelected && (
-                <>
-                  <Text fontSize="xs" mt="2" mb="1" pl="2">
-                    Apt/Unit #
-                  </Text>
-                  <Input
-                    value={address2}
-                    ref={address2ref}
-                    onChange={(e) => setAddress2(e.target.value)}
-                  />
-                  <Text fontSize="xs" mt="2" mb="1" pl="2">
-                    City
-                  </Text>
-                  <Input
-                    value={locality}
-                    onChange={(e) => setAddress2(e.target.value)}
-                  />
-                  <Flex direction="row">
-                    <Box flex="1" pr="3">
-                      <Text fontSize="xs" mt="2" mb="1" pl="2">
-                        State
-                      </Text>
-                      <Input
-                        value={state}
-                        onChange={(e) => setLocality(e.target.value)}
-                      />
-                    </Box>
-                    <Box flex="1">
-                      <Text fontSize="xs" mt="2" mb="1" pl="2">
-                        Zipcode
-                      </Text>
-                      <Input
-                        value={postcode}
-                        onChange={(e) => setPostcode(e.target.value)}
-                      />
-                    </Box>
-                  </Flex>
-                </>
-              )}
+              <Text fontSize="xs" mt="2" pl="2" mb="1">
+                {placeSelected ? "Address Line 1" : "Address"}
+              </Text>
+              <Input
+                {...getInputProps({
+                  placeholder: "Search Places..."
+                })}
+                autoComplete="off"
+              />
             </Box>
-          )
-        }}
-      </PlacesAutocomplete>
-      {errorMessage.length > 0 && <Text>{errorMessage}</Text>}
-    </Box>
-  )
-}
+            {suggestions.length > 0 && (
+              <Box>
+                {suggestions.map((suggestion) => {
+                  return (
+                    <Text
+                      key={suggestion.formattedSuggestion.mainText}
+                      my="2"
+                      _hover={{ cursor: "pointer" }}
+                      {...getSuggestionItemProps(suggestion)}
+                    >
+                      <strong>{suggestion.formattedSuggestion.mainText}</strong>{" "}
+                      <small>
+                        {suggestion.formattedSuggestion.secondaryText}
+                      </small>
+                    </Text>
+                  )
+                })}
+              </Box>
+            )}
+            {placeSelected && (
+              <>
+                <Text fontSize="xs" mt="2" mb="1" pl="2">
+                  Apt/Unit #
+                </Text>
+                <Input
+                  value={recipient.address2}
+                  ref={address2ref}
+                  onChange={(e) =>
+                    setRecipient({ ...recipient, address2: e.target.value })
+                  }
+                />
+                <Text fontSize="xs" mt="2" mb="1" pl="2">
+                  City
+                </Text>
+                <Input
+                  value={recipient.locality}
+                  onChange={(e) =>
+                    setRecipient({ ...recipient, locality: e.target.value })
+                  }
+                />
+                <Flex direction="row">
+                  <Box flex="1" pr="3">
+                    <Text fontSize="xs" mt="2" mb="1" pl="2">
+                      State
+                    </Text>
+                    <Input
+                      value={recipient.state}
+                      onChange={(e) =>
+                        setRecipient({ ...recipient, state: e.target.value })
+                      }
+                    />
+                  </Box>
+                  <Box flex="1">
+                    <Text fontSize="xs" mt="2" mb="1" pl="2">
+                      Zipcode
+                    </Text>
+                    <Input
+                      value={recipient.postcode}
+                      onChange={(e) =>
+                        setRecipient({
+                          ...recipient,
+                          postcode: e.target.value
+                        })
+                      }
+                    />
+                  </Box>
+                </Flex>
+              </>
+            )}
+          </Box>
+        )
+      }}
+    </PlacesAutocomplete>
+    {errorMessage.length > 0 && <Text>{errorMessage}</Text>}
+  </Box>
+)
+
+export { Component, useSelectRecipient }

@@ -8,8 +8,6 @@ import {
 } from '@keystone-next/fields';
 
 export const User = list({
-  // access:
-  // ui:
   ui: {
     listView: {
       initialColumns: ['email'],
@@ -40,5 +38,22 @@ export const User = list({
         itemView: { fieldMode: 'read' },
       },
     }),
+    letters: relationship({
+      ref: 'Letter.user',
+      many: true,
+      ui: {
+        createView: { fieldMode: 'hidden' },
+        itemView: { fieldMode: 'read' },
+      },
+    }),
+    cart: relationship({
+      ref: 'CartItem.user',
+      many: true,
+      ui: {
+        createView: { fieldMode: 'hidden' },
+        itemView: { fieldMode: 'read' },
+      },
+    }),
   },
+  label: 'email',
 });
