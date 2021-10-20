@@ -6,6 +6,7 @@ export const Letter = list({
     listView: {
       initialColumns: ['content', 'recipientName', 'addressLine1'],
     },
+    labelField: "recipientName"
   },
   fields: {
     recipientName: text({
@@ -55,4 +56,5 @@ export const Letter = list({
       }),
     }),
   },
+  label: 'recipientName'
 });

@@ -11,6 +11,7 @@ export const Message = list({
         'images',
       ],
     },
+    labelField: "recipientName"
   },
   fields: {
     recipientName: text({
