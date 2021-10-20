@@ -47,7 +47,7 @@ export const MobileTopBar = () => {
           position="relative"
           maxW="64"
         >
-          <SideBar />
+          <SideBar onClose={onClose}/>
           <DrawerCloseButton
             bg="blue.500"
             _hover={{ bg: "blue.600" }}

@@ -61,9 +61,6 @@ export const Dashboard = () => {
     
     const { data, errors } = await updateLetter({ variables }) as any
 
-    console.log({data})
-    console.log({errors})
-
     if (errors) {
       setErrors(errors[0].message)
     } else {

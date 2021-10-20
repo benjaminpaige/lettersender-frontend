@@ -3,9 +3,10 @@ import Link from "next/link"
 import { SIGNOUT_MUTATION, CURRENT_USER_QUERY } from "@/graphql"
 import { useMutation } from "@apollo/client"
 import {
-  FaRegChartBar,
-  FaRegPaperPlane,
-  FaRegQuestionCircle,
+  // FaRegChartBar,
+  // FaRegPaperPlane,
+  // FaRegQuestionCircle,
+  FaShoppingCart,
   FaUser,
   FaSignOutAlt
 } from "react-icons/fa"
@@ -14,7 +15,11 @@ import { NavLink } from "./NavLink"
 import { Logo } from "../Logo"
 import { useRouter } from "next/router"
 
-export function SideBar() {
+interface SidebarProps {
+  onClose: () => void
+}
+
+export function SideBar({ onClose }) {
   const router = useRouter()
   const [signOut] = useMutation(SIGNOUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }]
@@ -45,35 +50,44 @@ export function SideBar() {
             isActive={router.pathname === "/dashboard"}
             label="Dashboard"
             icon={BsLayoutTextWindowReverse}
-            onClick={() => router.push("/dashboard")}
+            onClick={() => {
+              router.push("/dashboard")
+              onClose ? onClose() : null
+            }}
           />
-          <NavLink
+          {/* <NavLink
             isActive={router.pathname.startsWith("/dashboard/messages")}
             label="Messages"
             icon={FaRegPaperPlane}
             onClick={() => router.push("/dashboard/messages")}
-          />
+          /> */}
           <NavLink
-            isActive={router.pathname.startsWith("/dashboard/orders")}
-            label="Orders"
-            icon={FaRegChartBar}
-            onClick={() => router.push("/dashboard/orders")}
+            isActive={router.pathname.startsWith("/dashboard/cart")}
+            label="Cart"
+            icon={FaShoppingCart}
+            onClick={() => {
+              router.push("/dashboard/cart")
+              onClose ? onClose() : null
+            }}
           />
           <NavLink
             isActive={router.pathname.startsWith("/dashboard/account")}
             label="Account"
             icon={FaUser}
-            onClick={() => router.push("/dashboard/account")}
+            onClick={() => {
+              router.push("/dashboard/account")
+              onClose ? onClose() : null
+            }}
           />
         </Stack>
         <Divider />
         <Stack>
-          <NavLink
+          {/* <NavLink
             isActive={router.pathname.startsWith("/dashboard/help")}
             label="Help Center"
             icon={FaRegQuestionCircle}
             onClick={() => router.push("/dashboard/help")}
-          />
+          /> */}
           <NavLink
             onClick={handleSignOut}
             label="Log Out"

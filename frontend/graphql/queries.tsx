@@ -61,6 +61,13 @@ export const CURRENT_USER_QUERY = gql`
         dateJoined
         allowMarketingTips
         allowMarketingUpdates
+        cart {
+          id
+          letter {
+            recipientName
+            addressLine1
+          }
+        }
       }
     }
   }
