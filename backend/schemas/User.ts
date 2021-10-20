@@ -41,18 +41,10 @@ export const User = list({
     letters: relationship({
       ref: 'Letter.user',
       many: true,
-      ui: {
-        createView: { fieldMode: 'hidden' },
-        itemView: { fieldMode: 'read' },
-      },
     }),
     cart: relationship({
       ref: 'CartItem.user',
       many: true,
-      ui: {
-        createView: { fieldMode: 'hidden' },
-        itemView: { fieldMode: 'read' },
-      },
     }),
   },
   label: 'email',

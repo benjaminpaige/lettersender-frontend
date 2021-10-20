@@ -50,6 +50,9 @@ export const Letter = list({
     }),
     user: relationship({
       ref: 'User.letters',
+      defaultValue: ({ context }) => ({
+        connect: { id: context.session.itemId },
+      }),
     }),
   },
 });
