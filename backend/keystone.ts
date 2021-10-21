@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { createAuth } from '@keystone-next/auth';
 import { config, createSchema } from '@keystone-next/keystone/schema';
+import { extendGraphqlSchema } from './mutations'
 import {
   withItemData,
   statelessSessions,
@@ -50,13 +51,14 @@ export default withAuth(
       // ADD data seeding here
     },
     lists: createSchema({
+      // Schema items here
       User,
       Message,
       MessageImage,
       Letter,
       CartItem,
-      // Schema items here
     }),
+    extendGraphqlSchema,
     ui: {
       // show the ui only for people who pass this test.
       // eslint-disable-next-line arrow-body-style

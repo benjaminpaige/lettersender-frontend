@@ -14,6 +14,7 @@ import { BsLayoutTextWindowReverse } from "react-icons/bs"
 import { NavLink } from "./NavLink"
 import { Logo } from "../Logo"
 import { useRouter } from "next/router"
+import { useUser } from "@/hooks"
 
 interface SidebarProps {
   onClose: () => void
@@ -21,6 +22,7 @@ interface SidebarProps {
 
 export function SideBar({ onClose }) {
   const router = useRouter()
+  const me = useUser()
   const [signOut] = useMutation(SIGNOUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }]
   })
@@ -63,7 +65,7 @@ export function SideBar({ onClose }) {
           /> */}
           <NavLink
             isActive={router.pathname.startsWith("/dashboard/cart")}
-            label="Cart"
+            label={`Cart ${me?.user?.cart.length ? `(${me.user.cart.length})` : "" }`}
             icon={FaShoppingCart}
             onClick={() => {
               router.push("/dashboard/cart")

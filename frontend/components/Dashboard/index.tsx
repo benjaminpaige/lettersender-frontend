@@ -14,7 +14,8 @@ import { Step } from "./Step"
 import { StepContent } from "./StepContent"
 import { Steps } from "./Steps"
 import { useSteps } from "./useSteps"
-import { CREATE_LETTER_MUTATION, UPDATE_LETTER_MUTATION } from '@/graphql'
+import { ADD_TO_CART_MUTATION, CREATE_LETTER_MUTATION, UPDATE_LETTER_MUTATION, CURRENT_USER_QUERY } from '@/graphql'
+import {useRouter} from "next/router"
 
 export const Dashboard = () => {
   const [createLetter] = useMutation(CREATE_LETTER_MUTATION)
@@ -22,8 +23,10 @@ export const Dashboard = () => {
   const [content, setContent] = useState('')
   const [errors, setErrors] = useState(null)
   const [id, setId] = useState('')
+  const [addToCart, {loading}] = useMutation(ADD_TO_CART_MUTATION)
   const { nextStep, prevStep, reset, activeStep } = useSteps({ initialStep: 0 })
   const selectRecipient = SelectRecipient.useSelectRecipient()
+  const router = useRouter()
 
   const handleCreateLetter = async () => {
 
@@ -69,6 +72,12 @@ export const Dashboard = () => {
     
   }
 
+  const handleAddToCart = () => {
+    addToCart({ variables: { id }, refetchQueries: [{query: CURRENT_USER_QUERY}]})
+      .then(() => router.push('/dashboard/cart'))
+      .catch(error => console.log(error))
+  }
+
   const handleNextStep = () => {
     if (!id) handleCreateLetter()
     if (id) handleUpdateLetter()
@@ -103,7 +112,10 @@ export const Dashboard = () => {
                 <Button size="sm" onClick={prevStep} variant="ghost">
                   Back
                 </Button>
-                <Button size="sm" onClick={handleNextStep}>
+                <Button size="sm" onClick={() => {
+                  
+                  handleNextStep()
+                }}>
                   Next
                 </Button>
               </HStack>
@@ -114,21 +126,21 @@ export const Dashboard = () => {
           <StepContent>
             <Stack shouldWrapChildren spacing="4">
               <Text>
-                This is where you would put the payment thingy.
+                Ready to send? Lets do this.
               </Text>
               <HStack>
                 <Button size="sm" onClick={prevStep} variant="ghost">
                   Back
                 </Button>
-                <Button size="sm" onClick={handleNextStep}>
-                  Finish
+                <Button size="sm" disabled={loading} onClick={handleAddToCart}>
+                  {loading ? "Adding Now" : "Add To Cart"}
                 </Button>
               </HStack>
             </Stack>
           </StepContent>
         </Step>
       </Steps>
-      <HStack
+      {/* <HStack
         display={activeStep === 3 ? "flex" : "none"}
         mt="10"
         spacing="4"
@@ -143,7 +155,7 @@ export const Dashboard = () => {
         >
           Reset
         </Button>
-      </HStack>
+      </HStack> */}
     </Box>
   )
 }

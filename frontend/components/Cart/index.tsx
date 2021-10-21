@@ -4,7 +4,7 @@ import * as Chakra from '@chakra-ui/react'
 
 const CartItem = ({cartItem}) => {
     return (
-        <Chakra.Flex py="2" px={{ base: "4", md: "8" }} border="1px" borderRadius="md" my="2"> 
+        <Chakra.Flex py="2" my="2" px={{ base: "4", md: "8" }} backgroundColor={Chakra.useColorModeValue("gray.100", "gray.600")} borderRadius="md"> 
             <Chakra.Box fontSize="small">
                 <Chakra.Text>{cartItem.letter.recipientName}</Chakra.Text>
                 <Chakra.Text>{cartItem.letter.addressLine1}</Chakra.Text>
@@ -13,7 +13,7 @@ const CartItem = ({cartItem}) => {
             </Chakra.Box>
             <Chakra.Spacer/>
             <Chakra.Box>
-                <Chakra.Button size="xs">
+                <Chakra.Button size="xs" variant="outline">
                     X
                 </Chakra.Button>
             </Chakra.Box>

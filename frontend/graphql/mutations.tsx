@@ -186,3 +186,12 @@ export const UPDATE_LETTER_MUTATION = gql`
     }
   }
 `
+
+export const ADD_TO_CART_MUTATION = gql`
+  mutation ADD_TO_CART ($id: ID!) {
+    addToCart(letterId: $id)
+    {
+      id
+    }
+  }
+`
