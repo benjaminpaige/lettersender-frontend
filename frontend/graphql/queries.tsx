@@ -66,6 +66,10 @@ export const CURRENT_USER_QUERY = gql`
           letter {
             recipientName
             addressLine1
+            addressLine2
+            postcode
+            locality
+            state
           }
         }
       }
