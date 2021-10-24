@@ -2,7 +2,7 @@ import { useUser } from '@/hooks/useUser'
 import * as Chakra from '@chakra-ui/react'
 import { REMOVE_FROM_CART_MUTATION } from '@/graphql'
 import { useMutation, Cache } from '@apollo/client'
-import { CheckoutForm } from '@/components/CheckoutForm'
+import { Checkout } from '@/components/Checkout'
 
 interface RemoveCartItemProps {
     cartItemId: string
@@ -64,7 +64,7 @@ const Cart = () => {
                         <Chakra.Spacer/>
                     <Chakra.Heading as="h3" size="md">${2*me.user.cart.length}</Chakra.Heading>
                     </Chakra.Flex>
-                    <CheckoutForm/>
+                    <Checkout/>
                 </Chakra.Box>)
                 :
                 <Chakra.Heading as="h3" size="md">No Items in Cart</Chakra.Heading>
