@@ -6,7 +6,7 @@ import {
   withItemData,
   statelessSessions,
 } from '@keystone-next/keystone/session';
-import { User, Message, MessageImage, Letter, CartItem } from './schemas';
+import { User, Message, MessageImage, Letter, CartItem, OrderItem, Order } from './schemas';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
 
@@ -57,6 +57,8 @@ export default withAuth(
       MessageImage,
       Letter,
       CartItem,
+      OrderItem,
+      Order
     }),
     extendGraphqlSchema,
     ui: {
