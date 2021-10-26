@@ -1,7 +1,6 @@
 import { KeystoneContext } from "@keystone-next/types"
 import { CartItemWhereInput, OrderCreateInput } from '../.keystone/schema-types'
 import { stripeConfig } from "../lib/stripe"
-import { Session } from "../types"
 
 const graphql = String.raw // IDE formatting hack
 
@@ -9,7 +8,7 @@ export const checkout = async (root: any, {token}: {token: string}, context: Key
     console.log('Checking Out!')
 
     // 1. make sure they are signed in
-    const session = context.session as Session
+    const session = context.session
     // session.itemId is basically the userId
     if (!session.itemId) throw new Error('You must be logged in to do create an order!')
 
