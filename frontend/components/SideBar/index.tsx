@@ -3,7 +3,7 @@ import Link from "next/link"
 import { SIGNOUT_MUTATION, CURRENT_USER_QUERY } from "@/graphql"
 import { useMutation } from "@apollo/client"
 import {
-  // FaRegChartBar,
+  FaRegChartBar,
   // FaRegPaperPlane,
   // FaRegQuestionCircle,
   FaShoppingCart,
@@ -57,12 +57,12 @@ export function SideBar({ onClose }) {
               onClose ? onClose() : null
             }}
           />
-          {/* <NavLink
-            isActive={router.pathname.startsWith("/dashboard/messages")}
-            label="Messages"
-            icon={FaRegPaperPlane}
-            onClick={() => router.push("/dashboard/messages")}
-          /> */}
+          <NavLink
+            isActive={router.pathname.startsWith("/dashboard/orders")}
+            label="Orders"
+            icon={FaRegChartBar}
+            onClick={() => router.push("/dashboard/orders")}
+          />
           <NavLink
             isActive={router.pathname.startsWith("/dashboard/cart")}
             label={`Cart ${me?.user?.cart.length ? `(${me.user.cart.length})` : "" }`}

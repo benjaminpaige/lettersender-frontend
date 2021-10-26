@@ -3,6 +3,7 @@ import * as Chakra from '@chakra-ui/react'
 import { REMOVE_FROM_CART_MUTATION } from '@/graphql'
 import { useMutation, Cache } from '@apollo/client'
 import { Checkout } from '@/components/Checkout'
+import { formatMoney } from '@/utils'
 
 interface RemoveCartItemProps {
     cartItemId: string
@@ -49,6 +50,7 @@ const CartItem = ({cartItem}) => {
 const Cart = () => {
     const me = useUser()
     if(!me.user) return null
+    const totalPrice = me.user.cart.reduce((total, cartItem) => total + cartItem.letter.price, 0)
 
     return (
         <Chakra.Box mx="auto" maxW="2xl" py="2" px={{ base: "4", md: "8" }} minH="400px">
@@ -62,7 +64,7 @@ const Cart = () => {
                     <Chakra.Flex py="2">
                         <Chakra.Heading as="h3" size="md">Total</Chakra.Heading>
                         <Chakra.Spacer/>
-                    <Chakra.Heading as="h3" size="md">${2*me.user.cart.length}</Chakra.Heading>
+                    <Chakra.Heading as="h3" size="md">{formatMoney(totalPrice)}</Chakra.Heading>
                     </Chakra.Flex>
                     <Checkout/>
                 </Chakra.Box>)
