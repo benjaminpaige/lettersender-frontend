@@ -5,12 +5,9 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 
-interface FieldGroupProps extends BoxProps {
-  title: string
-  description: string
-}
+import { µFieldGroup } from "./types"
 
-export const FieldGroup = (props: FieldGroupProps) => {
+export const FieldGroup: React.FC<µFieldGroup.Props> = (props) => {
   const { title, description, ...boxProps } = props
   return (
     <Box>

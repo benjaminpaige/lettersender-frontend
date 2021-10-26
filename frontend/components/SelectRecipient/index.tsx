@@ -1,9 +1,6 @@
 import { Box, Flex, Input, Text } from "@chakra-ui/react"
 import { useState, useRef } from "react"
-import PlacesAutocomplete, {
-  geocodeByPlaceId,
-  GeocoderAddressComponent
-} from "react-places-autocomplete"
+import PlacesAutocomplete, { geocodeByPlaceId } from "react-places-autocomplete"
 
 const initialRecipient = {
   address: "",
@@ -18,31 +15,31 @@ const useSelectRecipient = () => {
   const [recipient, setRecipient] = useState(initialRecipient)
   const [placeSelected, setPlaceSelected] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
-  const address2ref = useRef()
+  const address2ref = useRef<HTMLInputElement>()
 
-  const handleChange = (address) => {
+  const handleChange = (address: string) => {
     setRecipient({ ...recipient, address })
   }
 
   const handleSelect = (selected: any, placeId: string) => {
-    geocodeByPlaceId(placeId).then(fillInAddress).catch(console.error)
+    geocodeByPlaceId(placeId)
+      .then(([res]) => fillInAddress(res))
+      .catch()
   }
 
-  const handleError = (status, clearSuggestions) => {
-    console.log("Error from Google Maps API", status) // eslint-disable-line no-console
+  const handleError = (status: string, clearSuggestions: () => void) => {
+    console.error("Error from Google Maps API", status) // eslint-disable-line no-console
     setErrorMessage(status)
     clearSuggestions()
   }
 
-  const fillInAddress = (place) => {
+  const fillInAddress = (place: google.maps.GeocoderResult) => {
     setPlaceSelected(true)
     let address1Value
     let postcodeValue
 
-    for (const component of place[0]
-      .address_components as GeocoderAddressComponent[]) {
-      // @ts-ignore remove once typings fixed
-      const componentType = component.types[0]
+    for (const component of place.address_components) {
+      const [componentType] = component.types
 
       switch (componentType) {
         case "street_number": {
@@ -75,6 +72,9 @@ const useSelectRecipient = () => {
           setRecipient((prev) => ({ ...prev, state: component.short_name }))
           break
         }
+
+        default:
+          break
       }
     }
 
@@ -82,8 +82,8 @@ const useSelectRecipient = () => {
     setRecipient((prev) => ({ ...prev, postcode: postcodeValue }))
 
     if (address2ref.current) {
-      // @ts-ignore
-      address2ref.current.focus()
+      if (!address2ref.current) return
+      address2ref.current?.focus()
     }
   }
 
@@ -101,7 +101,7 @@ const useSelectRecipient = () => {
   }
 }
 
-const Component = ({
+const Component: React.FC<ReturnType<typeof useSelectRecipient>> = ({
   handleChange,
   recipient,
   handleSelect,
@@ -125,15 +125,13 @@ const Component = ({
         return (
           <Box maxW="md">
             <Box>
-            <Text fontSize="xs" mb="1" pl="2">
-                  Recipient Name
-                </Text>
-                <Input
-                  value={recipientName}
-                  onChange={(e) =>
-                    setRecipientName(e.target.value)
-                  }
-                />
+              <Text fontSize="xs" mb="1" pl="2">
+                Recipient Name
+              </Text>
+              <Input
+                value={recipientName}
+                onChange={(e) => setRecipientName(e.target.value)}
+              />
               <Text fontSize="xs" mt="2" pl="2" mb="1">
                 {placeSelected ? "Address Line 1" : "Address"}
               </Text>

@@ -1,8 +1,9 @@
-import { Button, Stack, StackProps, Text } from "@chakra-ui/react"
+import { Button, Stack, Text } from "@chakra-ui/react"
 import { Card } from "./Card"
 import { HeadingGroup } from "./HeadingGroup"
+import { µDangerZone } from "./types"
 
-export const DangerZone = (props: StackProps) => (
+export const DangerZone: React.FC<µDangerZone.Props> = (props) => (
   <Stack as="section" spacing="6" {...props}>
     <HeadingGroup
       title="Danger zone"

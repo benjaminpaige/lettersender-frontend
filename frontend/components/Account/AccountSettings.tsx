@@ -10,29 +10,19 @@ import {
   StackDivider,
   useColorMode
 } from "@chakra-ui/react"
-import { ChangeEvent } from "react"
 import { Card } from "./Card"
 import { FieldGroup } from "./FieldGroup"
 import { HeadingGroup } from "./HeadingGroup"
 import { CURRENT_USER_QUERY } from "@/graphql"
+import { µAccountSettings } from "./types"
 
-interface AccountSettingsProps {
-  user: {
-    id: string
-    firstName: string
-    lastName: string
-    email: string
-    dateJoined: string
-    darkMode: boolean
-    allowMarketingTips: boolean
-    allowMarketingUpdates: boolean
-  }
-  updateUser: (any) => void
-}
-
-export const AccountSettings = ({ user, updateUser }: AccountSettingsProps) => {
+export const AccountSettings: React.FC<µAccountSettings.Props> = ({
+  user,
+  updateUser
+}) => {
   const { toggleColorMode, colorMode } = useColorMode()
-  const handleSwitchChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+  const handleSwitchChange: µAccountSettings.HandleSwitchChange = (e) => {
     const data = { [e.target.name]: e.target.checked }
     const variables = { id: user.id, ...data }
     if (e.target.name === "darkMode") toggleColorMode()

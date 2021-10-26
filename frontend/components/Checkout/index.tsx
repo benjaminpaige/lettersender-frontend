@@ -7,7 +7,10 @@ import { Alert } from '@/components/Alert'
 import { useMutation } from '@apollo/client'
 import { CREATE_ORDER_MUTATION, CURRENT_USER_QUERY } from '@/graphql'
 import { useRouter } from 'next/router'
+import { µCheckoutForm } from './types'
 
+// TODO: discuss other ways to load stripe;
+// there may need to be a cancel subscription call;
 const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
 
 export const CheckoutForm = () => {
@@ -18,7 +21,7 @@ export const CheckoutForm = () => {
     const [checkout, {error: graphQLError}] = useMutation(CREATE_ORDER_MUTATION)
     const router = useRouter()
     
-    const handleSubmit = async (e) => {
+    const handleSubmit: µCheckoutForm.HandleSubmit = async (e) => {
         // Stop the form from submitting and turn the loader on
         e.preventDefault()
         setLoading(true)

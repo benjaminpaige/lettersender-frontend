@@ -3,10 +3,13 @@ import { useQuery, useMutation } from "@apollo/client"
 
 export const useUser = () => {
   const { data } = useQuery(CURRENT_USER_QUERY)
-  const [updateUser] = useMutation(UPDATE_USER_MUTATION)
+  const [updateUser] = useMutation<Schemas.User>(UPDATE_USER_MUTATION)
 
   return {
     user: data?.authenticatedItem,
     updateUser
   }
 }
+
+export type UseUser = typeof useUser
+export type UseUserReturn = ReturnType<UseUser>
