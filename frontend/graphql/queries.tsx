@@ -70,6 +70,7 @@ export const CURRENT_USER_QUERY = gql`
             postcode
             locality
             state
+            price
           }
         }
       }

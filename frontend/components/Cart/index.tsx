@@ -1,8 +1,9 @@
-import { useUser } from "@/hooks/useUser"
-import * as Chakra from "@chakra-ui/react"
-import { REMOVE_FROM_CART_MUTATION } from "@/graphql"
-import { useMutation, Cache } from "@apollo/client"
-import { Checkout } from "@/components/Checkout"
+import { useUser } from '@/hooks/useUser'
+import * as Chakra from '@chakra-ui/react'
+import { REMOVE_FROM_CART_MUTATION } from '@/graphql'
+import { useMutation, Cache } from '@apollo/client'
+import { Checkout } from '@/components/Checkout'
+import { formatMoney } from '@/utils'
 import { µCartItem, µRemoveCartItem } from "./types"
 
 const RemoveCartItem: React.FC<µRemoveCartItem.Props> = ({ cartItemId }) => {
@@ -57,42 +58,29 @@ const CartItem: React.FC<µCartItem.Props> = ({ cartItem }) => {
 }
 
 const Cart = () => {
-  const me = useUser()
-  if (!me.user) return null
+    const me = useUser()
+    if(!me.user) return null
+    const totalPrice = me.user.cart.reduce((total, cartItem) => total + cartItem.letter.price, 0)
 
-  return (
-    <Chakra.Box
-      mx="auto"
-      maxW="2xl"
-      py="2"
-      px={{ base: "4", md: "8" }}
-      minH="400px"
-    >
-      <Chakra.Heading as="h1" size="xl" my="8">
-        Cart
-      </Chakra.Heading>
-      {me.user.cart.map((cartItem) => {
-        return <CartItem key={cartItem.id} cartItem={cartItem} />
-      })}
-      {me.user.cart.length > 0 ? (
-        <Chakra.Box>
-          <Chakra.Divider py="2" />
-          <Chakra.Flex py="2">
-            <Chakra.Heading as="h3" size="md">
-              Total
-            </Chakra.Heading>
-            <Chakra.Spacer />
-            <Chakra.Heading as="h3" size="md">
-              ${2 * me.user.cart.length}
-            </Chakra.Heading>
-          </Chakra.Flex>
-          <Checkout />
-        </Chakra.Box>
-      ) : (
-        <Chakra.Heading as="h3" size="md">
-          No Items in Cart
-        </Chakra.Heading>
-      )}
+    return (
+        <Chakra.Box mx="auto" maxW="2xl" py="2" px={{ base: "4", md: "8" }} minH="400px">
+            <Chakra.Heading as="h1" size="xl" my="8">Cart</Chakra.Heading>
+            {me.user.cart.map(cartItem => {
+                return <CartItem key={cartItem.id} cartItem={cartItem}/>
+            })}
+            {me.user.cart.length > 0 ? (
+                <Chakra.Box>
+                    <Chakra.Divider py="2"/>
+                    <Chakra.Flex py="2">
+                        <Chakra.Heading as="h3" size="md">Total</Chakra.Heading>
+                        <Chakra.Spacer/>
+                    <Chakra.Heading as="h3" size="md">{formatMoney(totalPrice)}</Chakra.Heading>
+                    </Chakra.Flex>
+                    <Checkout/>
+                </Chakra.Box>)
+                :
+                <Chakra.Heading as="h3" size="md">No Items in Cart</Chakra.Heading>
+            }
     </Chakra.Box>
   )
 }

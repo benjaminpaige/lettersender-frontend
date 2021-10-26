@@ -1,4 +1,4 @@
-import { relationship, text } from '@keystone-next/fields';
+import { integer, relationship, text } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
 
 export const OrderItem = list({
@@ -45,6 +45,9 @@ export const OrderItem = list({
       ui: {
         displayMode: 'input',
       },
+    }),
+    price: integer({
+      isRequired: true
     }),
     content: text({
       ui: {

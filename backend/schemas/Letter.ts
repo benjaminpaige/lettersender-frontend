@@ -1,4 +1,4 @@
-import { relationship, text } from '@keystone-next/fields';
+import { relationship, text, integer } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
 
 export const Letter = list({
@@ -49,6 +49,7 @@ export const Letter = list({
         displayMode: 'textarea',
       },
     }),
+    price: integer({ defaultValue: 200 }), // not an ideal way of pricing things
     user: relationship({
       ref: 'User.letters',
       defaultValue: ({ context }) => ({
