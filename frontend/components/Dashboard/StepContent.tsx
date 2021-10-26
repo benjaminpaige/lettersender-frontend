@@ -1,6 +1,7 @@
 import { Box, BoxProps, useColorModeValue } from '@chakra-ui/react'
 import * as React from 'react'
 import { useStep } from './useStep'
+import {µStepContent} from './types'
 
 export const StepContent = (props: BoxProps) => {
   const { isLastStep } = useStep()

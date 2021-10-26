@@ -4,7 +4,10 @@ import { loadStripe, StripeError } from '@stripe/stripe-js'
 import { useState } from 'react'
 import NProgress from "nprogress"
 import { Alert } from '@/components/Alert'
+import { µCheckoutForm } from './types'
 
+// TODO: discuss other ways to load stripe;
+// there may need to be a cancel subscription call;
 const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
 
 export const CheckoutForm = () => {
@@ -13,7 +16,7 @@ export const CheckoutForm = () => {
     const stripe = useStripe()
     const elements = useElements()
     
-    const handleSubmit = async (e) => {
+    const handleSubmit: µCheckoutForm.HandleSubmit = async (e) => {
         // Stop the form from submitting and turn the loader on
         e.preventDefault()
         setLoading(true)
