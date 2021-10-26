@@ -7,40 +7,44 @@ import {
   Heading,
   Textarea
 } from "@chakra-ui/react"
-import { useState } from 'react'
+import { useState } from "react"
 import * as SelectRecipient from "../SelectRecipient"
 import { useMutation } from "@apollo/client"
 import { Step } from "./Step"
 import { StepContent } from "./StepContent"
 import { Steps } from "./Steps"
 import { useSteps } from "./useSteps"
-import { ADD_TO_CART_MUTATION, CREATE_LETTER_MUTATION, UPDATE_LETTER_MUTATION, CURRENT_USER_QUERY } from '@/graphql'
-import {useRouter} from "next/router"
+import {
+  ADD_TO_CART_MUTATION,
+  CREATE_LETTER_MUTATION,
+  UPDATE_LETTER_MUTATION,
+  CURRENT_USER_QUERY
+} from "@/graphql"
+import { useRouter } from "next/router"
 
 export const Dashboard = () => {
-  const [createLetter] = useMutation(CREATE_LETTER_MUTATION)
-  const [updateLetter] = useMutation(UPDATE_LETTER_MUTATION)
-  const [content, setContent] = useState('')
+  const [createLetter] = useMutation<Schemas.Letter>(CREATE_LETTER_MUTATION)
+  const [updateLetter] = useMutation<Schemas.Letter>(UPDATE_LETTER_MUTATION)
+  const [content, setContent] = useState("")
   const [errors, setErrors] = useState(null)
-  const [id, setId] = useState('')
-  const [addToCart, {loading}] = useMutation(ADD_TO_CART_MUTATION)
+  const [id, setId] = useState("")
+  const [addToCart, { loading }] = useMutation(ADD_TO_CART_MUTATION)
   const { nextStep, prevStep, reset, activeStep } = useSteps({ initialStep: 0 })
   const selectRecipient = SelectRecipient.useSelectRecipient()
   const router = useRouter()
 
   const handleCreateLetter = async () => {
-
     const variables = {
       recipientName: selectRecipient.recipientName,
       addressLine1: selectRecipient.recipient.address,
       addressLine2: selectRecipient.recipient.address2,
       postcode: selectRecipient.recipient.postcode,
       locality: selectRecipient.recipient.locality,
-      state: selectRecipient.recipient.state,
+      state: selectRecipient.recipient.state
     }
-    
-    const { data, errors } = await createLetter({ variables }) as any
-    
+
+    const { data, errors } = (await createLetter({ variables })) as any
+
     if (errors) {
       setErrors(errors[0].message)
     } else {
@@ -48,9 +52,8 @@ export const Dashboard = () => {
       nextStep()
     }
   }
-  
+
   const handleUpdateLetter = async () => {
-    
     const variables = {
       id,
       recipientName: selectRecipient.recipientName,
@@ -61,21 +64,23 @@ export const Dashboard = () => {
       state: selectRecipient.recipient.state,
       content: content
     }
-    
-    const { data, errors } = await updateLetter({ variables }) as any
+
+    const { data, errors } = (await updateLetter({ variables })) as any
 
     if (errors) {
       setErrors(errors[0].message)
     } else {
       nextStep()
     }
-    
   }
 
   const handleAddToCart = () => {
-    addToCart({ variables: { id }, refetchQueries: [{query: CURRENT_USER_QUERY}]})
-      .then(() => router.push('/dashboard/cart'))
-      .catch(error => console.log(error))
+    addToCart({
+      variables: { id },
+      refetchQueries: [{ query: CURRENT_USER_QUERY }]
+    })
+      .then(() => router.push("/dashboard/cart"))
+      .catch((error) => setErrors(error.message))
   }
 
   const handleNextStep = () => {
@@ -107,15 +112,15 @@ export const Dashboard = () => {
         <Step title="Add Message">
           <StepContent>
             <Stack shouldWrapChildren spacing="4">
-              <Textarea value={content} onChange={e => setContent(e.target.value)}/>
+              <Textarea
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
               <HStack>
                 <Button size="sm" onClick={prevStep} variant="ghost">
                   Back
                 </Button>
-                <Button size="sm" onClick={() => {
-                  
-                  handleNextStep()
-                }}>
+                <Button size="sm" onClick={handleNextStep}>
                   Next
                 </Button>
               </HStack>
@@ -125,9 +130,7 @@ export const Dashboard = () => {
         <Step title="Pay and Send">
           <StepContent>
             <Stack shouldWrapChildren spacing="4">
-              <Text>
-                Ready to send? Lets do this.
-              </Text>
+              <Text>Ready to send? Lets do this.</Text>
               <HStack>
                 <Button size="sm" onClick={prevStep} variant="ghost">
                   Back

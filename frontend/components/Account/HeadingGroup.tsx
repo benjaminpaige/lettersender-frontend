@@ -5,13 +5,9 @@ import {
   Text,
   useColorModeValue
 } from "@chakra-ui/react"
+import { µHeadingGroup } from "./types"
 
-interface HeadingGroupProps extends StackProps {
-  title: string
-  description: string
-}
-
-export const HeadingGroup = (props: HeadingGroupProps) => {
+export const HeadingGroup: React.FC<µHeadingGroup.Props> = (props) => {
   const { title, description, ...stackProps } = props
   return (
     <Stack spacing="1" {...stackProps}>

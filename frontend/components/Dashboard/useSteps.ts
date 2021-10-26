@@ -1,15 +1,11 @@
-import { useState } from 'react'
+import { useState } from "react"
+import { µSteps } from "./types"
 
-interface Options {
-  initialStep: number
-}
-
-export const useSteps = (options: Options) => {
-  const { initialStep } = options
+export const useSteps = ({ initialStep }: µSteps.HookOptions) => {
   const [activeStep, setActiveStep] = useState(initialStep)
 
-  const nextStep = () => setActiveStep(activeStep + 1)
-  const prevStep = () => setActiveStep(activeStep - 1)
+  const nextStep = () => setActiveStep((state) => state + 1)
+  const prevStep = () => setActiveStep((state) => state - 1)
   const reset = () => setActiveStep(0)
 
   return { nextStep, prevStep, reset, activeStep }

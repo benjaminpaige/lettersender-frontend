@@ -1,11 +1,10 @@
-import { useContext } from 'react'
-import { StepContext } from './StepContext'
+import { useContext } from "react"
+import { StepContext } from "./StepContext"
 
 export const useStep = () => {
   const context = useContext(StepContext)
-  if (!context) {
-    throw Error('Wrap your step with `<Steps />`')
-  } else {
-    return context
-  }
+
+  if (!context) throw Error("Wrap your step with `<Steps />`")
+
+  return context
 }

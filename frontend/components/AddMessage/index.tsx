@@ -10,14 +10,7 @@ import {
   MESSAGES_PAGINATION_QUERY
 } from "@/graphql"
 import { addMessageValidationSchema } from "@/utils"
-
-const initialValues = {
-  content: "",
-  image: "",
-  recipientName: "",
-  recipientAddress: "",
-  status: "DRAFT"
-}
+import { çAddMessage } from "./constants"
 
 const AddMessage = () => {
   const [createMessage] = useMutation(CREATE_MESSAGE_MUTATION)
@@ -31,6 +24,7 @@ const AddMessage = () => {
     let variables = values
     if (values.image === "") delete variables.image
 
+    // can't find this errors value on Mutation cb
     const { data, errors } = await createMessage({
       variables,
       refetchQueries: [
@@ -53,7 +47,7 @@ const AddMessage = () => {
 
   return (
     <MessageForm
-      initialValues={initialValues}
+      initialValues={çAddMessage.initialValues}
       validationSchema={addMessageValidationSchema}
       onSubmit={onSubmit}
       fileInputRef={fileInputRef}
