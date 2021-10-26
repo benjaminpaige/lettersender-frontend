@@ -6,6 +6,27 @@
 declare module "google.maps"
 
 declare namespace Schemas {
+  declare interface OrderItem {
+    id: string;
+    recipientName: string
+    addressLine1: string
+    addressLine2?: string
+    postcode: string
+    locality: string
+    state: string
+    price: number
+    content: string
+    order: Order
+  }
+
+  declare interface Order {
+    id: string;
+    total: number
+    items: OrderItem[]
+    user: User
+    charge: string
+  }
+
   declare interface User {
     firstName: string
     lastName: string
@@ -15,6 +36,7 @@ declare namespace Schemas {
     darkMode: boolean
     allowMarketingTips: boolean
     allowMarketingUpdates: boolean
+    orders: Order[]
   }
 
   declare interface Letter {

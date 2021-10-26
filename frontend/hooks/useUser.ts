@@ -6,7 +6,7 @@ export const useUser = () => {
   const [updateUser] = useMutation<Schemas.User>(UPDATE_USER_MUTATION)
 
   return {
-    user: data?.authenticatedItem,
+    user: data?.authenticatedItem as Schemas.User,
     updateUser
   }
 }

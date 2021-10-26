@@ -1,3 +1,5 @@
+import { Orders } from '@/components/Orders'
+
 export default function OrdersPage() {
-  return <p>this is the orders page</p>
+  return <Orders />
 }

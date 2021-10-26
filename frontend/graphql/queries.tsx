@@ -73,6 +73,16 @@ export const CURRENT_USER_QUERY = gql`
             price
           }
         }
+        orders {
+          id
+          total
+          charge
+          items {
+            id
+            recipientName
+            price
+          }
+        }
       }
     }
   }
