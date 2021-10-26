@@ -1,8 +1,7 @@
 {
-  "name": "fire-mail-backend",
+  "name": "lettersender_backend",
   "version": "2.0.0",
   "private": true,
-  "author": "Wes Bos",
   "license": "MIT",
   "scripts": {
     "dev": "keystone-next",
