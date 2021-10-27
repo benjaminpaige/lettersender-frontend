@@ -21,12 +21,15 @@ import {
   CURRENT_USER_QUERY
 } from "@/graphql"
 import { useRouter } from "next/router"
+import { verifyMailingAddress } from "@/utils/address"
+import { Alert } from "../Alert"
 
 export const Dashboard = () => {
   const [createLetter] = useMutation<Schemas.Letter>(CREATE_LETTER_MUTATION)
   const [updateLetter] = useMutation<Schemas.Letter>(UPDATE_LETTER_MUTATION)
   const [content, setContent] = useState("")
   const [errors, setErrors] = useState(null)
+  const [mailingAddressError, setMailingAddressError] = useState(null)
   const [id, setId] = useState("")
   const [addToCart, { loading }] = useMutation(ADD_TO_CART_MUTATION)
   const { nextStep, prevStep, reset, activeStep } = useSteps({ initialStep: 0 })
@@ -83,9 +86,19 @@ export const Dashboard = () => {
       .catch((error) => setErrors(error.message))
   }
 
-  const handleNextStep = () => {
-    if (!id) handleCreateLetter()
-    if (id) handleUpdateLetter()
+  const handleNextStep = async () => {
+    try {
+      const verificationResponse = await verifyMailingAddress({...selectRecipient.recipient})
+      if(verificationResponse.data.status === 'verified') {
+        if (!id) handleCreateLetter()
+        if (id) handleUpdateLetter()
+      } else {
+        setMailingAddressError('Mailing address failed verification')
+      }
+    } catch(e) {
+      console.log(e)
+      setErrors('An Error Occured')
+    }
   }
 
   return (
@@ -106,6 +119,7 @@ export const Dashboard = () => {
                   Next
                 </Button>
               </HStack>
+              {mailingAddressError && <Alert message={mailingAddressError} maxW="md"/>}
             </Stack>
           </StepContent>
         </Step>

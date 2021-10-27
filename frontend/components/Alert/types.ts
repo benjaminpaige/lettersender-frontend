@@ -1,3 +1,5 @@
+import { AlertProps } from "@chakra-ui/react";
+
 export namespace µMisc {
   export enum AlertStatus {
     ERROR = "error",
@@ -8,7 +10,7 @@ export namespace µMisc {
 }
 
 export namespace µAlert {
-  export interface Props {
+  export interface Props extends AlertProps {
     message: string
     status?: µMisc.AlertStatus
   }

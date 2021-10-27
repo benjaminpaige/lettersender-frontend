@@ -2,6 +2,14 @@ import { Box, Flex, Input, Text } from "@chakra-ui/react"
 import { useState, useRef } from "react"
 import PlacesAutocomplete, { geocodeByPlaceId } from "react-places-autocomplete"
 
+export interface Recipient {
+  address: string
+  address2: string
+  postcode: string
+  locality: string
+  state: string
+}
+
 const initialRecipient = {
   address: "",
   address2: "",
@@ -12,7 +20,7 @@ const initialRecipient = {
 
 const useSelectRecipient = () => {
   const [recipientName, setRecipientName] = useState(null)
-  const [recipient, setRecipient] = useState(initialRecipient)
+  const [recipient, setRecipient] = useState<Recipient>(initialRecipient)
   const [placeSelected, setPlaceSelected] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
   const address2ref = useRef<HTMLInputElement>()
