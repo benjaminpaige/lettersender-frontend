@@ -1,5 +1,6 @@
 import { Box, Center, chakra, VisuallyHidden } from "@chakra-ui/react"
 import React from "react"
+import { µToggle } from "./types"
 
 const Bar = chakra("span", {
   baseStyle: {
@@ -15,8 +16,7 @@ const Bar = chakra("span", {
   }
 })
 
-const ToggleIcon = (props: { active: boolean }) => {
-  const { active } = props
+const ToggleIcon: React.FC<µToggle.IconProps> = ({ active }) => {
   return (
     <Box
       className="group"
@@ -41,13 +41,10 @@ const ToggleIcon = (props: { active: boolean }) => {
   )
 }
 
-interface ToggleButtonProps {
-  isOpen: boolean
-  onClick(): void
-}
-
-export const ToggleButton = (props: ToggleButtonProps) => {
-  const { isOpen, onClick } = props
+export const ToggleButton: React.FC<µToggle.ButtonProps> = ({
+  isOpen,
+  onClick
+}) => {
   return (
     <Center
       marginStart="-6"

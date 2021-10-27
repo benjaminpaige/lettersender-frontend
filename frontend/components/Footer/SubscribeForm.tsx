@@ -1,15 +1,15 @@
 import {
   Button,
   chakra,
-  HTMLChakraProps,
   Input,
   Stack,
   Text,
   useColorModeValue
 } from "@chakra-ui/react"
 import { FooterHeading } from "./FooterHeading"
+import { µSubscribeForm } from "./types"
 
-export const SubscribeForm = (props: HTMLChakraProps<"form">) => {
+export const SubscribeForm: React.FC<µSubscribeForm.Props> = (props) => {
   return (
     <chakra.form {...props} onSubmit={(e) => e.preventDefault()}>
       <Stack spacing="4">
