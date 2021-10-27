@@ -7,17 +7,12 @@ import {
   Text,
   useColorModeValue as mode
 } from "@chakra-ui/react"
+import { IconType } from "react-icons"
 import { FaChevronRight } from "react-icons/fa"
+import { µSubMenuItem } from "./types"
 
-interface SubmenuItemProps extends HTMLChakraProps<"a"> {
-  title: string
-  icon?: React.ReactElement
-  children: React.ReactNode
-  href: string
-}
-
-export const SubmenuItem = (props: SubmenuItemProps) => {
-  const { title, icon, children, href, ...rest } = props
+export const SubmenuItem: React.FC<µSubMenuItem.Props> = (props) => {
+  const { title, Icon, children, href, ...rest } = props
   return (
     <chakra.a
       className="group"
@@ -41,7 +36,7 @@ export const SubmenuItem = (props: SubmenuItemProps) => {
         fontSize="3xl"
         color={mode("blue.600", "blue.400")}
       >
-        {icon}
+        <Icon />
       </Center>
       <Box marginStart="3" as="dl">
         <HStack as="dt">

@@ -27,6 +27,11 @@ declare namespace Schemas {
     charge: string
   }
 
+  declare interface CartItem {
+    letter: Letter;
+    user: User;
+  }
+
   declare interface User {
     firstName: string
     lastName: string
@@ -35,8 +40,10 @@ declare namespace Schemas {
     dateJoined: string
     darkMode: boolean
     allowMarketingTips: boolean
-    allowMarketingUpdates: boolean
-    orders: Order[]
+    allowMarketingUpdates: boolean;
+    letters: Letter[];
+    cart: CartItem[];
+    orders: Order[];
   }
 
   declare interface Letter {

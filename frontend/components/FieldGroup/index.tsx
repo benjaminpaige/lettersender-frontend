@@ -1,10 +1,7 @@
 import { Box, Heading, Stack, StackProps } from "@chakra-ui/react"
+import { µFieldGroup } from "./types"
 
-interface FieldGroupProps extends StackProps {
-  title?: string
-}
-
-export const FieldGroup = (props: FieldGroupProps) => {
+export const FieldGroup: React.FC<µFieldGroup.Props> = (props) => {
   const { title, children, ...flexProps } = props
   return (
     <Stack

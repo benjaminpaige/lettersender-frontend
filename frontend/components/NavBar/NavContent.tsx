@@ -13,7 +13,7 @@ import { NavLink } from "./NavLink"
 import { NavMenu } from "./NavMenu"
 import { Submenu } from "./Submenu"
 import { ToggleButton } from "./ToggleButton"
-import { links } from "./_data"
+import { çNavBar } from "./constants"
 import { APP_NAME } from "../../config"
 
 interface NavContentProps extends FlexProps {
@@ -49,7 +49,7 @@ const MobileNavContext = ({
         </Box>
       </Flex>
       <NavMenu animate={isOpen ? "open" : "closed"}>
-        {links.map((link, idx) =>
+        {çNavBar.links.map((link, idx) =>
           link.children ? (
             <Submenu.Mobile key={idx} link={link} />
           ) : (
@@ -118,7 +118,7 @@ const DesktopNavContent = ({
         aria-label="Main Menu"
         listStyleType="none"
       >
-        {links.map((link, idx) => (
+        {çNavBar.links.map((link, idx) => (
           <Box as="li" key={idx} id={`nav__menuitem-${idx}`}>
             {link.children ? (
               <Submenu.Desktop link={link} />
