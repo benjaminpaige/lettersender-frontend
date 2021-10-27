@@ -4,12 +4,9 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 import { forwardRef } from "react"
+import { µNavLink } from "./types"
 
-interface NavLinkProps extends HTMLChakraProps<"a"> {
-  active?: boolean
-}
-
-const DesktopNavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
+const DesktopNavLink = forwardRef<HTMLAnchorElement, µNavLink.Props>(
   (props, ref) => {
     const { active, ...rest } = props
     return (
@@ -35,8 +32,10 @@ const DesktopNavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
 )
 DesktopNavLink.displayName = "DesktopNavLink"
 
-export const MobileNavLink = (props: NavLinkProps) => {
-  const { active, ...rest } = props
+export const MobileNavLink: React.FC<µNavLink.Props> = ({
+  active,
+  ...props
+}) => {
   return (
     <chakra.a
       aria-current={active ? "page" : undefined}
@@ -46,7 +45,7 @@ export const MobileNavLink = (props: NavLinkProps) => {
       height="14"
       fontWeight="semibold"
       borderBottomWidth="1px"
-      {...rest}
+      {...props}
     />
   )
 }

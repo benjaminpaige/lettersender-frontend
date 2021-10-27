@@ -1,16 +1,12 @@
 import { useNavMenu } from "@/hooks"
 import { Box, Collapse, SimpleGrid, useDisclosure } from "@chakra-ui/react"
 import { FaChevronDown } from "react-icons/fa"
-import { Link } from "./_data"
 import { NavLink } from "./NavLink"
 import { NavMenu } from "./NavMenu"
 import { SubmenuItem as DesktopMenuItem } from "./SubmenuItem"
+import { µSubMenu } from "./types"
 
-interface SubmenuProps {
-  link: Link
-}
-
-const DesktopSubmenu = (props: SubmenuProps) => {
+const DesktopSubmenu: React.FC<µSubMenu.Props> = (props) => {
   const { link } = props
   const { isOpen, getMenuProps, getTriggerProps } = useNavMenu()
   return (
@@ -36,7 +32,7 @@ const DesktopSubmenu = (props: SubmenuProps) => {
                 key={idx}
                 title={item.label}
                 href={item.href}
-                icon={item.icon}
+                Icon={item.Icon}
               >
                 {item.description}
               </DesktopMenuItem>
@@ -48,7 +44,7 @@ const DesktopSubmenu = (props: SubmenuProps) => {
   )
 }
 
-const MobileSubMenu = (props: SubmenuProps) => {
+const MobileSubMenu: React.FC<µSubMenu.Props> = (props) => {
   const { link } = props
   const { isOpen, onToggle } = useDisclosure()
 

@@ -1,12 +1,7 @@
 import { Box, Stack, Text, useColorModeValue as mode } from "@chakra-ui/react"
+import { µFeature } from "./types"
 
-interface FeatureProps {
-  title: string
-  children: string
-  icon: React.ReactElement
-}
-
-export const Feature = (props: FeatureProps) => {
+export const Feature: React.FC<µFeature.Props> = (props) => {
   const { title, children, icon } = props
   return (
     <Stack spacing="6" direction={{ base: "column", md: "row" }}>

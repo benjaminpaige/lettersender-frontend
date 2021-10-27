@@ -8,16 +8,15 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 import { ImQuotesLeft } from "react-icons/im"
+import { µTestimonial } from "./types"
 
-interface TestimonialProps {
-  image: string
-  name: string
-  role: string
-  children: React.ReactNode
-}
-
-export const Testimonial = (props: TestimonialProps) => {
-  const { image, name, role, children } = props
+export const Testimonial: React.FC<µTestimonial.Props> = ({
+  image,
+  name,
+  role,
+  children,
+  ...props
+}) => {
   return (
     <Stack
       as="blockquote"
