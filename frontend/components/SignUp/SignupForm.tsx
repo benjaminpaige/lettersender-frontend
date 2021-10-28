@@ -1,15 +1,15 @@
 import { useState } from "react"
 import {
-  Alert,
-  AlertIcon,
   Box,
   Button,
-  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
+  HStack,
+  Flex,
   Stack,
+  Spacer,
   useColorModeValue as mode
 } from "@chakra-ui/react"
 import {
@@ -23,7 +23,10 @@ import {
 import { signUpValidationSchema } from "@/utils"
 import { useMutation } from "@apollo/client"
 import { SIGNUP_USER_MUTATION } from "@/graphql"
-import { Router, useRouter } from "next/router"
+import { useRouter } from "next/router"
+import * as SelectRecipient from "@/components/SelectRecipient"
+import { Alert } from '@/components/Alert'
+import { verifyMailingAddress } from "@/utils/address"
 
 type FormValues = {
   email: string
@@ -43,7 +46,9 @@ export const SignupForm = () => {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState("")
   const [SignUpUser] = useMutation<any>(SIGNUP_USER_MUTATION)
-  const onSubmit = async (
+  const selectRecipient = SelectRecipient.useSelectRecipient()
+  const [loading, setLoading] = useState(false)
+  const handleSignUpUser = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
@@ -51,7 +56,7 @@ export const SignupForm = () => {
     setErrorMessage("")
 
     const result = await SignUpUser({
-      variables: values
+      variables: {...values, ...selectRecipient.recipient}
     }).catch((e) => {
       setErrorMessage("An Error Occured")
       console.log(e)
@@ -59,6 +64,7 @@ export const SignupForm = () => {
 
     // @ts-ignore
     const email = result?.data?.createUser?.email
+    setLoading(false)
     if (email) {
       // if success send to signin page with email query param to autofill email and show message
       router.push({
@@ -73,64 +79,87 @@ export const SignupForm = () => {
     actions.setSubmitting(false)
   }
 
+  const handleSubmit = async (
+    values: FormValues,
+    actions: FormikHelpers<FormValues>
+  ) => {
+    setLoading(true)
+    try {
+      const verificationResponse = await verifyMailingAddress({...selectRecipient.recipient})
+      if(verificationResponse.data.status === 'verified') {
+        handleSignUpUser(values, actions)
+      } else {
+        setErrorMessage('Mailing address failed verification')
+        setLoading(false)
+      }
+    } catch(e) {
+      console.log(e)
+      setErrorMessage('An Error Occured')
+      setLoading(false)
+    }
+  }
+
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       validationSchema={signUpValidationSchema}
     >
       {({ isSubmitting }: FormikProps<FormValues>) => (
         <Form>
           <Stack spacing="4">
-            <Field name="firstName">
-              {({ field, form }: FieldProps<any, FormValues>) => (
-                <FormControl
-                  id="firstName"
-                  isInvalid={
-                    Boolean(form.errors.firstName) && form.touched.firstName
-                  }
-                >
-                  <FormLabel mb={1}>First name</FormLabel>
-                  <Input
-                    {...field}
-                    autoComplete="given-name"
-                    onChange={(e) => {
-                      field.onChange(e)
-                      setErrorMessage("")
-                    }}
-                  />
-                  <FormErrorMessage>{form.errors.firstName}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-            <Field name="lastName">
-              {({ field, form }: FieldProps<any, FormValues>) => (
-                <FormControl
-                  id="lastName"
-                  isInvalid={
-                    Boolean(form.errors.lastName) && form.touched.lastName
-                  }
-                >
-                  <FormLabel mb={1}>Last name</FormLabel>
-                  <Input
-                    {...field}
-                    autoComplete="family-name"
-                    onChange={(e) => {
-                      field.onChange(e)
-                      setErrorMessage("")
-                    }}
-                  />
-                  <FormErrorMessage>{form.errors.lastName}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+            <HStack>
+                <Field name="firstName">
+                  {({ field, form }: FieldProps<any, FormValues>) => (
+                    <FormControl
+                      id="firstName"
+                      isInvalid={
+                        Boolean(form.errors.firstName) && form.touched.firstName
+                      }
+                    >
+                      <FormLabel fontSize="xs" mb="1" pl="2">First name</FormLabel>
+                      <Input
+                        {...field}
+                        autoComplete="given-name"
+                        onChange={(e) => {
+                          field.onChange(e)
+                          setErrorMessage("")
+                        }}
+                      />
+                      <FormErrorMessage>{form.errors.firstName}</FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
+                <Spacer />
+                <Field name="lastName">
+                  {({ field, form }: FieldProps<any, FormValues>) => (
+                    <FormControl
+                    id="lastName"
+                    isInvalid={
+                      Boolean(form.errors.lastName) && form.touched.lastName
+                    }
+                    >
+                      <FormLabel fontSize="xs" mb="1" pl="2">Last name</FormLabel>
+                      <Input
+                        {...field}
+                        autoComplete="family-name"
+                        onChange={(e) => {
+                          field.onChange(e)
+                          setErrorMessage("")
+                        }}
+                        />
+                      <FormErrorMessage>{form.errors.lastName}</FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
+              </HStack>
             <Field name="email">
               {({ field, form }) => (
                 <FormControl
                   id="email"
                   isInvalid={Boolean(form.errors.email) && form.touched.email}
                 >
-                  <FormLabel mb={1}>Email</FormLabel>
+                  <FormLabel fontSize="xs" mb="1" pl="2">Email</FormLabel>
                   <Input
                     type="email"
                     autoComplete="email"
@@ -153,16 +182,7 @@ export const SignupForm = () => {
                   }
                 >
                   <Flex align="baseline" justify="space-between">
-                    <FormLabel mb={1}>Password</FormLabel>
-                    <Box
-                      as="a"
-                      href="#"
-                      fontWeight="semibold"
-                      fontSize="sm"
-                      color={mode("blue.600", "blue.200")}
-                    >
-                      Forgot Password?
-                    </Box>
+                    <FormLabel fontSize="xs" mb="1" pl="2">Password</FormLabel>
                   </Flex>
                   <Input
                     type="password"
@@ -178,21 +198,20 @@ export const SignupForm = () => {
               )}
             </Field>
 
+            <SelectRecipient.Component {...selectRecipient} showReciepient={false}/>
+
             <Button
               type="submit"
               colorScheme="blue"
               size="lg"
               fontSize="md"
-              isLoading={isSubmitting}
+              isLoading={isSubmitting || loading}
               loadingText="Loading"
             >
               Create my account
             </Button>
             {errorMessage && (
-              <Alert status="error">
-                <AlertIcon />
-                {errorMessage}
-              </Alert>
+              <Alert message={errorMessage} />
             )}
           </Stack>
         </Form>

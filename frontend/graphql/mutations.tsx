@@ -89,6 +89,11 @@ export const SIGNUP_USER_MUTATION = gql`
     $password: String!
     $firstName: String!
     $lastName: String!
+    $address: String!
+    $address2: String
+    $postcode: String!
+    $locality: String!
+    $state: String!
   ) {
     createUser(
       data: {
@@ -96,6 +101,11 @@ export const SIGNUP_USER_MUTATION = gql`
         password: $password
         firstName: $firstName
         lastName: $lastName
+        addressLine1: $address
+        addressLine2: $address2
+        postcode: $postcode
+        locality: $locality
+        state: $state
       }
     ) {
       id

@@ -105,7 +105,8 @@ const useSelectRecipient = () => {
     address2ref,
     setRecipient,
     recipientName,
-    setRecipientName
+    setRecipientName,
+    showReciepient: true
   }
 }
 
@@ -119,7 +120,8 @@ const Component: React.FC<ReturnType<typeof useSelectRecipient>> = ({
   setRecipient,
   errorMessage,
   recipientName,
-  setRecipientName
+  setRecipientName,
+  showReciepient
 }) => (
   <Box>
     <PlacesAutocomplete
@@ -133,13 +135,15 @@ const Component: React.FC<ReturnType<typeof useSelectRecipient>> = ({
         return (
           <Box maxW="md">
             <Box>
-              <Text fontSize="xs" mb="1" pl="2">
-                Recipient Name
-              </Text>
-              <Input
-                value={recipientName}
-                onChange={(e) => setRecipientName(e.target.value)}
-              />
+              {showReciepient && <Box>
+                <Text fontSize="xs" mb="1" pl="2">
+                  Recipient Name
+                </Text>
+                <Input
+                  value={recipientName}
+                  onChange={(e) => setRecipientName(e.target.value)}
+                />
+              </Box>}
               <Text fontSize="xs" mt="2" pl="2" mb="1">
                 {placeSelected ? "Address Line 1" : "Address"}
               </Text>
