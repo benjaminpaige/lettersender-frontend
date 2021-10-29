@@ -17,6 +17,35 @@ export const User = list({
   fields: {
     firstName: text({ isRequired: true }),
     lastName: text({ isRequired: true }),
+    addressLine1: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    addressLine2: text({
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    postcode: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    locality: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    state: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
     email: text({ isRequired: true, isUnique: true }),
     password: password({ isRequired: true }),
     // todo add roles, cart and orders
