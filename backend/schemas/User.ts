@@ -49,7 +49,7 @@ export const User = list({
     password: password({ isRequired: true }),
     // todo add roles, cart and orders
     dateJoined: text(),
-    darkMode: checkbox({ defaultValue: false }),
+    darkMode: checkbox({ defaultValue: true }),
     allowMarketingTips: checkbox({ defaultValue: true }),
     allowMarketingUpdates: checkbox({ defaultValue: true }),
     status: select({
