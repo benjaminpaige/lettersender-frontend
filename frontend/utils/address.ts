@@ -1,6 +1,6 @@
-import { Recipient } from "@/components/SelectRecipient"
+import { MailingAddress } from "@/components/MailingAddress"
 
-export const verifyMailingAddress = (recipient: Recipient) => {
+export const verifyMailingAddress = (recipient: MailingAddress) => {
     return fetch('https://api.postgrid.com/v1/addver/verifications', {
         method: "post",
         headers: {

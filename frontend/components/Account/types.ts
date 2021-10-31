@@ -5,8 +5,7 @@ import { UseUserReturn } from "@/hooks"
 export namespace µMisc {
   export interface AccountUser {
     id: string
-    firstName: string
-    lastName: string
+    fullName: string
     email: string
     dateJoined: string
     darkMode: boolean

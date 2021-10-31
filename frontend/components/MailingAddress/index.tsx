@@ -2,7 +2,7 @@ import { Box, Flex, Input, Text } from "@chakra-ui/react"
 import { useState, useRef } from "react"
 import PlacesAutocomplete, { geocodeByPlaceId } from "react-places-autocomplete"
 
-export interface Recipient {
+export interface MailingAddress {
   address: string
   address2: string
   postcode: string
@@ -10,7 +10,7 @@ export interface Recipient {
   state: string
 }
 
-const initialRecipient = {
+const initialMainingAddresss = {
   address: "",
   address2: "",
   postcode: "",
@@ -18,15 +18,14 @@ const initialRecipient = {
   state: ""
 }
 
-const useSelectRecipient = () => {
-  const [recipientName, setRecipientName] = useState(null)
-  const [recipient, setRecipient] = useState<Recipient>(initialRecipient)
+const useSelectMailingAddress = () => {
+  const [mailingAddress, setMailingAddress] = useState<MailingAddress>(initialMainingAddresss)
   const [placeSelected, setPlaceSelected] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
   const address2ref = useRef<HTMLInputElement>()
 
   const handleChange = (address: string) => {
-    setRecipient({ ...recipient, address })
+    setMailingAddress({ ...mailingAddress, address })
   }
 
   const handleSelect = (selected: any, placeId: string) => {
@@ -73,11 +72,11 @@ const useSelectRecipient = () => {
         }
 
         case "locality":
-          setRecipient((prev) => ({ ...prev, locality: component.long_name }))
+          setMailingAddress((prev) => ({ ...prev, locality: component.long_name }))
           break
 
         case "administrative_area_level_1": {
-          setRecipient((prev) => ({ ...prev, state: component.short_name }))
+          setMailingAddress((prev) => ({ ...prev, state: component.short_name }))
           break
         }
 
@@ -86,8 +85,8 @@ const useSelectRecipient = () => {
       }
     }
 
-    setRecipient((prev) => ({ ...prev, address: address1Value }))
-    setRecipient((prev) => ({ ...prev, postcode: postcodeValue }))
+    setMailingAddress((prev) => ({ ...prev, address: address1Value }))
+    setMailingAddress((prev) => ({ ...prev, postcode: postcodeValue }))
 
     if (address2ref.current) {
       if (!address2ref.current) return
@@ -99,47 +98,36 @@ const useSelectRecipient = () => {
     handleError,
     handleChange,
     handleSelect,
-    recipient,
+    mailingAddress,
     placeSelected,
     errorMessage,
     address2ref,
-    setRecipient,
-    recipientName,
-    setRecipientName
+    setMailingAddress,
   }
 }
 
-const Component: React.FC<ReturnType<typeof useSelectRecipient>> = ({
+const Component: React.FC<ReturnType<typeof useSelectMailingAddress>> = ({
   handleChange,
-  recipient,
+  mailingAddress,
   handleSelect,
   handleError,
   placeSelected,
   address2ref,
-  setRecipient,
+  setMailingAddress,
   errorMessage,
-  recipientName,
-  setRecipientName
 }) => (
   <Box>
     <PlacesAutocomplete
       onChange={handleChange}
-      value={recipient.address}
+      value={mailingAddress.address}
       onSelect={handleSelect}
       onError={handleError}
-      shouldFetchSuggestions={recipient.address.length > 2}
+      shouldFetchSuggestions={mailingAddress.address.length > 2}
     >
       {({ getInputProps, suggestions, getSuggestionItemProps }) => {
         return (
           <Box maxW="md">
             <Box>
-              <Text fontSize="xs" mb="1" pl="2">
-                Recipient Name
-              </Text>
-              <Input
-                value={recipientName}
-                onChange={(e) => setRecipientName(e.target.value)}
-              />
               <Text fontSize="xs" mt="2" pl="2" mb="1">
                 {placeSelected ? "Address Line 1" : "Address"}
               </Text>
@@ -147,7 +135,8 @@ const Component: React.FC<ReturnType<typeof useSelectRecipient>> = ({
                 {...getInputProps({
                   placeholder: "Search Places..."
                 })}
-                autoComplete="off"
+                autoComplete="one-time-code"
+                aria-autocomplete="none"
               />
             </Box>
             {suggestions.length > 0 && (
@@ -157,6 +146,7 @@ const Component: React.FC<ReturnType<typeof useSelectRecipient>> = ({
                     <Text
                       key={suggestion.formattedSuggestion.mainText}
                       my="2"
+                      pl="4"
                       _hover={{ cursor: "pointer" }}
                       {...getSuggestionItemProps(suggestion)}
                     >
@@ -175,20 +165,22 @@ const Component: React.FC<ReturnType<typeof useSelectRecipient>> = ({
                   Apt/Unit #
                 </Text>
                 <Input
-                  value={recipient.address2}
+                  value={mailingAddress.address2}
                   ref={address2ref}
                   onChange={(e) =>
-                    setRecipient({ ...recipient, address2: e.target.value })
+                    setMailingAddress({ ...mailingAddress, address2: e.target.value })
                   }
+                  autoComplete="one-time-code"
                 />
                 <Text fontSize="xs" mt="2" mb="1" pl="2">
                   City
                 </Text>
                 <Input
-                  value={recipient.locality}
+                  value={mailingAddress.locality}
                   onChange={(e) =>
-                    setRecipient({ ...recipient, locality: e.target.value })
+                    setMailingAddress({ ...mailingAddress, locality: e.target.value })
                   }
+                  autoComplete="one-time-code"
                 />
                 <Flex direction="row">
                   <Box flex="1" pr="3">
@@ -196,10 +188,11 @@ const Component: React.FC<ReturnType<typeof useSelectRecipient>> = ({
                       State
                     </Text>
                     <Input
-                      value={recipient.state}
+                      value={mailingAddress.state}
                       onChange={(e) =>
-                        setRecipient({ ...recipient, state: e.target.value })
+                        setMailingAddress({ ...mailingAddress, state: e.target.value })
                       }
+                      autoComplete="one-time-code"
                     />
                   </Box>
                   <Box flex="1">
@@ -207,13 +200,14 @@ const Component: React.FC<ReturnType<typeof useSelectRecipient>> = ({
                       Zipcode
                     </Text>
                     <Input
-                      value={recipient.postcode}
+                      value={mailingAddress.postcode}
                       onChange={(e) =>
-                        setRecipient({
-                          ...recipient,
+                        setMailingAddress({
+                          ...mailingAddress,
                           postcode: e.target.value
                         })
                       }
+                      autoComplete="one-time-code"
                     />
                   </Box>
                 </Flex>
@@ -227,4 +221,4 @@ const Component: React.FC<ReturnType<typeof useSelectRecipient>> = ({
   </Box>
 )
 
-export { Component, useSelectRecipient }
+export { Component, useSelectMailingAddress }

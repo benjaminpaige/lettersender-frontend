@@ -1,17 +1,17 @@
 import {
   Box,
   Button,
+  Divider,
   Heading,
   Stack,
   Text,
   useColorModeValue as mode
 } from "@chakra-ui/react"
-import { FaFacebook, FaGoogle } from "react-icons/fa"
+// import { FaFacebook, FaGoogle } from "react-icons/fa"
 import { useRouter } from "next/router"
-import { DividerWithText } from "./DividerWithText"
+// import { DividerWithText } from "./DividerWithText"
 import Logo from "../Logo"
 import { SignupForm } from "./SignupForm"
-import { APP_NAME } from "@/config"
 
 export const SignUp: React.FC = () => {
   const router = useRouter()
@@ -23,7 +23,7 @@ export const SignUp: React.FC = () => {
         py={{ base: "10", md: "20" }}
         px={{ base: "4", md: "10" }}
       >
-        <Box w="full" maxW="xl" mx="auto">
+        <Box w="full" maxW="lg" mx="auto">
           <Box
             bg={{ md: mode("white", "gray.700") }}
             rounded={{ md: "2xl" }}
@@ -33,19 +33,16 @@ export const SignUp: React.FC = () => {
             shadow={{ md: "lg" }}
           >
             <Logo />
-            <Box mb="8" textAlign={{ base: "center", md: "start" }}>
-              <Heading size="lg" mb="2" fontWeight="extrabold">
-                Welcome to {APP_NAME}
-              </Heading>
-              <Text
-                fontSize="lg"
-                color={mode("gray.600", "gray.400")}
-                fontWeight="medium"
-              >
-                Enter your info to get started
-              </Text>
-            </Box>
-            <Stack spacing="4">
+            <Text
+              mt="2"
+              fontSize="lg"
+              color={mode("gray.600", "gray.400")}
+              fontWeight="medium"
+            >
+              Enter your info to get started
+            </Text>
+            <Divider my="4"/>
+            {/* <Stack spacing="4">
               <Button
                 variant="outline"
                 leftIcon={<Box as={FaGoogle} color="red.500" />}
@@ -65,7 +62,7 @@ export const SignUp: React.FC = () => {
               </Button>
             </Stack>
 
-            <DividerWithText>or</DividerWithText>
+            <DividerWithText>or</DividerWithText> */}
             <SignupForm />
           </Box>
 

@@ -33,12 +33,8 @@ export const signUpValidationSchema = yup.object({
     .string()
     .email("Invalid email address")
     .required("Email address required"),
-  firstName: yup
+  fullName: yup
     .string()
     .min(2, "Must be at least 2 characters")
     .required("Name required"),
-  lastName: yup
-    .string()
-    .min(2, "Must be at least 2 characters")
-    .required("Name required")
 })

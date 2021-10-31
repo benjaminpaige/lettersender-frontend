@@ -28,13 +28,13 @@ declare namespace Schemas {
   }
 
   declare interface CartItem {
+    id: ID!
     letter: Letter;
     user: User;
   }
 
   declare interface User {
-    firstName: string
-    lastName: string
+    fullName: string
     email: string
     password: string
     dateJoined: string
@@ -55,5 +55,6 @@ declare namespace Schemas {
     state: string
     content: string
     user: User
+    price: number
   }
 }

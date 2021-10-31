@@ -15,13 +15,41 @@ export const User = list({
     labelField: "email"
   },
   fields: {
-    firstName: text({ isRequired: true }),
-    lastName: text({ isRequired: true }),
+    fullName: text({ isRequired: true }),
+    addressLine1: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    addressLine2: text({
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    postcode: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    locality: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
+    state: text({
+      isRequired: true,
+      ui: {
+        displayMode: 'input',
+      },
+    }),
     email: text({ isRequired: true, isUnique: true }),
     password: password({ isRequired: true }),
     // todo add roles, cart and orders
     dateJoined: text(),
-    darkMode: checkbox({ defaultValue: false }),
+    darkMode: checkbox({ defaultValue: true }),
     allowMarketingTips: checkbox({ defaultValue: true }),
     allowMarketingUpdates: checkbox({ defaultValue: true }),
     status: select({
