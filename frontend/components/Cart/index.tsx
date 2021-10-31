@@ -36,24 +36,23 @@ const RemoveCartItem: React.FC<µRemoveCartItem.Props> = ({ cartItemId }) => {
 
 const CartItem: React.FC<µCartItem.Props> = ({ cartItem }) => {
   return (
+    <Chakra.Box>
     <Chakra.Flex
       py="2"
       my="2"
-      px="2"
-      backgroundColor={Chakra.useColorModeValue("gray.100", "gray.600")}
-      borderRadius="md"
     >
-      <Chakra.Box fontSize="small">
-        <Chakra.Text>{cartItem.letter.recipientName}</Chakra.Text>
-        <Chakra.Text>{cartItem.letter.addressLine1}</Chakra.Text>
-        <Chakra.Text>{cartItem.letter.addressLine2}</Chakra.Text>
-        <Chakra.Text>{`${cartItem.letter.locality} ${cartItem.letter.state} ${cartItem.letter.postcode}`}</Chakra.Text>
+      <Chakra.Box>
+        <Chakra.Text fontSize="small" fontWeight="bold">{cartItem.letter.recipientName}</Chakra.Text>
+        <Chakra.Text fontSize="xs">{cartItem.letter.addressLine1}</Chakra.Text>
+        <Chakra.Text fontSize="xs">{cartItem.letter.addressLine2}</Chakra.Text>
+        <Chakra.Text fontSize="xs">{`${cartItem.letter.locality} ${cartItem.letter.state} ${cartItem.letter.postcode}`}</Chakra.Text>
       </Chakra.Box>
       <Chakra.Spacer />
       <Chakra.Box>
         <RemoveCartItem cartItemId={cartItem.id} />
       </Chakra.Box>
     </Chakra.Flex>
+    </Chakra.Box>
   )
 }
 
@@ -69,17 +68,17 @@ const Cart = () => {
                 return <CartItem key={cartItem.id} cartItem={cartItem}/>
             })}
             {me.user.cart.length > 0 ? (
-                <Chakra.Box>
-                    <Chakra.Divider py="2"/>
-                    <Chakra.Flex py="2">
-                        <Chakra.Heading as="h3" size="md">Total</Chakra.Heading>
-                        <Chakra.Spacer/>
-                    <Chakra.Heading as="h3" size="md">{formatMoney(totalPrice)}</Chakra.Heading>
-                    </Chakra.Flex>
-                    <Checkout/>
-                </Chakra.Box>)
-                :
-                <Chakra.Heading as="h3" size="md">No Items in Cart</Chakra.Heading>
+              <Chakra.Box>
+                  <Chakra.Divider py="2"/>
+                  <Chakra.Flex py="2">
+                      <Chakra.Heading as="h3" size="md">Total</Chakra.Heading>
+                      <Chakra.Spacer/>
+                  <Chakra.Heading as="h3" size="md">{formatMoney(totalPrice)}</Chakra.Heading>
+                  </Chakra.Flex>
+                  <Checkout/>
+              </Chakra.Box>)
+              :
+              <Chakra.Heading as="h3" size="md">No Items in Cart</Chakra.Heading>
             }
     </Chakra.Box>
   )

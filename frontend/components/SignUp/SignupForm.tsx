@@ -24,7 +24,7 @@ import { signUpValidationSchema } from "@/utils"
 import { useMutation } from "@apollo/client"
 import { SIGNUP_USER_MUTATION } from "@/graphql"
 import { useRouter } from "next/router"
-import * as SelectRecipient from "@/components/SelectRecipient"
+import * as MailingAddress from "@/components/MailingAddress"
 import { Alert } from '@/components/Alert'
 import { verifyMailingAddress } from "@/utils/address"
 
@@ -44,7 +44,7 @@ export const SignupForm = () => {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState("")
   const [SignUpUser] = useMutation<any>(SIGNUP_USER_MUTATION)
-  const selectRecipient = SelectRecipient.useSelectRecipient()
+  const recipient = MailingAddress.useSelectMailingAddress()
   const [loading, setLoading] = useState(false)
   const handleSignUpUser = async (
     values: FormValues,
@@ -54,7 +54,7 @@ export const SignupForm = () => {
     setErrorMessage("")
 
     const result = await SignUpUser({
-      variables: {...values, ...selectRecipient.recipient}
+      variables: {...values, ...recipient.mailingAddress}
     }).catch((e) => {
       setErrorMessage("An Error Occured")
       console.log(e)
@@ -83,7 +83,7 @@ export const SignupForm = () => {
   ) => {
     setLoading(true)
     try {
-      const verificationResponse = await verifyMailingAddress({...selectRecipient.recipient})
+      const verificationResponse = await verifyMailingAddress({...recipient.mailingAddress})
       if(verificationResponse.data.status === 'verified') {
         handleSignUpUser(values, actions)
       } else {
@@ -172,7 +172,7 @@ export const SignupForm = () => {
               )}
             </Field>
 
-            <SelectRecipient.Component {...selectRecipient} showReciepient={false}/>
+            <MailingAddress.Component {...recipient}/>
 
             <Button
               type="submit"

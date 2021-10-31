@@ -5,10 +5,11 @@ import {
   Text,
   HStack,
   Heading,
-  Textarea
+  Textarea,
+  Input
 } from "@chakra-ui/react"
 import { useState } from "react"
-import * as SelectRecipient from "../SelectRecipient"
+import * as MailingAddress from "@/components/MailingAddress"
 import { useMutation } from "@apollo/client"
 import { Step } from "./Step"
 import { StepContent } from "./StepContent"
@@ -28,28 +29,29 @@ export const Dashboard = () => {
   const [createLetter] = useMutation<Schemas.Letter>(CREATE_LETTER_MUTATION)
   const [updateLetter] = useMutation<Schemas.Letter>(UPDATE_LETTER_MUTATION)
   const [content, setContent] = useState("")
-  const [errors, setErrors] = useState(null)
+  const [error, setError] = useState(null)
   const [mailingAddressError, setMailingAddressError] = useState(null)
+  const [recipientName, setRecipientName] = useState(null)
   const [id, setId] = useState("")
   const [addToCart, { loading }] = useMutation(ADD_TO_CART_MUTATION)
   const { nextStep, prevStep, reset, activeStep } = useSteps({ initialStep: 0 })
-  const selectRecipient = SelectRecipient.useSelectRecipient()
+  const recipient = MailingAddress.useSelectMailingAddress()
   const router = useRouter()
 
   const handleCreateLetter = async () => {
     const variables = {
-      recipientName: selectRecipient.recipientName,
-      addressLine1: selectRecipient.recipient.address,
-      addressLine2: selectRecipient.recipient.address2,
-      postcode: selectRecipient.recipient.postcode,
-      locality: selectRecipient.recipient.locality,
-      state: selectRecipient.recipient.state
+      recipientName,
+      addressLine1: recipient.mailingAddress.address,
+      addressLine2: recipient.mailingAddress.address2,
+      postcode: recipient.mailingAddress.postcode,
+      locality: recipient.mailingAddress.locality,
+      state: recipient.mailingAddress.state
     }
 
     const { data, errors } = (await createLetter({ variables })) as any
 
     if (errors) {
-      setErrors(errors[0].message)
+      setError(errors[0].message)
     } else {
       setId(data.createLetter.id)
       nextStep()
@@ -59,19 +61,19 @@ export const Dashboard = () => {
   const handleUpdateLetter = async () => {
     const variables = {
       id,
-      recipientName: selectRecipient.recipientName,
-      addressLine1: selectRecipient.recipient.address,
-      addressLine2: selectRecipient.recipient.address2,
-      postcode: selectRecipient.recipient.postcode,
-      locality: selectRecipient.recipient.locality,
-      state: selectRecipient.recipient.state,
+      recipientName,
+      addressLine1: recipient.mailingAddress.address,
+      addressLine2: recipient.mailingAddress.address2,
+      postcode: recipient.mailingAddress.postcode,
+      locality: recipient.mailingAddress.locality,
+      state: recipient.mailingAddress.state,
       content: content
     }
 
     const { data, errors } = (await updateLetter({ variables })) as any
 
     if (errors) {
-      setErrors(errors[0].message)
+      setError(errors[0].message)
     } else {
       nextStep()
     }
@@ -83,12 +85,25 @@ export const Dashboard = () => {
       refetchQueries: [{ query: CURRENT_USER_QUERY }]
     })
       .then(() => router.push("/dashboard/cart"))
-      .catch((error) => setErrors(error.message))
+      .catch((error) => setError(error.message))
   }
 
   const handleNextStep = async () => {
+    if (!recipientName) {
+      setMailingAddressError('Recipient name required')
+      return
+    } 
+    if (recipientName.length < 2) {
+      setMailingAddressError('Recipient name too short')
+      return
+    } 
+    if (!recipient.mailingAddress.address) {
+      setMailingAddressError('Address Required')
+      return
+    } 
+
     try {
-      const verificationResponse = await verifyMailingAddress({...selectRecipient.recipient})
+      const verificationResponse = await verifyMailingAddress({...recipient.mailingAddress})
       if(verificationResponse.data.status === 'verified') {
         if (!id) handleCreateLetter()
         if (id) handleUpdateLetter()
@@ -97,7 +112,7 @@ export const Dashboard = () => {
       }
     } catch(e) {
       console.log(e)
-      setErrors('An Error Occured')
+      setError('An Error Occured')
     }
   }
 
@@ -110,7 +125,16 @@ export const Dashboard = () => {
         <Step title="Select Recipient">
           <StepContent>
             <Stack shouldWrapChildren spacing="4">
-              <SelectRecipient.Component {...selectRecipient} />
+              <Box maxW="md">
+                <Text fontSize="xs" mb="1" pl="2">
+                  Recipient Name
+                </Text>
+                <Input
+                  value={recipientName}
+                  onChange={(e) => setRecipientName(e.target.value)}
+                />
+              </Box>
+              <MailingAddress.Component {...recipient} />
               <HStack>
                 <Button size="sm" variant="ghost" isDisabled>
                   Back
@@ -157,6 +181,7 @@ export const Dashboard = () => {
           </StepContent>
         </Step>
       </Steps>
+      {error && <Alert message={error} maxW="md"/>}
       {/* <HStack
         display={activeStep === 3 ? "flex" : "none"}
         mt="10"
