@@ -54,6 +54,13 @@ export const OrderItem = list({
         displayMode: 'textarea',
       },
     }),
+    lobOrderId: text(),
+    lobOrderToId: text(),
+    lobOrderMailType: text(),
+    lobOrderPdfUrl: text(),
+    lobOrderCarrier: text(),
+    lobOrderExpectedDeliveryDate: text(),
+    lobOrderType: text(),
     order: relationship({ref: 'Order.items'}),
     // eventually we may want to accosiate each order item with a user (or more likely a "sender"), but for now we will just associate the order itself with the user
     // user: relationship({

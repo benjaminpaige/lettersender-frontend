@@ -60,7 +60,13 @@ export const CheckoutForm = () => {
         <Chakra.Box boxShadow="md" mt="4" p="2" as="form" onSubmit={handleSubmit}>
             {cardError && <Alert message={cardError.message} />}
             {graphQLError && <Alert message={graphQLError.message} />}
-            <CardElement />
+            <CardElement options={{
+                style: {
+                    base: {
+                        color: Chakra.useColorModeValue('darkblue.800', 'white')
+                        }
+                    }
+                }}/>
             <Chakra.Button w="full" mt="6" type="submit" isLoading={loading} loadingText="Submitting">Check Out</Chakra.Button>
         </Chakra.Box>
     )

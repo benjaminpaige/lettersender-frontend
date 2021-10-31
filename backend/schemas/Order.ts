@@ -4,7 +4,7 @@ import { list } from '@keystone-next/keystone/schema';
 export const Order = list({
     ui: {
         listView: {
-            initialColumns: ['charge', 'total', 'user'],
+            initialColumns: ['charge', 'total', 'paymentStatus', 'user'],
         },
         labelField: "charge"
         },
@@ -13,6 +13,7 @@ export const Order = list({
       items: relationship({ref: 'OrderItem.order', many: true}),
       user: relationship({ref: 'User.orders'}),
       charge: text(),
+      paymentStatus: text()
     //   label: virtual({
     //       graphQLReturnType: 'String',
     //       resolver: function(item) {
