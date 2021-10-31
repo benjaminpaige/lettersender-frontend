@@ -45,8 +45,7 @@ export const UPDATE_MESSAGE_MUTATION = gql`
 export const UPDATE_USER_MUTATION = gql`
   mutation UPDATE_USER_MUTATION(
     $id: ID!
-    $firstName: String
-    $lastName: String
+    $fullName: String
     $darkMode: Boolean
     $allowMarketingTips: Boolean
     $allowMarketingUpdates: Boolean
@@ -54,8 +53,7 @@ export const UPDATE_USER_MUTATION = gql`
     updateUser(
       id: $id
       data: {
-        firstName: $firstName
-        lastName: $lastName
+        fullName: $fullName
         darkMode: $darkMode
         allowMarketingTips: $allowMarketingTips
         allowMarketingUpdates: $allowMarketingUpdates
@@ -87,8 +85,7 @@ export const SIGNUP_USER_MUTATION = gql`
   mutation SIGNUP_USER_MUTATION(
     $email: String!
     $password: String!
-    $firstName: String!
-    $lastName: String!
+    $fullName: String!
     $address: String!
     $address2: String
     $postcode: String!
@@ -99,8 +96,7 @@ export const SIGNUP_USER_MUTATION = gql`
       data: {
         email: $email
         password: $password
-        firstName: $firstName
-        lastName: $lastName
+        fullName: $fullName
         addressLine1: $address
         addressLine2: $address2
         postcode: $postcode

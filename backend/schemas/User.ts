@@ -15,8 +15,7 @@ export const User = list({
     labelField: "email"
   },
   fields: {
-    firstName: text({ isRequired: true }),
-    lastName: text({ isRequired: true }),
+    fullName: text({ isRequired: true }),
     addressLine1: text({
       isRequired: true,
       ui: {

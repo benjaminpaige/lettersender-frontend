@@ -47,7 +47,7 @@ export const AccountSettings: React.FC<µAccountSettings.Props> = ({
           >
             <Box>
               <Text>
-                {user.firstName} {user.lastName}
+                {user.fullName}
               </Text>
               <Text color="gray.500" fontSize="sm">
                 Joined {user.dateJoined}

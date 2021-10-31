@@ -30,14 +30,12 @@ import { verifyMailingAddress } from "@/utils/address"
 
 type FormValues = {
   email: string
-  firstName: string
-  lastName: string
+  fullName: string
   password: string
 }
 
 const initialValues = {
-  firstName: "",
-  lastName: "",
+  fullName: "",
   email: "",
   password: ""
 }
@@ -108,51 +106,27 @@ export const SignupForm = () => {
       {({ isSubmitting }: FormikProps<FormValues>) => (
         <Form>
           <Stack spacing="4">
-            <HStack>
-                <Field name="firstName">
-                  {({ field, form }: FieldProps<any, FormValues>) => (
-                    <FormControl
-                      id="firstName"
-                      isInvalid={
-                        Boolean(form.errors.firstName) && form.touched.firstName
-                      }
-                    >
-                      <FormLabel fontSize="xs" mb="1" pl="2">First name</FormLabel>
-                      <Input
-                        {...field}
-                        autoComplete="given-name"
-                        onChange={(e) => {
-                          field.onChange(e)
-                          setErrorMessage("")
-                        }}
-                      />
-                      <FormErrorMessage>{form.errors.firstName}</FormErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
-                <Spacer />
-                <Field name="lastName">
-                  {({ field, form }: FieldProps<any, FormValues>) => (
-                    <FormControl
-                    id="lastName"
-                    isInvalid={
-                      Boolean(form.errors.lastName) && form.touched.lastName
-                    }
-                    >
-                      <FormLabel fontSize="xs" mb="1" pl="2">Last name</FormLabel>
-                      <Input
-                        {...field}
-                        autoComplete="family-name"
-                        onChange={(e) => {
-                          field.onChange(e)
-                          setErrorMessage("")
-                        }}
-                        />
-                      <FormErrorMessage>{form.errors.lastName}</FormErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
-              </HStack>
+            <Field name="fullName">
+              {({ field, form }: FieldProps<any, FormValues>) => (
+                <FormControl
+                  id="fullName"
+                  isInvalid={
+                    Boolean(form.errors.fullName) && form.touched.fullName
+                  }
+                >
+                  <FormLabel fontSize="xs" mb="1" pl="2">Full name</FormLabel>
+                  <Input
+                    {...field}
+                    autoComplete="name"
+                    onChange={(e) => {
+                      field.onChange(e)
+                      setErrorMessage("")
+                    }}
+                  />
+                  <FormErrorMessage>{form.errors.fullName}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
             <Field name="email">
               {({ field, form }) => (
                 <FormControl

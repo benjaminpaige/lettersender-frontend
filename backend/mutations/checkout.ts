@@ -18,8 +18,7 @@ export const checkout = async (root: any, {token}: {token: string}, context: Key
         where: { id: session.itemId },
         resolveFields: graphql`
             id
-            firstName
-            lastName
+            fullName
             addressLine1
             addressLine2
             locality
@@ -73,7 +72,7 @@ export const checkout = async (root: any, {token}: {token: string}, context: Key
                         address_zip: cartItem.letter.postcode
                     },
                     from: {
-                        name: `${user.firstName} ${user.lastName}`,
+                        name: user.fullName,
                         address_line1: user.addressLine1,
                         address_line2: user.addressLine2,
                         address_city: user.locality,

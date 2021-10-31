@@ -34,8 +34,7 @@ declare namespace Schemas {
   }
 
   declare interface User {
-    firstName: string
-    lastName: string
+    fullName: string
     email: string
     password: string
     dateJoined: string

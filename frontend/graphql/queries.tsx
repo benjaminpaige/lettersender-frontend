@@ -55,8 +55,7 @@ export const CURRENT_USER_QUERY = gql`
       ... on User {
         id
         email
-        firstName
-        lastName
+        fullName
         darkMode
         dateJoined
         allowMarketingTips
