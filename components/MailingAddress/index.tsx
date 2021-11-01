@@ -19,7 +19,9 @@ const initialMainingAddresss = {
 }
 
 const useSelectMailingAddress = () => {
-  const [mailingAddress, setMailingAddress] = useState<MailingAddress>(initialMainingAddresss)
+  const [mailingAddress, setMailingAddress] = useState<MailingAddress>(
+    initialMainingAddresss
+  )
   const [placeSelected, setPlaceSelected] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
   const address2ref = useRef<HTMLInputElement>()
@@ -72,11 +74,17 @@ const useSelectMailingAddress = () => {
         }
 
         case "locality":
-          setMailingAddress((prev) => ({ ...prev, locality: component.long_name }))
+          setMailingAddress((prev) => ({
+            ...prev,
+            locality: component.long_name
+          }))
           break
 
         case "administrative_area_level_1": {
-          setMailingAddress((prev) => ({ ...prev, state: component.short_name }))
+          setMailingAddress((prev) => ({
+            ...prev,
+            state: component.short_name
+          }))
           break
         }
 
@@ -102,7 +110,7 @@ const useSelectMailingAddress = () => {
     placeSelected,
     errorMessage,
     address2ref,
-    setMailingAddress,
+    setMailingAddress
   }
 }
 
@@ -114,7 +122,7 @@ const Component: React.FC<ReturnType<typeof useSelectMailingAddress>> = ({
   placeSelected,
   address2ref,
   setMailingAddress,
-  errorMessage,
+  errorMessage
 }) => (
   <Box>
     <PlacesAutocomplete
@@ -143,18 +151,22 @@ const Component: React.FC<ReturnType<typeof useSelectMailingAddress>> = ({
               <Box>
                 {suggestions.map((suggestion) => {
                   return (
-                    <Text
+                    // @ts-ignore
+                    <Flex
                       key={suggestion.formattedSuggestion.mainText}
                       my="2"
                       pl="4"
                       _hover={{ cursor: "pointer" }}
                       {...getSuggestionItemProps(suggestion)}
+                      fontSize="md"
                     >
-                      <strong>{suggestion.formattedSuggestion.mainText}</strong>{" "}
-                      <small>
+                      <Text fontWeight="bold" mr="1">
+                        {suggestion.formattedSuggestion.mainText}
+                      </Text>
+                      <Text>
                         {suggestion.formattedSuggestion.secondaryText}
-                      </small>
-                    </Text>
+                      </Text>
+                    </Flex>
                   )
                 })}
               </Box>
@@ -168,7 +180,10 @@ const Component: React.FC<ReturnType<typeof useSelectMailingAddress>> = ({
                   value={mailingAddress.address2}
                   ref={address2ref}
                   onChange={(e) =>
-                    setMailingAddress({ ...mailingAddress, address2: e.target.value })
+                    setMailingAddress({
+                      ...mailingAddress,
+                      address2: e.target.value
+                    })
                   }
                   autoComplete="one-time-code"
                 />
@@ -178,7 +193,10 @@ const Component: React.FC<ReturnType<typeof useSelectMailingAddress>> = ({
                 <Input
                   value={mailingAddress.locality}
                   onChange={(e) =>
-                    setMailingAddress({ ...mailingAddress, locality: e.target.value })
+                    setMailingAddress({
+                      ...mailingAddress,
+                      locality: e.target.value
+                    })
                   }
                   autoComplete="one-time-code"
                 />
@@ -190,7 +208,10 @@ const Component: React.FC<ReturnType<typeof useSelectMailingAddress>> = ({
                     <Input
                       value={mailingAddress.state}
                       onChange={(e) =>
-                        setMailingAddress({ ...mailingAddress, state: e.target.value })
+                        setMailingAddress({
+                          ...mailingAddress,
+                          state: e.target.value
+                        })
                       }
                       autoComplete="one-time-code"
                     />

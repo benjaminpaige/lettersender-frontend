@@ -26,13 +26,13 @@ const EditableMessageForm = ({ initialValues, id }) => {
   const fileInputRef = useRef(null)
   const router = useRouter()
 
-  const [updateMessage] = useMutation(UPDATE_MESSAGE_MUTATION)
+  const [updateMessage, { error }] = useMutation(UPDATE_MESSAGE_MUTATION)
 
   const onSubmit = async (values, actions) => {
     let variables = { ...values, id }
     if (values.image === "") delete variables.image
 
-    const { errors } = await updateMessage({
+    await updateMessage({
       variables,
       refetchQueries: [
         { query: ALL_MESSAGES_QUERY },
@@ -40,7 +40,7 @@ const EditableMessageForm = ({ initialValues, id }) => {
       ]
     })
 
-    if (!errors) {
+    if (!error) {
       actions.resetForm()
       if (fileInputRef?.current?.value) {
         fileInputRef.current.value = null

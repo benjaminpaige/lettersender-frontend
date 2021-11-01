@@ -13,7 +13,7 @@ import { addMessageValidationSchema } from "@/utils"
 import { çAddMessage } from "./constants"
 
 const AddMessage = () => {
-  const [createMessage] = useMutation(CREATE_MESSAGE_MUTATION)
+  const [createMessage, { error }] = useMutation(CREATE_MESSAGE_MUTATION)
   const fileInputRef = useRef(null)
   const router = useRouter()
 
@@ -25,7 +25,7 @@ const AddMessage = () => {
     if (values.image === "") delete variables.image
 
     // can't find this errors value on Mutation cb
-    const { data, errors } = await createMessage({
+    const { data } = await createMessage({
       variables,
       refetchQueries: [
         { query: ALL_MESSAGES_QUERY },
@@ -33,7 +33,7 @@ const AddMessage = () => {
       ]
     })
 
-    if (!errors) {
+    if (!error) {
       actions.resetForm()
       if (fileInputRef?.current?.value) {
         fileInputRef.current.value = null
