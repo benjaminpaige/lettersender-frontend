@@ -7,7 +7,6 @@
     "dev": "next -p 7777",
     "build": "next build",
     "start": "next start -p $PORT",
-    "heroku-postbuild": "npm run build",
     "test": "NODE_ENV=test jest --watch"
   },
   "author": "Ben Paige",
@@ -43,7 +42,9 @@
     "react-places-autocomplete": "^7.3.0",
     "react-transition-group": "^4.4.1",
     "waait": "^1.0.5",
-    "yup": "^0.32.9",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
     "@apollo/react-testing": "^4.0.0",
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",

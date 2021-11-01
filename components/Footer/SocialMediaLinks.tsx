@@ -11,6 +11,7 @@ export const SocialMediaLinks: React.FC<µSocialMediaLinks.Props> = (props) => (
           as="a"
           href="#"
           aria-label={label}
+          key={label}
           icon={<Icon fontSize="20px" />}
         />
       )
