@@ -4,8 +4,8 @@ import { CartItem } from "./CartItem"
 import { CartOrderSummary } from "./CartOrderSummary"
 
 const CartHeader = ({ num }: { num: Number }) => (
-  <Chakra.Heading fontSize="2xl" fontWeight="extrabold">
-    {`Shopping Cart (${num} item${num === 1 ? "" : "s"})`}
+  <Chakra.Heading size="lg">
+    {`Cart (${num} item${num === 1 ? "" : "s"})`}
   </Chakra.Heading>
 )
 const Cart = () => {

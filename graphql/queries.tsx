@@ -76,9 +76,24 @@ export const CURRENT_USER_QUERY = gql`
           id
           total
           charge
+          paymentStatus
+          chargeDate
           items {
             id
             recipientName
+            addressLine1
+            addressLine2
+            postcode
+            locality
+            state
+            content
+            lobOrderId
+            lobOrderToId
+            lobOrderMailType
+            lobOrderPdfUrl
+            lobOrderCarrier
+            lobOrderExpectedDeliveryDate
+            lobOrderType
             price
           }
         }

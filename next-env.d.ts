@@ -25,6 +25,8 @@ declare namespace Schemas {
     items: OrderItem[]
     user: User
     charge: string
+    chargeDate: number
+    paymentStatus: "succeeded" | "failed"
   }
 
   declare interface CartItem {

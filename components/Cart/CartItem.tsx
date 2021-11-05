@@ -34,7 +34,7 @@ export const CartItem: React.FC<µCartItem.Props> = ({ cartItem }) => {
       >
         <PriceTag price={cartItem.letter.price} currency={"USD"} />
         <Chakra.CloseButton
-          aria-label={`Delete ${name} from cart`}
+          aria-label={`Delete from cart`}
           onClick={(e) => removeFromCart()}
           disabled={loading}
         />
