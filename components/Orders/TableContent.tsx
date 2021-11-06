@@ -56,7 +56,7 @@ export const columns = [
 export const TableContent = ({ orders }: TableContentProps) => {
   const data = formatOrders(orders)
   return (
-    <Chakra.Table my="8" borderWidth="1px" fontSize="sm">
+    <Chakra.Table borderWidth="1px" fontSize="sm">
       <Chakra.Thead bg={Chakra.useColorModeValue("gray.50", "gray.800")}>
         <Chakra.Tr>
           {columns.map((column, index) => (
@@ -91,11 +91,11 @@ export const TableContent = ({ orders }: TableContentProps) => {
               )
             })}
             <Chakra.Td textAlign="center" px={1}>
-              <a href={`/dashboard/orders/${row.id}`}>
+              <Link href={`/dashboard/order/${row.id}`}>
                 <Chakra.Button variant="link" colorScheme="blue">
                   view
                 </Chakra.Button>
-              </a>
+              </Link>
             </Chakra.Td>
           </Chakra.Tr>
         ))}

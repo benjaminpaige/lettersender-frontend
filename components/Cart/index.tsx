@@ -5,7 +5,7 @@ import { CartOrderSummary } from "./CartOrderSummary"
 
 const CartHeader = ({ num }: { num: Number }) => (
   <Chakra.Heading size="lg">
-    {`Cart (${num} item${num === 1 ? "" : "s"})`}
+    {`Cart ${num ? `(${num} item${num === 1 ? "" : "s"})` : ""}`}
   </Chakra.Heading>
 )
 const Cart = () => {
@@ -26,7 +26,10 @@ const Cart = () => {
       py={{ base: "8", md: "12" }}
     >
       {numItemsInCart === 0 ? (
-        <CartHeader num={numItemsInCart} />
+        <>
+          <CartHeader num={numItemsInCart} />
+          <Chakra.Text mt="6">No items in cart</Chakra.Text>
+        </>
       ) : (
         <Chakra.Stack
           direction={{ base: "column", lg: "row" }}

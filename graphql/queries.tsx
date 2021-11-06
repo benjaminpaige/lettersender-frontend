@@ -38,6 +38,36 @@ export const SINGLE_MESSAGE_QUERY = gql`
   }
 `
 
+export const SINGLE_ORDER_QUERY = gql`
+  query SINGLE_ORDER_QUERY($id: ID!) {
+    Order(where: { id: $id }) {
+      id
+      total
+      charge
+      paymentStatus
+      chargeDate
+      items {
+        id
+        recipientName
+        addressLine1
+        addressLine2
+        postcode
+        locality
+        state
+        content
+        lobOrderId
+        lobOrderToId
+        lobOrderMailType
+        lobOrderPdfUrl
+        lobOrderCarrier
+        lobOrderExpectedDeliveryDate
+        lobOrderType
+        price
+      }
+    }
+  }
+`
+
 export const MESSAGES_PAGINATION_QUERY = gql`
   query MESSAGES_PAGINATION_QUERY {
     authenticatedItem {

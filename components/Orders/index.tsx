@@ -6,9 +6,6 @@ export const Orders = () => {
   const me = useUser()
   if (!me.user) return null
   const orders = me.user.orders
-  if (orders.length < 1) {
-    return
-  }
 
   return (
     <Chakra.Box
@@ -22,7 +19,11 @@ export const Orders = () => {
         <Chakra.Heading size="lg" mb="6">
           Orders
         </Chakra.Heading>
-        <TableContent orders={orders} />
+        {orders.length > 1 ? (
+          <TableContent orders={orders} />
+        ) : (
+          <Chakra.Text>No orders to show</Chakra.Text>
+        )}
       </Chakra.Box>
     </Chakra.Box>
   )
