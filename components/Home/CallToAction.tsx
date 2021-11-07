@@ -1,4 +1,5 @@
 import { Box, Button, Heading, Text } from "@chakra-ui/react"
+import Link from "next/link"
 
 export const CallToAction = () => {
   return (
@@ -22,16 +23,18 @@ export const CallToAction = () => {
           Ac euismod vel sit maecenas id pellentesque eu sed consectetur.
           Malesuada adipiscing sagittis vel nulla nec.
         </Text>
-        <Button
-          mt="8"
-          as="a"
-          href="#"
-          size="lg"
-          colorScheme="blue"
-          fontWeight="bold"
-        >
-          Get Started
-        </Button>
+        <Link href="/signup">
+          <Button
+            mt="8"
+            as="a"
+            href="#"
+            size="lg"
+            colorScheme="blue"
+            fontWeight="bold"
+          >
+            Get Started
+          </Button>
+        </Link>
       </Box>
     </Box>
   )
