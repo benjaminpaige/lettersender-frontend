@@ -1,13 +1,4 @@
-import {
-  Box,
-  Stack,
-  Button,
-  Text,
-  HStack,
-  Heading,
-  Textarea,
-  Input
-} from "@chakra-ui/react"
+import * as Chakra from "@chakra-ui/react"
 import { useState } from "react"
 import * as MailingAddress from "@/components/MailingAddress"
 import { useMutation } from "@apollo/client"
@@ -23,6 +14,7 @@ import {
 } from "@/graphql"
 import { useRouter } from "next/router"
 import { verifyMailingAddress } from "@/utils/address"
+import { isEmpty } from "@/utils/helpers"
 import { Alert } from "../Alert"
 
 export const Dashboard = () => {
@@ -89,100 +81,129 @@ export const Dashboard = () => {
   }
 
   const handleNextStep = async () => {
+    setMailingAddressError(null)
     if (!recipientName) {
-      setMailingAddressError('Recipient name required')
+      setMailingAddressError("Recipient name required")
       return
-    } 
+    }
     if (recipientName.length < 2) {
-      setMailingAddressError('Recipient name too short')
+      setMailingAddressError("Recipient name too short")
       return
-    } 
+    }
     if (!recipient.mailingAddress.address) {
-      setMailingAddressError('Address Required')
+      setMailingAddressError("Address Required")
       return
-    } 
+    }
 
     try {
-      const verificationResponse = await verifyMailingAddress({...recipient.mailingAddress})
-      if(verificationResponse.data.status === 'verified') {
+      const verificationResponse = await verifyMailingAddress({
+        ...recipient.mailingAddress
+      })
+      if (verificationResponse.data.status === "verified") {
         if (!id) handleCreateLetter()
         if (id) handleUpdateLetter()
       } else {
-        setMailingAddressError('Mailing address failed verification')
+        if (
+          verificationResponse.data.errors &&
+          !isEmpty(verificationResponse.data.errors)
+        ) {
+          const errorKeys = Object.keys(verificationResponse.data.errors)
+          const e = verificationResponse.data.errors[errorKeys[0]][0]
+          setMailingAddressError(e)
+        } else {
+          setMailingAddressError("Mailing address failed verification")
+        }
       }
-    } catch(e) {
+    } catch (e) {
       console.log(e)
-      setError('An Error Occured')
+      setError("An Error Occured")
     }
   }
 
   return (
-    <Box mx="auto" maxW="2xl" py="2" px={{ base: "4", md: "8" }} minH="400px">
-      <Heading as="h2" my="8">
-        Quick Send
-      </Heading>
-      <Steps activeStep={activeStep}>
-        <Step title="Select Recipient">
-          <StepContent>
-            <Stack shouldWrapChildren spacing="4">
-              <Box maxW="md">
-                <Text fontSize="xs" mb="1" pl="2">
-                  Recipient Name
-                </Text>
-                <Input
-                  value={recipientName}
-                  onChange={(e) => setRecipientName(e.target.value)}
-                />
-              </Box>
-              <MailingAddress.Component {...recipient} />
-              <HStack>
-                <Button size="sm" variant="ghost" isDisabled>
-                  Back
-                </Button>
-                <Button size="sm" onClick={handleNextStep}>
-                  Next
-                </Button>
-              </HStack>
-              {mailingAddressError && <Alert message={mailingAddressError} maxW="md"/>}
-            </Stack>
-          </StepContent>
-        </Step>
-        <Step title="Add Message">
-          <StepContent>
-            <Stack shouldWrapChildren spacing="4">
-              <Textarea
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              />
-              <HStack>
-                <Button size="sm" onClick={prevStep} variant="ghost">
-                  Back
-                </Button>
-                <Button size="sm" onClick={handleNextStep}>
-                  Next
-                </Button>
-              </HStack>
-            </Stack>
-          </StepContent>
-        </Step>
-        <Step title="Pay and Send">
-          <StepContent>
-            <Stack shouldWrapChildren spacing="4">
-              <Text>Ready to send? Lets do this.</Text>
-              <HStack>
-                <Button size="sm" onClick={prevStep} variant="ghost">
-                  Back
-                </Button>
-                <Button size="sm" disabled={loading} onClick={handleAddToCart}>
-                  {loading ? "Adding Now" : "Add To Cart"}
-                </Button>
-              </HStack>
-            </Stack>
-          </StepContent>
-        </Step>
-      </Steps>
-      {error && <Alert message={error} maxW="md"/>}
-      {/* <HStack
+    <Chakra.Box
+      as="section"
+      maxW={{ base: "3xl", md: "7xl" }}
+      mx="auto"
+      px={{ base: "4", md: "12" }}
+      py={{ base: "4", md: "12" }}
+    >
+      <Chakra.Box overflowX="auto">
+        <Chakra.Heading size="lg" mb="6">
+          Dahboard
+        </Chakra.Heading>
+        <Chakra.Box mx="auto" maxW="4xl" py="2" minH="400px">
+          <Chakra.Heading as="h2" my="8" size="md">
+            Quick Send
+          </Chakra.Heading>
+          <Steps activeStep={activeStep}>
+            <Step title="Select Recipient">
+              <StepContent>
+                <Chakra.Stack shouldWrapChildren spacing="4">
+                  <Chakra.Box>
+                    <Chakra.Text fontSize="xs" mb="1" pl="2">
+                      Recipient Name
+                    </Chakra.Text>
+                    <Chakra.Input
+                      value={recipientName}
+                      onChange={(e) => setRecipientName(e.target.value)}
+                    />
+                  </Chakra.Box>
+                  <MailingAddress.Component {...recipient} />
+                  <Chakra.HStack>
+                    <Chakra.Button size="sm" variant="ghost" isDisabled>
+                      Back
+                    </Chakra.Button>
+                    <Chakra.Button size="sm" onClick={handleNextStep}>
+                      Next
+                    </Chakra.Button>
+                  </Chakra.HStack>
+                  {mailingAddressError && (
+                    <Alert message={mailingAddressError} />
+                  )}
+                </Chakra.Stack>
+              </StepContent>
+            </Step>
+            <Step title="Add Message">
+              <StepContent>
+                <Chakra.Stack shouldWrapChildren spacing="4">
+                  <Chakra.Textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                  />
+                  <Chakra.HStack>
+                    <Chakra.Button size="sm" onClick={prevStep} variant="ghost">
+                      Back
+                    </Chakra.Button>
+                    <Chakra.Button size="sm" onClick={handleNextStep}>
+                      Next
+                    </Chakra.Button>
+                  </Chakra.HStack>
+                </Chakra.Stack>
+              </StepContent>
+            </Step>
+            <Step title="Pay and Send">
+              <StepContent>
+                <Chakra.Stack shouldWrapChildren spacing="4">
+                  <Chakra.Text>Ready to send? Lets do this.</Chakra.Text>
+                  <Chakra.HStack>
+                    <Chakra.Button size="sm" onClick={prevStep} variant="ghost">
+                      Back
+                    </Chakra.Button>
+                    <Chakra.Button
+                      size="sm"
+                      disabled={loading}
+                      onClick={handleAddToCart}
+                    >
+                      {loading ? "Adding Now" : "Add To Cart"}
+                    </Chakra.Button>
+                  </Chakra.HStack>
+                </Chakra.Stack>
+              </StepContent>
+            </Step>
+          </Steps>
+          {error && <Alert message={error} />}
+          {/* <HStack
         display={activeStep === 3 ? "flex" : "none"}
         mt="10"
         spacing="4"
@@ -198,6 +219,8 @@ export const Dashboard = () => {
           Reset
         </Button>
       </HStack> */}
-    </Box>
+        </Chakra.Box>
+      </Chakra.Box>
+    </Chakra.Box>
   )
 }
