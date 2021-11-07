@@ -22,8 +22,8 @@ const Cart = () => {
     <Chakra.Box
       maxW={{ base: "3xl", lg: "7xl" }}
       mx="auto"
-      px={{ base: "8", md: "12" }}
-      py={{ base: "8", md: "12" }}
+      px={{ base: "4", md: "12" }}
+      py={{ base: "4", md: "12" }}
     >
       {numItemsInCart === 0 ? (
         <>

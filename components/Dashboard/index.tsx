@@ -1,6 +1,7 @@
 import * as Chakra from "@chakra-ui/react"
 import { useState } from "react"
 import * as MailingAddress from "@/components/MailingAddress"
+import { RichTextInput } from "@/components/RichTextInput"
 import { useMutation } from "@apollo/client"
 import { Step } from "./Step"
 import { StepContent } from "./StepContent"
@@ -94,6 +95,10 @@ export const Dashboard = () => {
       setMailingAddressError("Address Required")
       return
     }
+    if (content.length >= 10000) {
+      setError("Too much content")
+      return
+    }
 
     try {
       const verificationResponse = await verifyMailingAddress({
@@ -130,10 +135,10 @@ export const Dashboard = () => {
     >
       <Chakra.Box overflowX="auto">
         <Chakra.Heading size="lg" mb="6">
-          Dahboard
+          Dashboard
         </Chakra.Heading>
-        <Chakra.Box mx="auto" maxW="4xl" py="2" minH="400px">
-          <Chakra.Heading as="h2" my="8" size="md">
+        <Chakra.Box maxW="4xl" minH="400px">
+          <Chakra.Heading as="h2" mb="4" size="md" color="blue.600">
             Quick Send
           </Chakra.Heading>
           <Steps activeStep={activeStep}>
@@ -167,10 +172,7 @@ export const Dashboard = () => {
             <Step title="Add Message">
               <StepContent>
                 <Chakra.Stack shouldWrapChildren spacing="4">
-                  <Chakra.Textarea
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                  />
+                  <RichTextInput value={content} onChange={setContent} />
                   <Chakra.HStack>
                     <Chakra.Button size="sm" onClick={prevStep} variant="ghost">
                       Back
@@ -202,7 +204,7 @@ export const Dashboard = () => {
               </StepContent>
             </Step>
           </Steps>
-          {error && <Alert message={error} />}
+          {error && <Alert message={error} my="3" />}
           {/* <HStack
         display={activeStep === 3 ? "flex" : "none"}
         mt="10"

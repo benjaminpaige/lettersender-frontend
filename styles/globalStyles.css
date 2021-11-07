@@ -1,3 +1,8 @@
 .pointer {
   cursor: pointer;
 }
+
+/* sets the default font size in the rich text editor */
+.ql-container {
+  font-size: 16px !important;
+}
