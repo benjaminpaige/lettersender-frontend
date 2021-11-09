@@ -6,8 +6,11 @@ import {
   HStack,
   useDisclosure,
   VisuallyHidden,
+  IconButton,
+  useColorMode,
   useColorModeValue as mode
 } from "@chakra-ui/react"
+import { FaMoon, FaSun } from "react-icons/fa"
 import { Logo } from "../Logo"
 import { NavLink } from "./NavLink"
 import { NavMenu } from "./NavMenu"
@@ -27,6 +30,7 @@ const MobileNavContext = ({
   ...flexProps
 }: NavContentProps) => {
   const { isOpen, onToggle } = useDisclosure()
+  const { toggleColorMode } = useColorMode()
   return (
     <>
       <Flex
@@ -48,6 +52,12 @@ const MobileNavContext = ({
         >
           <Logo />
         </Box>
+        <IconButton
+          aria-label="Toggle Dark Mode"
+          variant="ghost"
+          icon={mode(<FaMoon />, <FaSun />)}
+          onClick={toggleColorMode}
+        />
       </Flex>
       <NavMenu animate={isOpen ? "open" : "closed"}>
         {çNavBar.links.map((link, idx) =>
