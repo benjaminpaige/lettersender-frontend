@@ -28,8 +28,6 @@ const SingleOrder = ({ id }) => {
         <Chakra.Box maxW={{ base: "xl", md: "7xl" }} mx="auto">
           <Chakra.Box
             bg={Chakra.useColorModeValue("whiteAlpha.400", "gray.600")}
-            maxW="3xl"
-            mx="auto"
             border="1px"
             borderColor="gray.200"
           >
