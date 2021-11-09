@@ -48,7 +48,7 @@ export const Statistics = () => {
             Start Sending Today
           </Heading>
           <Text fontSize="lg" fontWeight="medium" mt="3">
-            Getting started is easy. Sign up for free. Send in minutes
+            Getting started is easy. Sign up for free. Send in minutes.
           </Text>
           <LightMode>
             <Button
