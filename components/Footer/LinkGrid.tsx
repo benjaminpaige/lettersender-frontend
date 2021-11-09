@@ -16,6 +16,7 @@ export const LinkGrid: React.FC<µLinkGrid.Props> = (props) => (
       <FooterHeading mb="4">Legal</FooterHeading>
       <Stack>
         <Link href="/terms">Terms</Link>
+        <Link href="/privacy">Privacy</Link>
       </Stack>
     </Box>
   </SimpleGrid>
