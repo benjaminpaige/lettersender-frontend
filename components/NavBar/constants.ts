@@ -2,7 +2,7 @@ import { µNavBar } from "./types"
 
 export namespace çNavBar {
   export const links: µNavBar.Link[] = [
-    { label: "How It Works", href: "/-how-it-works" },
+    { label: "How It Works", href: "/how-it-works" },
     // {
     //   label: "Resources",
     //   children: [
