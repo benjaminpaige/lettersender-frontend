@@ -2,7 +2,7 @@ import { Box, Divider, Stack, StackDivider } from "@chakra-ui/react"
 import { Copyright } from "./Copyright"
 import { LinkGrid } from "./LinkGrid"
 import { Logo } from "../Logo"
-import { SubscribeForm } from "./SubscribeForm"
+// import { SubscribeForm } from "./SubscribeForm"
 
 export const Footer = () => (
   <Box
@@ -27,7 +27,7 @@ export const Footer = () => (
           spacing={{ base: "10", md: "20" }}
         >
           <LinkGrid spacing={{ base: "10", md: "20", lg: "28" }} flex="1" />
-          <SubscribeForm width={{ base: "full", md: "sm" }} />
+          {/* <SubscribeForm width={{ base: "full", md: "sm" }} /> */}
         </Stack>
       </Stack>
       <Stack
