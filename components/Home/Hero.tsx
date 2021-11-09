@@ -8,9 +8,12 @@ import {
   useColorModeValue as mode
 } from "@chakra-ui/react"
 import Link from "next/link"
+import { useUser } from "@/hooks"
 import { APP_NAME } from "@/config"
 
 export const Hero = () => {
+  const { user } = useUser()
+  const isSignedIn = Boolean(user)
   return (
     <Box
       as="section"
@@ -51,17 +54,17 @@ export const Hero = () => {
               phone or computer.
             </Text>
             <Stack direction={{ base: "column", md: "row" }} spacing="4" mt="8">
-              <Link href="/signup">
-                <Button
-                  size="lg"
-                  minW="210px"
-                  colorScheme="blue"
-                  height="14"
-                  px="8"
-                >
-                  Get Started
-                </Button>
-              </Link>
+              <Button
+                size="lg"
+                as="a"
+                href={isSignedIn ? "/dashboard" : "/signup"}
+                minW="210px"
+                colorScheme="blue"
+                height="14"
+                px="8"
+              >
+                {isSignedIn ? "Dashboard" : "Get Started"}
+              </Button>
             </Stack>
             <Text mt="8" color={mode("gray.600", "gray.400")}>
               Already have an account? <Link href="/signin">Log in</Link>

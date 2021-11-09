@@ -17,13 +17,12 @@ export const CallToAction = () => {
           fontWeight="extrabold"
           letterSpacing="tight"
         >
-          Ready to Send?
+          Pay per letter
         </Heading>
         <Text mt="4" fontSize="lg">
-          Ac euismod vel sit maecenas id pellentesque eu sed consectetur.
-          Malesuada adipiscing sagittis vel nulla nec.
+          Only pay for what you use. No subscriptions. No long term commitments.
         </Text>
-        <Link href="/signup">
+        <Link href="/pricing">
           <Button
             mt="8"
             as="a"
@@ -32,7 +31,7 @@ export const CallToAction = () => {
             colorScheme="blue"
             fontWeight="bold"
           >
-            Get Started
+            View Pricing
           </Button>
         </Link>
       </Box>

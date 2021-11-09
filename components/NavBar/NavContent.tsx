@@ -44,6 +44,7 @@ const MobileNavContext = ({
           rel="home"
           mx="auto"
           mt="2"
+          href="/"
         >
           <Logo />
         </Box>
@@ -96,7 +97,7 @@ const MobileNavContext = ({
   )
 }
 
-const DesktopNavContent = ({
+export const DesktopNavContent = ({
   isSignedIn,
   handleSignOut,
   ...flexProps
@@ -164,5 +165,5 @@ const DesktopNavContent = ({
 
 export const NavContent = {
   Mobile: MobileNavContext,
-  Desktop: DesktopNavContent
+  Desktop: MobileNavContext
 }
