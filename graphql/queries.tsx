@@ -90,6 +90,11 @@ export const CURRENT_USER_QUERY = gql`
         dateJoined
         allowMarketingTips
         allowMarketingUpdates
+        addressLine1
+        addressLine2
+        postcode
+        locality
+        state
         cart {
           id
           letter {

@@ -1,23 +1,27 @@
-import {
-  Box,
-  BoxProps,
-  Text,
-  useColorModeValue as mode
-} from "@chakra-ui/react"
+import { Box, Heading, Stack, StackProps } from "@chakra-ui/react"
+import * as React from "react"
 
-import { µFieldGroup } from "./types"
+interface FieldGroupProps extends StackProps {
+  title?: string
+}
 
-export const FieldGroup: React.FC<µFieldGroup.Props> = (props) => {
-  const { title, description, ...boxProps } = props
+export const FieldGroup = (props: FieldGroupProps) => {
+  const { title, children, ...flexProps } = props
   return (
-    <Box>
-      <Text fontWeight="semibold">{title}</Text>
-      {description && (
-        <Text color={mode("gray.600", "gray.400")} fontSize="sm">
-          {description}
-        </Text>
-      )}
-      <Box pt="5" {...boxProps} />
-    </Box>
+    <Stack
+      direction={{ base: "column", md: "row" }}
+      spacing="6"
+      py="4"
+      {...flexProps}
+    >
+      <Box minW="160px">
+        {title && (
+          <Heading fontWeight="semibold" fontSize="lg" flexShrink={0}>
+            {title}
+          </Heading>
+        )}
+      </Box>
+      {children}
+    </Stack>
   )
 }
