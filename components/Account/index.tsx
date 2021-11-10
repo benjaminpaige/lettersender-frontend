@@ -14,8 +14,10 @@ import {
   StackDivider,
   VStack,
   Divider,
-  Text
+  Text,
+  useDisclosure
 } from "@chakra-ui/react"
+import { ChangeAddressModal } from "./ChangeAddressModal"
 import { FieldGroup } from "./FieldGroup"
 import { useUser } from "@/hooks"
 import { CURRENT_USER_QUERY } from "@/graphql"
@@ -24,6 +26,7 @@ export const Account = () => {
   const { user, updateUser } = useUser()
   const [fullName, setFullName] = useState(user?.fullName)
   const [email, setEmail] = useState(user?.email)
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const [allowMarketingTips, setAllowMarketingTips] = useState(
     user?.allowMarketingTips
   )
@@ -56,7 +59,7 @@ export const Account = () => {
       </Heading>
       <Box maxWidth="3xl">
         <form
-          id="settings-form"
+          id="account-settings-form"
           onSubmit={(e) => {
             e.preventDefault()
             const variables = {
@@ -105,7 +108,7 @@ export const Account = () => {
                   <Text mt="none">{`${user.locality}, ${user.state} ${user.postcode}`}</Text>
                 </Stack>
                 <Spacer />
-                <Button colorScheme="green" minW="unset">
+                <Button colorScheme="green" minW="unset" onClick={onOpen}>
                   Change Address
                 </Button>
               </Flex>
@@ -142,6 +145,12 @@ export const Account = () => {
           </FieldGroup>
         </form>
       </Box>
+      <ChangeAddressModal
+        isOpen={isOpen}
+        onClose={onClose}
+        updateUser={updateUser}
+        id={user.id}
+      />
     </Box>
   )
 }
