@@ -195,6 +195,7 @@ and for **Hooks**:
 - Params interface
 - State interface
 - Methods interface
+- Return interface (state + methods)
 
 ```js
 export namespace µUseGoogleMap {
@@ -210,6 +211,11 @@ export namespace µUseGoogleMap {
   export interface State {
     isLoaded: boolean;
     markers: google.maps.Marker[]
+  }
+
+  export interface Return {
+    state: State
+    methods: Methods
   }
 }
 ```
@@ -246,7 +252,7 @@ import {
 µButton.Methods
 ```
 
-- Ensures naming to be consistent across all type imports. In addition, simplifies by consolidating similar type imports into a logical structure while avoiding singular imports from extracting valuable, readable context.
+- Ensures naming to be consistent across all type imports. In addition, simplifies import statements by consolidating similar type imports into a logical structure while preventing singular imports from extracting valuable, readable context.
 
 ```js
 import { ButtonProps, ButtonMethods } from "./ui/r/meant/2be/Button"
