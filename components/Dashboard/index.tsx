@@ -104,7 +104,7 @@ export const Dashboard = () => {
       const verificationResponse = await verifyMailingAddress({
         ...recipient.mailingAddress
       })
-      if (verificationResponse.data.status === "verified") {
+      if (verificationResponse.data.status !== "failed") {
         if (!id) handleCreateLetter()
         if (id) handleUpdateLetter()
       } else {

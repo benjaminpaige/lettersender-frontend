@@ -7,13 +7,17 @@ interface TableContentProps {
   orders: Schemas.Order[]
 }
 
-export const formatOrders = (orders: Schemas.Order[]) =>
-  orders.map((order) => ({
+export const formatOrders = (orders: Schemas.Order[]) => {
+  // stupid strict mode
+  orders = orders.slice().sort((a, b) => b.chargeDate - a.chargeDate)
+
+  return orders.map((order) => ({
     date: order.chargeDate,
     status: order.paymentStatus,
     total: order.total,
     id: order.id
   }))
+}
 
 const badgeColorEnum: Record<string, string> = {
   succeeded: "green",
