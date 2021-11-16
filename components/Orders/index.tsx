@@ -1,11 +1,15 @@
 import * as Chakra from "@chakra-ui/react"
 import { useUser } from "@/hooks/useUser"
 import { TableContent } from "./TableContent"
+import { useRouter } from "next/router"
 
 export const Orders = () => {
-  const me = useUser()
-  if (!me.user) return null
-  const orders = me.user.orders
+  const router = useRouter()
+  const { user, userIsLoading } = useUser()
+
+  if (!userIsLoading && !user) router.push("/signin")
+  if (!user) return null
+  const orders = user.orders
 
   return (
     <Chakra.Box

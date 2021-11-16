@@ -21,9 +21,10 @@ import { ChangeAddressModal } from "./ChangeAddressModal"
 import { FieldGroup } from "./FieldGroup"
 import { useUser } from "@/hooks"
 import { CURRENT_USER_QUERY } from "@/graphql"
+import { useRouter } from "next/router"
 
 export const Account = () => {
-  const { user, updateUser } = useUser()
+  const { user, updateUser, userIsLoading } = useUser()
   const [fullName, setFullName] = useState(user?.fullName)
   const [email, setEmail] = useState(user?.email)
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -33,6 +34,9 @@ export const Account = () => {
   const [allowMarketingUpdates, setAllowMarketingUpdates] = useState(
     user?.allowMarketingUpdates
   )
+
+  const router = useRouter()
+  if (!userIsLoading && !user) router.push("/signin")
 
   if (!user) {
     return <NoUserFound />

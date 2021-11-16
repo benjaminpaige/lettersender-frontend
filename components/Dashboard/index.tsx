@@ -17,6 +17,7 @@ import { useRouter } from "next/router"
 import { verifyMailingAddress } from "@/utils/address"
 import { isEmpty } from "@/utils/helpers"
 import { Alert } from "../Alert"
+import { useUser } from "@/hooks"
 
 export const Dashboard = () => {
   const [createLetter] = useMutation<Schemas.Letter>(CREATE_LETTER_MUTATION)
@@ -30,6 +31,9 @@ export const Dashboard = () => {
   const { nextStep, prevStep, reset, activeStep } = useSteps({ initialStep: 0 })
   const recipient = MailingAddress.useSelectMailingAddress()
   const router = useRouter()
+  const { user, userIsLoading } = useUser()
+
+  if (!userIsLoading && !user) router.push("/signin")
 
   const handleCreateLetter = async () => {
     const variables = {
