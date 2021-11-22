@@ -1,2 +1,2 @@
 export * from "./AccountRoot"
-export * from "./types"
+export * as µAccountRoot from "./types"

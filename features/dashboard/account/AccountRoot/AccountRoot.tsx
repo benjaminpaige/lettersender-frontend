@@ -22,7 +22,7 @@ import { CURRENT_USER_QUERY } from "@/graphql"
 
 import { ChangeAddressModal } from "@/features/dashboard/account/ChangeAddressModal"
 import { FieldGroup } from "@/features/dashboard/account/FieldGroup"
-import { µAccount } from "@/features/dashboard/account/types"
+import { ƒAccount } from "@/features/dashboard/account"
 import { useAccountForm } from "@/features/dashboard/account/hooks"
 
 export const Account = () => {
@@ -43,7 +43,7 @@ export const Account = () => {
       py={{ base: "4", md: "12" }}
     >
       <Heading size="lg" mb="6">
-        {µAccount.Constants.t_accountSettings}
+        Account Settings
       </Heading>
       <Box maxWidth="3xl">
         <form
@@ -65,7 +65,7 @@ export const Account = () => {
             <FieldGroup title="Personal Info">
               <VStack width="full" spacing="6">
                 <FormControl id="name">
-                  <FormLabel>{µAccount.Constants.t_name}</FormLabel>
+                  <FormLabel>name</FormLabel>
                   <Input
                     type="text"
                     maxLength={255}
@@ -77,7 +77,7 @@ export const Account = () => {
                 </FormControl>
 
                 <FormControl id="email">
-                  <FormLabel>{µAccount.Constants.t_email}</FormLabel>
+                  <FormLabel>email</FormLabel>
                   <Input
                     disabled
                     type="email"
@@ -98,7 +98,7 @@ export const Account = () => {
                 </Stack>
                 <Spacer />
                 <Button colorScheme="green" minW="unset" onClick={onOpen}>
-                  {µAccount.Constants.t_changeAddress}
+                  Change Address
                 </Button>
               </Flex>
             </FieldGroup>
@@ -110,7 +110,7 @@ export const Account = () => {
                     accountForm.methods.setAllowMarketingTips(e.target.checked)
                   }
                 >
-                  {µAccount.Constants.t_allowMarketingTips}
+                  Product intro, tips, and inspiration
                 </Checkbox>
                 <Checkbox
                   isChecked={accountForm.state.allowMarketingUpdates}
@@ -120,7 +120,7 @@ export const Account = () => {
                     )
                   }
                 >
-                  {µAccount.Constants.t_allowMarketingUpdates}
+                  Updates about company news and features
                 </Checkbox>
               </Stack>
             </FieldGroup>
@@ -134,7 +134,7 @@ export const Account = () => {
                 disabled={!accountForm.state.isChanged}
                 w={{ base: "full", md: "unset" }}
               >
-                {µAccount.Constants.t_saveChanges}
+                Save Changes
               </Button>
             </HStack>
           </FieldGroup>

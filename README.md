@@ -14,7 +14,6 @@ A feature directory will contain all elements encompassing the ui functionality 
 at the root of a feature directory, should exist a `index.ts` file which exports all modules within its respective directory.
 
 ```js
-export * from "./types"
 export * from "./ReservationList"
 export * from "./styles"
 ```
@@ -131,19 +130,16 @@ Consider declarative approaches first before deciding on `useEffect`. There'll a
 A `types.ts` file should exist at:
 
 - Feature level
-- Component level (Exception are function components with no props | state)
-- Hook level
+- each component level (Exception are function components with no props | state)
+- each hook level
 
-At the root of every types file should be a namespace declaration prefaced by the `µ` character followed by the feature/component/hook name.
-
-In the instance of a **Feature**, here are the list of definitions that can exist within the respective namespace:
+In the instance of a **Feature**, here are the list of definitions that can exist:
 
 - Utils class
 - Constants class
 - Enums namespace
 
 ```js
-export namespace µAccount {
   export class Constants {
     static defaultRole = 'admin'
     static API_KEY = process.env.API_KEY
@@ -162,7 +158,6 @@ export namespace µAccount {
       SPECIALIST
     }
   }
-}
 ```
 
 for a **Components**:
@@ -170,23 +165,24 @@ for a **Components**:
 - Props interface
 - Methods interface
 - Styles interface (if typing is needed)
+- Utils class
+- Constants class
+- Enums namespace
 
 ```js
-export namespace µFleetMap {
-  export interface Props {
-    map: google.maps.Map;
-    isOpen: boolean;
-    onToggle: () => void;
-  }
+export interface Props {
+  map: google.maps.Map;
+  isOpen: boolean;
+  onToggle: () => void;
+}
 
-  export interface Methods {
-    handleClick: () => void;
-    handleSelect: (itemIndex: number) => void;
-  }
+export interface Methods {
+  handleClick: () => void;
+  handleSelect: (itemIndex: number) => void;
+}
 
-  export interface Styles {
-    // i dont give a shit about styles
-  }
+export interface Styles {
+  // i dont give a shit about styles
 }
 ```
 
@@ -196,9 +192,11 @@ and for **Hooks**:
 - State interface
 - Methods interface
 - Return interface (state + methods)
+- Utils class
+- Constants class
+- Enums namespace
 
 ```js
-export namespace µUseGoogleMap {
   export interface Params {
     map: google.maps.Map;
   }
@@ -217,10 +215,25 @@ export namespace µUseGoogleMap {
     state: State
     methods: Methods
   }
-}
 ```
 
-Why namespaces?
+at the `index.ts` located at the root of each directory should declare a named aggregate module export using the following syntax:
+
+**components/hooks**
+
+- preface with a `µ` character followed by the component/hook name.
+
+**features**
+
+- preface with a `ƒ` character followed by the feature name.
+
+```js
+export * as µUseSettings
+export * as µButton
+export * as ƒSearch
+```
+
+##### Why preface with `µ` or `ƒ`?
 
 - Creates a clear delineation between type definitions, and js modules
 

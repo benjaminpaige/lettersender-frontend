@@ -1,5 +1,5 @@
 import { Box, Heading, Stack } from "@chakra-ui/react"
-import { µFieldGroup } from "./types"
+import { µFieldGroup } from "."
 import * as React from "react"
 
 export const FieldGroup: React.FC<µFieldGroup.Props> = ({

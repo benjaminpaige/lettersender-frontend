@@ -1,2 +1,2 @@
 export * from "./ChangeAddressModal"
-export * from "./types"
+export * as µChangeAddressModal from "./types"

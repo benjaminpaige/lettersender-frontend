@@ -11,8 +11,7 @@ import {
 import { CURRENT_USER_QUERY } from "@/graphql"
 import * as MailingAddress from "@/components/MailingAddress"
 
-import { µChangeAddressModal } from "./types"
-import { µAccount } from "@/features/dashboard/account/types"
+import { µChangeAddressModal } from "."
 
 export const ChangeAddressModal: React.FC<µChangeAddressModal.Props> = ({
   isOpen,
@@ -50,14 +49,14 @@ export const ChangeAddressModal: React.FC<µChangeAddressModal.Props> = ({
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{µAccount.Constants.t_enterNewAddress}</ModalHeader>
+          <ModalHeader>Enter New Address</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <MailingAddress.Component {...recipient} />
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onUpdate}>
-              {µAccount.Constants.t_save}
+              save
             </Button>
           </ModalFooter>
         </ModalContent>

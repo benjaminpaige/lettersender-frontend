@@ -1,2 +1,2 @@
 export * from "./FieldGroup"
-export * from "./types"
+export * as µFieldGroup from "./types"
