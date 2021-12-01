@@ -25,7 +25,7 @@ import { useMutation } from "@apollo/client"
 import { SIGNUP_USER_MUTATION } from "@/graphql"
 import { useRouter } from "next/router"
 import * as MailingAddress from "@/components/MailingAddress"
-import { Alert } from '@/components/Alert'
+import { Alert } from "@/components/Alert"
 import { verifyMailingAddress } from "@/utils/address"
 
 type FormValues = {
@@ -54,7 +54,7 @@ export const SignupForm = () => {
     setErrorMessage("")
 
     const result = await SignUpUser({
-      variables: {...values, ...recipient.mailingAddress}
+      variables: { ...values, ...recipient.mailingAddress }
     }).catch((e) => {
       setErrorMessage("An Error Occured")
       console.log(e)
@@ -83,16 +83,18 @@ export const SignupForm = () => {
   ) => {
     setLoading(true)
     try {
-      const verificationResponse = await verifyMailingAddress({...recipient.mailingAddress})
-      if(verificationResponse.data.status === 'verified') {
+      const verificationResponse = await verifyMailingAddress({
+        ...recipient.mailingAddress
+      })
+      if (verificationResponse.data.status !== "failed") {
         handleSignUpUser(values, actions)
       } else {
-        setErrorMessage('Mailing address failed verification')
+        setErrorMessage("Mailing address failed verification")
         setLoading(false)
       }
-    } catch(e) {
+    } catch (e) {
       console.log(e)
-      setErrorMessage('An Error Occured')
+      setErrorMessage("An Error Occured")
       setLoading(false)
     }
   }
@@ -114,7 +116,9 @@ export const SignupForm = () => {
                     Boolean(form.errors.fullName) && form.touched.fullName
                   }
                 >
-                  <FormLabel fontSize="xs" mb="1" pl="2">Full name</FormLabel>
+                  <FormLabel fontSize="xs" mb="1" pl="2">
+                    Full name
+                  </FormLabel>
                   <Input
                     {...field}
                     autoComplete="name"
@@ -133,7 +137,9 @@ export const SignupForm = () => {
                   id="email"
                   isInvalid={Boolean(form.errors.email) && form.touched.email}
                 >
-                  <FormLabel fontSize="xs" mb="1" pl="2">Email</FormLabel>
+                  <FormLabel fontSize="xs" mb="1" pl="2">
+                    Email
+                  </FormLabel>
                   <Input
                     type="email"
                     autoComplete="email"
@@ -156,7 +162,9 @@ export const SignupForm = () => {
                   }
                 >
                   <Flex align="baseline" justify="space-between">
-                    <FormLabel fontSize="xs" mb="1" pl="2">Password</FormLabel>
+                    <FormLabel fontSize="xs" mb="1" pl="2">
+                      Password
+                    </FormLabel>
                   </Flex>
                   <Input
                     type="password"
@@ -172,7 +180,7 @@ export const SignupForm = () => {
               )}
             </Field>
 
-            <MailingAddress.Component {...recipient}/>
+            <MailingAddress.Component {...recipient} />
 
             <Button
               type="submit"
@@ -184,9 +192,7 @@ export const SignupForm = () => {
             >
               Create my account
             </Button>
-            {errorMessage && (
-              <Alert message={errorMessage} />
-            )}
+            {errorMessage && <Alert message={errorMessage} />}
           </Stack>
         </Form>
       )}

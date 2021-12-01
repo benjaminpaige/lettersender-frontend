@@ -1,4 +1,5 @@
 import { Box, Button, Heading, Text } from "@chakra-ui/react"
+import Link from "next/link"
 
 export const CallToAction = () => {
   return (
@@ -16,22 +17,23 @@ export const CallToAction = () => {
           fontWeight="extrabold"
           letterSpacing="tight"
         >
-          Ready to Send?
+          Pay per letter
         </Heading>
         <Text mt="4" fontSize="lg">
-          Ac euismod vel sit maecenas id pellentesque eu sed consectetur.
-          Malesuada adipiscing sagittis vel nulla nec.
+          Only pay for what you use. No subscriptions. No long term commitments.
         </Text>
-        <Button
-          mt="8"
-          as="a"
-          href="#"
-          size="lg"
-          colorScheme="blue"
-          fontWeight="bold"
-        >
-          Get Started
-        </Button>
+        <Link href="/pricing">
+          <Button
+            mt="8"
+            as="a"
+            href="#"
+            size="lg"
+            colorScheme="blue"
+            fontWeight="bold"
+          >
+            View Pricing
+          </Button>
+        </Link>
       </Box>
     </Box>
   )

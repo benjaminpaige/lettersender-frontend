@@ -3,17 +3,24 @@ import {
   Button,
   Heading,
   Img,
-  Link,
   Stack,
   Text,
   useColorModeValue as mode
 } from "@chakra-ui/react"
-import { HiPlay } from "react-icons/hi"
+import Link from "next/link"
+import { useUser } from "@/hooks"
 import { APP_NAME } from "@/config"
 
 export const Hero = () => {
+  const { user } = useUser()
+  const isSignedIn = Boolean(user)
   return (
-    <Box as="section" bg={mode("gray.50", "gray.800")} pt="16" pb="24">
+    <Box
+      as="section"
+      bg={mode("gray.50", "gray.800")}
+      pt={{ base: 8, md: 16 }}
+      pb="24"
+    >
       <Box
         maxW={{ base: "xl", md: "7xl" }}
         mx="auto"
@@ -49,31 +56,18 @@ export const Hero = () => {
             <Stack direction={{ base: "column", md: "row" }} spacing="4" mt="8">
               <Button
                 size="lg"
+                as="a"
+                href={isSignedIn ? "/dashboard" : "/signup"}
                 minW="210px"
                 colorScheme="blue"
                 height="14"
                 px="8"
               >
-                Get Started
-              </Button>
-              <Button
-                size="lg"
-                bg="white"
-                color="gray.900"
-                _hover={{ bg: "gray.50" }}
-                height="14"
-                px="8"
-                shadow="base"
-                leftIcon={<Box as={HiPlay} fontSize="2xl" />}
-              >
-                Watch Demo
+                {isSignedIn ? "Dashboard" : "Get Started"}
               </Button>
             </Stack>
             <Text mt="8" color={mode("gray.600", "gray.400")}>
-              Already have an account?{" "}
-              <Link href="/signin" textDecoration="underline">
-                Log in
-              </Link>
+              Already have an account? <Link href="/signin">Log in</Link>
             </Text>
           </Box>
           <Box

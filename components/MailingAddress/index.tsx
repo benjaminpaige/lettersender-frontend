@@ -134,7 +134,7 @@ const Component: React.FC<ReturnType<typeof useSelectMailingAddress>> = ({
     >
       {({ getInputProps, suggestions, getSuggestionItemProps }) => {
         return (
-          <Box maxW="md">
+          <Box>
             <Box>
               <Text fontSize="xs" mt="2" pl="2" mb="1">
                 {placeSelected ? "Address Line 1" : "Address"}

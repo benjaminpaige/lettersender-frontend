@@ -1,6 +1,6 @@
 import { Box, SimpleGrid } from "@chakra-ui/react"
 import {
-  FcDoughnutChart,
+  FcPaid,
   FcMultipleDevices,
   FcPrivacy,
   FcTimeline
@@ -16,24 +16,24 @@ export const Features = () => {
         px={{ base: "6", md: "8" }}
       >
         <SimpleGrid columns={{ base: 1, md: 2 }} spacingX="10" spacingY="14">
-          <Feature title="Secure by default" icon={<FcPrivacy />}>
-            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-            kasd gubergren, no sea takimata sanctus.
+          <Feature title="Secure and private" icon={<FcPrivacy />}>
+            Your letters are always confidential and sent privately in secured
+            envelopes.
           </Feature>
-          <Feature title="Always up to date" icon={<FcTimeline />}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore.
+          <Feature title="Track delivery date" icon={<FcTimeline />}>
+            Know when your letter has been sent, when delivery is expected, and
+            when it has arrived at its destination.
           </Feature>
-          <Feature title="Incredible statistics" icon={<FcDoughnutChart />}>
-            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-            kasd gubergren, no sea takimata sanctus.
+          <Feature title="Pay as you send" icon={<FcPaid />}>
+            No subscriptions. No long term commitments. Only pay for the letters
+            you send.
           </Feature>
           <Feature
             title="Support for multiple devices"
             icon={<FcMultipleDevices />}
           >
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore.
+            Compatible with desktop and mobile devices. Send letters to whoever,
+            from wherever.
           </Feature>
         </SimpleGrid>
       </Box>

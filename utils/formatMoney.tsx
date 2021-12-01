@@ -1,10 +1,14 @@
-export const formatMoney = (amount = 0) => {
-  const noCentsInPrice = amount % 100 === 0
+export type FormatPriceOptions = { locale?: string; currency?: string }
 
-  const formatter = Intl.NumberFormat("en-us", {
+export function formatPrice(
+  value: number,
+  opts: { locale?: string; currency?: string } = {}
+) {
+  const { locale = "en-US", currency = "USD" } = opts
+  const formatter = new Intl.NumberFormat(locale, {
+    currency,
     style: "currency",
-    currency: "USD",
-    minimumFractionDigits: noCentsInPrice ? 0 : 2
+    maximumFractionDigits: 2
   })
-  return formatter.format(amount / 100)
+  return formatter.format(value / 100)
 }

@@ -1,8 +1,4 @@
-import {
-  chakra,
-  HTMLChakraProps,
-  useColorModeValue as mode
-} from "@chakra-ui/react"
+import { chakra, useColorModeValue as mode } from "@chakra-ui/react"
 import { forwardRef } from "react"
 import { µNavLink } from "./types"
 

@@ -49,6 +49,11 @@ export const UPDATE_USER_MUTATION = gql`
     $darkMode: Boolean
     $allowMarketingTips: Boolean
     $allowMarketingUpdates: Boolean
+    $addressLine1: String
+    $addressLine2: String
+    $postcode: String
+    $locality: String
+    $state: String
   ) {
     updateUser(
       id: $id
@@ -57,6 +62,11 @@ export const UPDATE_USER_MUTATION = gql`
         darkMode: $darkMode
         allowMarketingTips: $allowMarketingTips
         allowMarketingUpdates: $allowMarketingUpdates
+        addressLine1: $addressLine1
+        addressLine2: $addressLine2
+        postcode: $postcode
+        locality: $locality
+        state: $state
       }
     ) {
       id
@@ -194,9 +204,8 @@ export const UPDATE_LETTER_MUTATION = gql`
 `
 
 export const ADD_TO_CART_MUTATION = gql`
-  mutation ADD_TO_CART ($id: ID!) {
-    addToCart(letterId: $id)
-    {
+  mutation ADD_TO_CART($id: ID!) {
+    addToCart(letterId: $id) {
       id
     }
   }

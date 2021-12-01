@@ -20,3 +20,7 @@ export const classnames = (...args) => {
 
   return classes.join(" ")
 }
+
+export function isEmpty(obj) {
+  return Object.keys(obj).length === 0
+}

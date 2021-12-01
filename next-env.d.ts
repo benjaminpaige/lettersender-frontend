@@ -25,6 +25,8 @@ declare namespace Schemas {
     items: OrderItem[]
     user: User
     charge: string
+    chargeDate: number
+    paymentStatus: "succeeded" | "failed"
   }
 
   declare interface CartItem {
@@ -45,6 +47,11 @@ declare namespace Schemas {
     letters: Letter[]
     cart: CartItem[]
     orders: Order[]
+    addressLine1: string
+    addressLine2: string
+    postcode: string
+    locality: string
+    state: string
   }
 
   declare interface Letter {
