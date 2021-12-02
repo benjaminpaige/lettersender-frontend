@@ -23,7 +23,7 @@ export const Orders = () => {
         <Chakra.Heading size="lg" mb="6">
           Orders
         </Chakra.Heading>
-        {orders.length > 1 ? (
+        {orders.length >= 1 ? (
           <TableContent orders={orders} />
         ) : (
           <Chakra.Text>No orders to show</Chakra.Text>
